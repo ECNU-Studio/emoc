@@ -17,27 +17,27 @@ class QuestionnaireAdmin(object):
 
 
 class QuestionSetAdmin(object):
-    list_display = ['heading', 'title']
-    search_fields = ['heading', 'title']
-    list_filter = ['heading', 'title']
+    list_display = ['heading', 'text']
+    search_fields = ['heading', 'text']
+    list_filter = ['heading', 'text']
 
 
 class QuestionAdmin(object):
-    list_display = ['title', 'questiontype']
-    search_fields = ['title', 'questiontype']
-    list_filter = ['title', 'questiontype']
+    list_display = ['type', 'text']
+    search_fields = ['type', 'text']
+    list_filter = ['type', 'text']
 
 
 class ChoiceAdmin(object):
-    list_display = ['title', 'tags']
-    search_fields = ['title', 'tags']
-    list_filter = ['title', 'tags']
+    list_display = ['tags', 'text']
+    search_fields = ['tags', 'text']
+    list_filter = ['tags', 'text']
 
 
-class AnswerAdmin(object):
-    list_display = ['answer']
-    search_fields = ['answer']
-    list_filter = ['answer']
+# class AnswerAdmin(object):
+#     list_display = ['answer']
+#     search_fields = ['answer']
+#     list_filter = ['answer']
 
 
 xadmin.site.register(Subject, SubjectAdmin)
@@ -45,5 +45,5 @@ xadmin.site.register(Questionnaire, QuestionnaireAdmin)
 xadmin.site.register(QuestionSet, QuestionSetAdmin)
 xadmin.site.register(Question, QuestionAdmin)
 xadmin.site.register(Choice, ChoiceAdmin)
-xadmin.site.register(Answer, AnswerAdmin)
+# xadmin.site.register(Answer, AnswerAdmin)
 

@@ -158,3 +158,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
 # 2.7报错
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+QUESTIONNAIRE_USE_SESSION = False
+
+QUESTIONNAIRE_PROGRESS = 'async'
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('cn', 'Chinese'),
+)

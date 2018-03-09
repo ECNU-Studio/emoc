@@ -14,16 +14,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.views.generic import TemplateView
+from django.conf.urls import *
 
-from users.views import user_login
 
 import xadmin
 
+# users应用
+from users.views import user_login
+
+# questionnaire应用
+from questionnaire.views import generate_run
+
+# 遍历 INSTALLED_APPS里面的设置，发现有admin.py,就会执行其中的代码
+# admin.autodiscover()
+
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name="index"),
-    url(r'^login/$', user_login, name="login")
 
+    # url(r'^$', TemplateView.as_view(template_name='index.html'), name="index"),
+
+    url(r'^login/$', user_login, name="login"),
+
+
+    # questionnaire应用
+    url(r'^take/(?P<questionnaire_id>[0-9]+)/$', generate_run),
 ]
