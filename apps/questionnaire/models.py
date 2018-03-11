@@ -286,7 +286,9 @@ class Question(models.Model):
     sort_id = models.IntegerField(null=True, blank=True, help_text="Questions within a questionset are sorted by sort order first, question number second")
     text = models.TextField(blank=True, verbose_name=_("Text"))
     type = models.CharField(u"Type of question", max_length=32,
-        choices = QuestionChoices,
+        choices = (
+            ('Single', '单选'), ('Multi', '多选'), ('Star', '打星'), ('Free', '问答'),
+        ),
         help_text = u"Determines the means of answering the question. " \
         "An open question gives the user a single-line textfield, " \
         "multiple-choice gives the user a number of choices he/she can " \

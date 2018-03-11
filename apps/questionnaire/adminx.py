@@ -23,15 +23,15 @@ class QuestionSetAdmin(object):
 
 
 class QuestionAdmin(object):
-    list_display = ['type', 'text']
-    search_fields = ['type', 'text']
-    list_filter = ['type', 'text']
+    list_display = ['text', 'type']
+    search_fields = ['text', 'type']
+    list_filter = ['text', 'type']
 
 
 class ChoiceAdmin(object):
-    list_display = ['tags', 'text']
-    search_fields = ['tags', 'text']
-    list_filter = ['tags', 'text']
+    list_display = ['text', 'tags']
+    search_fields = ['text', 'tags']
+    list_filter = ['text', 'tags']
 
 
 # class AnswerAdmin(object):
