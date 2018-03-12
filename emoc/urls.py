@@ -35,7 +35,6 @@ urlpatterns = [
 
     url(r'^login/$', user_login, name="login"),
 
-
     # questionnaire应用
     url(r'^take/(?P<questionnaire_id>[0-9]+)/$', generate_run),
 ]

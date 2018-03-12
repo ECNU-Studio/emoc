@@ -109,7 +109,7 @@ DATABASES = {
         'NAME': 'emoc',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '123.207.228.35',
         'PORT': '3306'
     }
 }
