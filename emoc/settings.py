@@ -64,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'questionnaire.request_cache.RequestCacheMiddleware',
 ]
 
 # 1.10之前的中间件的key为MIDDLEWARE_CLASSES
@@ -109,7 +108,8 @@ DATABASES = {
         'NAME': 'emoc',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '123.207.228.35',
+        # 'HOST': '123.207.228.35',
+        'HOST': '127.0.0.1',
         'PORT': '3306'
     }
 }
@@ -158,11 +158,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
 # 2.7报错
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-
-QUESTIONNAIRE_USE_SESSION = False
-
-QUESTIONNAIRE_PROGRESS = 'async'
 
 LANGUAGES = (
     ('en', 'English'),
