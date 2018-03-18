@@ -1,0 +1,107 @@
+<!Doctype html>
+<html class="no-js">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="author" content="John-fei" />
+    <title>{% block title %}时时课课{% endblock %}</title>
+    <link rel="alternate icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/amazeui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block custom_css %}{% endblock %}
+</head>
+
+<body>
+    <header class="m-header">
+    <section class="am-show-md-up" data-am-sticky>
+      <div class="am-g">
+        <div class=" am-u-sm-2 am-u-md-1 am-fl">
+          <a href="/" rel="nofollow" class="m-logo"><i class="am-icon-spinner"></i>EduSoho</a>
+        </div>
+        <div class="am-u-sm-5 am-u-md-5 am-u-lg-3 am-u-md-centered am-g-fixed">
+          <ul class="m-nav am-nav am-nav-pills am-nav-justify">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">学习</a></li>
+            <li><a href="#">管理</a></li>
+          </ul>
+        </div>
+        <div class="am-u-sm-5 am-u-md-4 am-u-lg-2 m-info" >
+          <div class="change">En</div>
+          <div class="news">
+            <i>X</i>
+            <span class="news-tip">3</span>
+          </div>
+          <div class="avatar am-dropdown" data-am-dropdown>
+            <a href="#" class="am-dropdown-toggle" data-am-dropdown-toggle><img src="{% static 'images/common/avatar.png' %}" alt="avatar"></a>
+            <ul class="am-dropdown-content m-dropdown">
+              <li><a href="#"><span class="am-icon-user-secret am-icon-sm am-icon-fw">&nbsp&nbsp个人中心</span></a></li>
+              <li><a href="#"><span class="am-icon-gear am-icon-sm am-icon-fw">&nbsp&nbsp管理后台</span></a></li>
+              <li><a href="#"><span class="am-icon-sign-out am-icon-sm am-icon-fw">&nbsp&nbsp退出</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="am-header am-header-primary am-show-sm-only" data-am-widget="header">
+    <!-- ==================================================== -->
+    <nav data-am-widget="header" class="am-header am-show-sm-only">
+          <h1 class="am-header-left">
+            <a href="/" rel="nofollow"><img src="{% static 'images/favicon.png' %}" alt="logo"></a>
+          </h1>
+          <div class="am-header-right am-header-nav">
+            <a href="#right-link" class="" data-am-offcanvas="{target: '#r-nav',effect: 'push'}">
+              <i class="am-header-icon am-icon-bars"></i>
+            </a>
+          </div>
+        </nav>
+
+        <!-- 侧边栏内容 -->
+        <div id="r-nav" class="am-offcanvas">
+          <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+            <nav class="am-offcanvas-content">
+                <a href="/" rel="nofollow"><span class="logo"></span></a>
+                <p><i class="am-icon-home"></i> <a href="/" rel="nofollow">网站首页</a></p>
+                <p><i class="am-icon-desktop"></i> <a href="/anli.html" rel="nofollow">案例展示</a></p>
+                <p><i class="am-icon-cogs"></i> <a href="/fuwu.html" rel="nofollow">服务内容</a></p>
+                <p><i class="am-icon-credit-card"></i> <a href="/zixun.html" rel="nofollow">最新动态</a></p>
+                <p><i class="am-icon-user"></i> <a href="/about.html" rel="nofollow">关于我们</a></p>
+                <p><i class="am-icon-qq"></i> <a href="/contact.html" rel="nofollow">联系我们</a></p>
+            </nav>
+          </div>
+        </div>
+    <!-- ==================================================== -->
+    </section>
+    </header>
+
+    <!-- 页面 body 内容 -->
+    {% block custom_content %}
+    {% endblock %}
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+    <div class="am-footer-miscs">
+          <p>由 <a href="http://www.yunshipei.com/" title="五润科技" target="_blank" class="">五润科技</a>
+            提供技术支持</p>
+        <p>CopyRight©2014  AllMobilize Inc.</p>
+        <p>京ICP备13033158</p>
+    </div>
+  </footer>
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{% static 'plugins/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/amazeui.min.js' %}"></script>
+    <script src="{% static 'plugins/amazeui.ie8polyfill.min.js' %}"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn./staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <![endif]-->
+    {% block custom_js %}{% endblock %}
+</body>
+</html>

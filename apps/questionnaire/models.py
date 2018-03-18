@@ -6,6 +6,9 @@ from users.models import UserProfile
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128)
 
+    def questions(self):
+        return Question.objects.filter(questionnaire=self).order_by('sortid')
+
     def __unicode__(self):
         return self.name
 
@@ -14,6 +17,46 @@ class Questionnaire(models.Model):
             ("export", "Can export questionnaire answers"),
             ("management", "Management Tools")
         )
+
+
+class Question(models.Model):
+    questionnaire = models.ForeignKey(Questionnaire)
+    number = models.CharField(max_length=8)
+    sortid = models.IntegerField(null=True, blank=True)
+    text = models.TextField(blank=True)
+    type = models.CharField(u"Type of question", max_length=32,
+        choices = (
+            ('choice', u'单选'),
+            ('multi', u'多选'),
+            ('star', u'打星'),
+            ('ask', u'问答'),
+        ))
+
+    def chices(self):
+        return Choice.objects.filter(question=self).order_by('sortid')
+
+    def __unicode__(self):
+        return u'{%s} (%s) %s' % (unicode(self.questionnaire), self.number, self.text)
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question)
+    sortid = models.IntegerField()
+    value = models.CharField(u"Short Value", max_length=64)
+    text = models.TextField(u"Choice Text")
+    tags = models.CharField(u"Tags", max_length=64, blank=True)
+
+    def __unicode__(self):
+        return u'(%s) %d. %s' % (self.question.number, self.sortid, self.text)
+
+
+class Answer(models.Model):
+    subject = models.ForeignKey(UserProfile, help_text = u'The user who supplied this answer')
+    question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
+    runid = models.CharField(u'RunID', help_text = u"The RunID (ie. year)", max_length=32)
+    answer = models.TextField()
+
+    def __unicode__(self):
+        return "Answer(%s: %s, %s)" % (self.question.number, self.subject.surname, self.subject.givenname)
 
 
 class RunInfo(models.Model):
@@ -42,7 +85,6 @@ class RunInfo(models.Model):
             help_text=u"A comma sepearted list of questions to skip"
         )
 
-
     def __unicode__(self):
         return "%s: %s, %s" % (self.runid, self.subject.surname, self.subject.givenname)
 
@@ -69,38 +111,3 @@ class RunInfoHistory(models.Model):
 
     class Meta:
         verbose_name_plural = 'Run Info History'
-
-
-class Question(models.Model):
-    questionnaire = models.ForeignKey(Questionnaire)
-    number = models.CharField(max_length=8)
-    sort_id = models.IntegerField(null=True, blank=True)
-    text = models.TextField(blank=True)
-    type = models.CharField(u"Type of question", max_length=32,
-        choices = (
-            ('choice', u'单选'), ('multi', u'多选'), ('star', u'打星'), ('ask', u'问答'),
-        ))
-
-    def __unicode__(self):
-        return u'{%s} (%s) %s' % (unicode(self.questionnaire), self.number, self.text)
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question)
-    sortid = models.IntegerField()
-    value = models.CharField(u"Short Value", max_length=64)
-    text = models.TextField(u"Choice Text")
-    tags = models.CharField(u"Tags", max_length=64, blank=True)
-
-    def __unicode__(self):
-        return u'(%s) %d. %s' % (self.question.number, self.sortid, self.text)
-
-
-class Answer(models.Model):
-    subject = models.ForeignKey(UserProfile, help_text = u'The user who supplied this answer')
-    question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
-    runid = models.CharField(u'RunID', help_text = u"The RunID (ie. year)", max_length=32)
-    answer = models.TextField()
-
-    def __unicode__(self):
-        return "Answer(%s: %s, %s)" % (self.question.number, self.subject.surname, self.subject.givenname)
-

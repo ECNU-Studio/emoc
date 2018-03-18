@@ -15,7 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import *
-
+from django.views.generic import TemplateView
+from django.views.static import serve #处理静态文件
 
 import xadmin
 
@@ -23,7 +24,7 @@ import xadmin
 from users.views import user_login
 
 # questionnaire应用
-from questionnaire.views import show_questionnaire
+from questionnaire.views import QuestionnaireView
 
 # 遍历 INSTALLED_APPS里面的设置，发现有admin.py,就会执行其中的代码
 # admin.autodiscover()
@@ -31,10 +32,10 @@ from questionnaire.views import show_questionnaire
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
 
-    # url(r'^$', TemplateView.as_view(template_name='index.html'), name="index"),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name="index"),
 
     url(r'^login/$', user_login, name="login"),
 
     # questionnaire应用
-    url(r'^take/(?P<questionnaire_id>[0-9]+)/$', show_questionnaire),
+    url(r'^questionnaire/take/(?P<questionnaire_id>[0-9]+)/$', QuestionnaireView.as_view(), name=''),
 ]

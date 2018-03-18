@@ -101,3 +101,5 @@ ENV/
 # idea
 .idea/
 .idea/workspace.xml
+.idea/emoc.iml
+.idea/workspace.xml
