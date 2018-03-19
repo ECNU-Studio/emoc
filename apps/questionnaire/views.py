@@ -22,7 +22,7 @@ class QuestionnaireView(View):
             for question in questions:
                 choices = question.chices()
                 question.choices = choices
-                question.template = "question/%s.html" % question.type
+                question.template = "question_type/%s.html" % question.type
 
         # 判断用户登录状态
         # res = dict()
