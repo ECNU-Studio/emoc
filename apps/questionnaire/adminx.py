@@ -7,18 +7,21 @@ class QuestionnaireAdmin(object):
     list_display = ['name']
     search_fields = ['name']
     list_filter = ['name']
+    model_icon = 'fas fa-clipboard-list'
 
 
 class QuestionAdmin(object):
     list_display = ['text', 'type']
     search_fields = ['text']
     list_filter = ['type']
+    model_icon = 'fas fa-question'
 
 
 class ChoiceAdmin(object):
     list_display = ['text', 'tags', 'question']
     search_fields = ['text', 'tags', 'question']
     list_filter = ['text', 'tags', 'question']
+    model_icon = 'fas fa-list-ol'
 
 
 # class AnswerAdmin(object):

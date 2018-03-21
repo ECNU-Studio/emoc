@@ -48,7 +48,7 @@ class GroupAdmin(object):
     search_fields = ('name',)
     ordering = ('name',)
     style_fields = {'permissions': 'm2m_transfer'}
-    model_icon = 'fa fa-group'
+    model_icon = 'fas fa-users'
 
     def get_field_attrs(self, db_field, **kwargs):
         attrs = super(GroupAdmin, self).get_field_attrs(db_field, **kwargs)

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load staticfiles %}
 
 {% block title %}问卷调查{% endblock %}
 {% block custom_content %}
@@ -7,4 +7,8 @@
     {% for question in questions %}
         {% include question.template %}
     {% endfor %}
+{% endblock %}
+
+{% block custom_js %}
+        <script src="{% static 'questionnaire.js' %}"></script>
 {% endblock %}

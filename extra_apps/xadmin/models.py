@@ -162,6 +162,7 @@ class Log(models.Model):
     action_flag = models.CharField(_('action flag'), max_length=32)
     message = models.TextField(_('change message'), blank=True)
 
+
     class Meta:
         verbose_name = _('log entry')
         verbose_name_plural = _('log entries')
