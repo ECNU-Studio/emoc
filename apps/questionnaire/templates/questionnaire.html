@@ -2,11 +2,33 @@
 {% load staticfiles %}
 
 {% block title %}问卷调查{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'questionnaire.css' %}">
+{% endblock %}
+
 {% block custom_content %}
-    {{ questionnaire.name }}
-    {% for question in questions %}
-        {% include question.template %}
-    {% endfor %}
+    <div class="questionnaire">
+        <div class="questionnaire-head">
+                {{ questionnaire.name }}
+        </div>
+
+        <div class="questionnaire-body">
+            {% for question in questions %}
+                <div class="question">
+                    <div class="question-text">
+                        {{ question.sortnum }}
+                        {{ question.text }}
+                    </div>
+                    {% include question.template %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="questionnaire-foot">
+            <button type="button" class="questionnaire_submit">提交</button>
+        </div>
+
+    </div>
 {% endblock %}
 
 {% block custom_js %}

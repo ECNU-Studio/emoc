@@ -161,7 +161,7 @@ STATIC_URL = '/static/'
 # 2.7报错
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'static/questionnaire'),
+    os.path.join(BASE_DIR, 'questionnaire/static'),
 ]
 
 LANGUAGES = (

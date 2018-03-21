@@ -2,12 +2,14 @@
 from django.db import models
 from users.models import UserProfile
 
+CHOICES_TYPE = [('choice', u'单选'), ('multi', u'多选'), ('star', u'打星'), ('ask', u'问答')]
+
 
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128)
 
     def questions(self):
-        return Question.objects.filter(questionnaire=self).order_by('sortid')
+        return Question.objects.filter(questionnaire=self).order_by('sortnum')
 
     def __unicode__(self):
         return self.name
@@ -21,42 +23,36 @@ class Questionnaire(models.Model):
 
 class Question(models.Model):
     questionnaire = models.ForeignKey(Questionnaire)
-    number = models.CharField(max_length=8)
-    sortid = models.IntegerField(null=True, blank=True)
+    sortnum = models.IntegerField()
     text = models.TextField(blank=True)
-    type = models.CharField(u"Type of question", max_length=32,
-        choices = (
-            ('choice', u'单选'),
-            ('multi', u'多选'),
-            ('star', u'打星'),
-            ('ask', u'问答'),
-        ))
+    type = models.CharField(u"Type of question", max_length=32, choices=CHOICES_TYPE)
 
     def chices(self):
-        return Choice.objects.filter(question=self).order_by('sortid')
+        return Choice.objects.filter(question=self).order_by('sortnum')
 
     def __unicode__(self):
-        return u'{%s} (%s) %s' % (unicode(self.questionnaire), self.number, self.text)
+        return u'[%s] (%s) %s' % (self.questionnaire, self.sortnum, self.text)
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question)
-    sortid = models.IntegerField()
-    value = models.CharField(u"Short Value", max_length=64)
+    sortnum = models.IntegerField()
     text = models.TextField(u"Choice Text")
     tags = models.CharField(u"Tags", max_length=64, blank=True)
 
     def __unicode__(self):
-        return u'(%s) %d. %s' % (self.question.number, self.sortid, self.text)
+        return u'(%s) %d. %s' % (self.question.sortnum, self.sortnum, self.text)
 
 
 class Answer(models.Model):
-    subject = models.ForeignKey(UserProfile, help_text = u'The user who supplied this answer')
-    question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
-    runid = models.CharField(u'RunID', help_text = u"The RunID (ie. year)", max_length=32)
+    subject = models.ForeignKey(UserProfile)
+    question = models.ForeignKey(Question)
+    runid = models.CharField(u'RunID', help_text=u"The RunID (ie. year)", max_length=32)
+    type = models.CharField(u"Type of question", max_length=32, choices=CHOICES_TYPE)
     answer = models.TextField()
 
     def __unicode__(self):
-        return "Answer(%s: %s, %s)" % (self.question.number, self.subject.surname, self.subject.givenname)
+        return "Answer(%s: %s, %s)" % (self.question.sortnum, self.subject.surname, self.subject.givenname)
 
 
 class RunInfo(models.Model):
@@ -66,20 +62,15 @@ class RunInfo(models.Model):
     runid = models.CharField(max_length=32)
     questionnaire = models.ForeignKey(Questionnaire, blank=True, null=True) # or straight int?
     emailcount = models.IntegerField(default=0)
-
     created = models.DateTimeField(auto_now_add=True)
     emailsent = models.DateTimeField(null=True, blank=True)
-
     lastemailerror = models.CharField(max_length=64, null=True, blank=True)
-
     state = models.CharField(max_length=16, null=True, blank=True)
     cookies = models.TextField(null=True, blank=True)
-
     tags = models.TextField(
             blank=True,
             help_text=u"Tags active on this run, separated by commas"
         )
-
     skipped = models.TextField(
             blank=True,
             help_text=u"A comma sepearted list of questions to skip"
