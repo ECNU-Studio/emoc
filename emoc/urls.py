@@ -24,7 +24,7 @@ import xadmin
 from users.views import user_login
 
 # questionnaire应用
-from questionnaire.views import QuestionnaireView
+from questionnaire.views import QuestionnaireView, AddQuestionnaire
 
 # 遍历 INSTALLED_APPS里面的设置，发现有admin.py,就会执行其中的代码
 # admin.autodiscover()
@@ -37,5 +37,8 @@ urlpatterns = [
     url(r'^login/$', user_login, name="login"),
 
     # questionnaire应用
-    url(r'^questionnaire/take/(?P<questionnaire_id>[0-9]+)/$', QuestionnaireView.as_view(), name=''),
+    url(r'^questionnaire/take/(?P<questionnaire_id>[0-9]+)/$', QuestionnaireView.as_view(), name='questionnaire'),
+    url(r'^questionnaire/add/$', AddQuestionnaire.as_view(), name='add_questionnaire'),
+
+
 ]

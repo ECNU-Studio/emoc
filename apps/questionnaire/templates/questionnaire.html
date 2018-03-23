@@ -13,6 +13,7 @@
         </div>
 
         <div class="questionnaire-body">
+            <input name="questionnaire_id" value="{{ questionnaire.id }}" hidden>
             {% for question in questions %}
                 <div class="question">
                     <div class="question-text">
@@ -25,12 +26,69 @@
         </div>
 
         <div class="questionnaire-foot">
-            <button type="button" class="questionnaire_submit">提交</button>
+            <input id="js-questionnaire-submit" type="submit" value="提交"/>
         </div>
 
     </div>
 {% endblock %}
 
 {% block custom_js %}
-        <script src="{% static 'questionnaire.js' %}"></script>
+    <script>
+        var questionArr = new Array();
+        $(function () {
+            //提交表单
+            $('#js-questionnaire-submit').on('click',function(){
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'add_questionnaire' %}",
+                    data: {
+                        questionnaire_id:{{ questionnaire.id }},
+                        question_arr: JSON.stringify(questionArr)
+                    },
+                    async: true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function(error) {
+                      alert('ajax 失败!')
+                    }
+                });
+            });
+
+            //单选
+            $("input[type='radio']").change(function(){
+                console.log($(this).val());
+                question_id = parseInt($(this).attr("name"));
+                questionArr[question_id] = $(this).val();
+            });
+
+            //多选
+            $("input[type='checkbox']").change(function(){
+                console.log($(this).val());
+                question_id = parseInt($(this).attr("name"));
+                questionArr[question_id] = getChecked($(this).attr("name"));
+            });
+
+            //问答
+            $(".question_ask_text").change(function(){
+                console.log($(this).val());
+                question_id = parseInt($(this).attr("name"));
+                questionArr[question_id] = $(this).val();
+            });
+            //打星
+        });
+        function getChecked(nameStr){
+            var obj = document.getElementsByName(nameStr);
+            var checkedStr = "";
+            for(var k in obj){
+                if(obj[k].checked)
+                    checkedStr = checkedStr + obj[k].value + ",";
+            }
+            return checkedStr.substring(0, checkedStr.length - 1);
+        }
+    </script>
 {% endblock %}

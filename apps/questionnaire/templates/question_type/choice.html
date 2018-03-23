@@ -1,6 +1,6 @@
 <div class="question-choice">
     {% for choice in question.choices  %}
-        <input type="radio" name="question-{{ question.id }}" value="{{ choice.id }}" data-schema-key="{{ question.type }}" data-question-key="{{ question.id }}">
+        <input name="{{ question.id }}" type="radio" value="{{ choice.id }}">
         {{ choice.text }}
     {% endfor %}
 </div>

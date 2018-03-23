@@ -15,7 +15,7 @@ class QuestionnaireView(View):
     """
     查找当前问卷并显示出来
     """
-    def get(self, request, questionnaire_id):
+    def get(self, request, questionnaire_id=None):
         questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
         if questionnaire:
             questions = questionnaire.questions()
@@ -48,3 +48,42 @@ class QuestionnaireView(View):
             'questionnaire': questionnaire,
             'questions': questions
         })
+
+
+class AddQuestionnaire(View):
+    # 保存记录
+    def save_runinfo(self, questionnaire, user):
+        runinfo = RunInfo()
+        runinfo.subject = user
+        runinfo.questionnaire = questionnaire
+        runinfo.save()
+        return runinfo.id
+
+    def post(self, request):
+        # 获取调查者
+        if not request.user.is_authenticated():
+            user = UserProfile.objects.filter(username='Anonymous')[0:1]
+        else:
+            user = request.user
+
+        questionnaire_id = int(request.POST.get('questionnaire_id', 0))
+
+        questionnaire = Questionnaire.objects.get(id=questionnaire_id)
+
+        if questionnaire:
+            runinfo = self.save_runinfo(questionnaire, user)
+            # 未处理好
+            question_str = request.POST.get('question_arr')
+            question_arr = list(question_str)
+            for index, question in question_arr:
+                answer = Answer()
+                answer.answer = question
+                answer.question = index
+                answer.runinfo = runinfo
+                answer.save()
+
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '添加成功'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
