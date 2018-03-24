@@ -103,3 +103,5 @@ ENV/
 .idea/workspace.xml
 .idea/emoc.iml
 .idea/workspace.xml
+.DS_Store
+emoc/settings.py
