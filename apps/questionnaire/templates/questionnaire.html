@@ -52,7 +52,7 @@
                         xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                     },
                     success: function (data) {
-                        console.log(data);
+                        alert(data.msg);
                     },
                     error: function(error) {
                       alert('ajax 失败!')

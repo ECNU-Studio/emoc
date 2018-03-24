@@ -84,6 +84,6 @@ class AddQuestionnaire(View):
 
             res = dict()
             res['status'] = 'success'
-            res['msg'] = '添加成功'
+            res['msg'] = '完成'
         return HttpResponse(json.dumps(res), content_type='application/json')
 
