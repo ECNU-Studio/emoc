@@ -34,7 +34,8 @@
 
 {% block custom_js %}
     <script>
-        var questionArr = new Array();
+        var answerList = new Array();
+        var questionIds = new Array();
         $(function () {
             //提交表单
             $('#js-questionnaire-submit').on('click',function(){
@@ -44,7 +45,7 @@
                     url: "{% url 'add_questionnaire' %}",
                     data: {
                         questionnaire_id:{{ questionnaire.id }},
-                        question_arr: JSON.stringify(questionArr)
+                        answerStr: JSON.stringify(answerList)
                     },
                     async: true,
                     beforeSend: function (xhr) {
@@ -62,22 +63,20 @@
             //单选
             $("input[type='radio']").change(function(){
                 console.log($(this).val());
-                question_id = parseInt($(this).attr("name"));
-                questionArr[question_id] = $(this).val();
+                setQuestionAnswers($(this).attr("name"), $(this).val());
             });
 
             //多选
             $("input[type='checkbox']").change(function(){
                 console.log($(this).val());
-                question_id = parseInt($(this).attr("name"));
-                questionArr[question_id] = getChecked($(this).attr("name"));
+                var value = getChecked($(this).attr("name"));
+                setQuestionAnswers($(this).attr("name"), value);
             });
 
             //问答
             $(".question_ask_text").change(function(){
                 console.log($(this).val());
-                question_id = parseInt($(this).attr("name"));
-                questionArr[question_id] = $(this).val();
+                setQuestionAnswers($(this).attr("name"), $(this).val());
             });
             //打星
         });
@@ -89,6 +88,21 @@
                     checkedStr = checkedStr + obj[k].value + ",";
             }
             return checkedStr.substring(0, checkedStr.length - 1);
+        }
+        function setQuestionAnswers(idStr, answer) {
+            var question_id = parseInt(idStr);
+            var obj = {
+                question_id: question_id,
+                answer: answer
+            }
+            questionIds = answerList.map(function(q){return q.question_id});
+            var index = questionIds.indexOf(question_id);
+            if(index > -1){
+                answerList[index] = obj;
+            }else {
+                answerList.push(obj);
+            }
+            return answerList;
         }
     </script>
 {% endblock %}

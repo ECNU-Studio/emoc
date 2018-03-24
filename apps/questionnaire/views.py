@@ -57,7 +57,7 @@ class AddQuestionnaire(View):
         runinfo.subject = user
         runinfo.questionnaire = questionnaire
         runinfo.save()
-        return runinfo.id
+        return runinfo
 
     def post(self, request):
         # 获取调查者
@@ -73,12 +73,12 @@ class AddQuestionnaire(View):
         if questionnaire:
             runinfo = self.save_runinfo(questionnaire, user)
             # 未处理好
-            question_str = request.POST.get('question_arr')
-            question_arr = list(question_str)
-            for index, question in question_arr:
+            answer_list = json.loads(request.POST.get('answerStr'))
+            for answer_obj in answer_list:
                 answer = Answer()
-                answer.answer = question
-                answer.question = index
+                answer.text = answer_obj["answer"]
+                question = Question.objects.get(id=answer_obj["question_id"])
+                answer.question = question
                 answer.runinfo = runinfo
                 answer.save()
 
