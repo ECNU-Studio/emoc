@@ -3,11 +3,16 @@ import xadmin
 from .models import Questionnaire, Question, Choice, Answer
 
 
+class QuestionInline:
+    model = Question
+    extra = 0
+
 class QuestionnaireAdmin(object):
-    list_display = ['name']
+    list_display = ['name','show_questionnaire']
     search_fields = ['name']
     list_filter = ['name']
     model_icon = 'fas fa-clipboard-list'
+    inlines = [QuestionInline]
 
 
 class QuestionAdmin(object):
