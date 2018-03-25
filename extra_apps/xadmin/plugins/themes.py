@@ -19,13 +19,13 @@ THEME_CACHE_KEY = 'xadmin_themes'
 
 
 class ThemePlugin(BaseAdminPlugin):
-
     enable_themes = False
     # {'name': 'Blank Theme', 'description': '...', 'css': 'http://...', 'thumbnail': '...'}
     user_themes = None
     use_bootswatch = False
     default_theme = static('xadmin/css/themes/bootstrap-xadmin.css')
     bootstrap2_theme = static('xadmin/css/themes/bootstrap-theme.css')
+    emocui_theme = static('xadmin/css/themes/emocui-xadmin.css')
 
     def init_request(self, *args, **kwargs):
         return self.enable_themes
@@ -58,7 +58,8 @@ class ThemePlugin(BaseAdminPlugin):
         themes = [
             {'name': _(u"Default"), 'description': _(u"Default bootstrap theme"), 'css': self.default_theme},
             {'name': _(u"Bootstrap2"), 'description': _(u"Bootstrap 2.x theme"), 'css': self.bootstrap2_theme},
-            ]
+            {'name': _(u"EmocUI"), 'description': _(u"EmocUI theme"), 'css': self.emocui_theme},
+        ]
         select_css = context.get('site_theme', self.default_theme)
 
         if self.user_themes:

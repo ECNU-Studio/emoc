@@ -2,7 +2,7 @@
 a { cursor: pointer;}
 
 #body-content {
-  margin-top: 65px; 
+  margin-top: 100px;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -64,7 +64,8 @@ a { cursor: pointer;}
     margin-bottom: 0px;
   }
   .top-search-form .input-group {
-    width: 240px;
+    width: 360px;
+    margin-top: 20px;
   }
 }
 @media (max-width: 767px) {
@@ -304,6 +305,11 @@ a[class^="icon-"]:before, a[class*=" icon-"]:before {
 /** fix navbar input-append and input-prepend margin **/
 .navbar .navbar-brand {
   max-width: 400px;
+}
+
+.navbar .navbar-brand > img{
+  width: 56px;
+  margin-right: 20px;
 }
 
 /** import for bp3.0 */

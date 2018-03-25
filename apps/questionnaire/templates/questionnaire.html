@@ -3,18 +3,24 @@
 
 {% block title %}问卷调查{% endblock %}
 {% block custom_css %}
+    <style>
+        @media screen and (min-width: 1024px) {
+            .content{
+                width: 980px;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="{% static 'questionnaire.css' %}">
 {% endblock %}
 
 {% block custom_content %}
     <div class="questionnaire">
         <div class="questionnaire-head">
-                {{ questionnaire.name }}
+            <h2>{{ questionnaire.name }}</h2>
         </div>
-
-        <div class="questionnaire-body">
+        <div class="questionnaire-body am-form">
             {% for question in questions %}
-                <div class="question">
+                <div class="question am-animation-slide-left">
                     <div class="question-text">
                         {{ question.sortnum }}
                         {{ question.text }}

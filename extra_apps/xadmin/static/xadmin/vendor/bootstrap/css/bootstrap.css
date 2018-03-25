@@ -309,7 +309,7 @@ body {
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #f7f7f9;
 }
 
 input,
@@ -4796,17 +4796,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  /*background-color: #222222;*/
+  /*border-color: #080808;*/
+  padding: 18px 0 0 0;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #959A9B;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
+  color: #094270;
   background-color: transparent;
 }
 
