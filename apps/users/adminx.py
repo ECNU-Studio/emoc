@@ -11,7 +11,7 @@ class BaseSetting(object):
 
 
 class GlobalSettings(object):
-    site_title = '时时课课后台管理系统'
+    site_title = '后台管理'
     site_footer = '时时课课'
     # menu_style = 'accordion'
 
