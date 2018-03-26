@@ -54,6 +54,7 @@
 {% endblock %}
 
 {% block custom_js %}
+    <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
     <script>
         var answerList = new Array();
         var questionIds = new Array();
@@ -106,7 +107,7 @@
             var checkedStr = "";
             for(var k in obj){
                 if(obj[k].checked)
-                    checkedStr = checkedStr + obj[k].value + ",";
+                    checkedStr = checkedStr + obj[k].value + "|";
             }
             return checkedStr.substring(0, checkedStr.length - 1);
         }

@@ -1,1 +1,9 @@
-{{ question.text }}
+<form id="star-{{ question.id }}" data-am-rating>
+    <input type="hidden" name="score">
+    <a class="am-padding-lg star" role="button">
+        {% for choice in question.choices  %}
+            <i class="am-icon-star-o"></i>
+        {% endfor %}
+    </a>
+    <span class="star_text"></span>
+</form>

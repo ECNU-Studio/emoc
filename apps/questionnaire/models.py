@@ -24,7 +24,7 @@ class Questionnaire(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = '问卷'
+        verbose_name = '问卷管理'
         verbose_name_plural = verbose_name
         permissions = (
             ("export", "Can export questionnaire answers"),
@@ -42,7 +42,7 @@ class Question(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = '问题'
+        verbose_name = '问题管理'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
@@ -51,15 +51,16 @@ class Question(models.Model):
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    subject = models.ForeignKey(UserProfile)
-    questionnaire = models.ForeignKey(Questionnaire)
-    create_time = models.DateTimeField(auto_now_add=True)
+    subject = models.ForeignKey(UserProfile, verbose_name=_(u"问卷用户"))
+    questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 
     def __unicode__(self):
-        return "%s: %s, %s" % (self.runid, self.subject.surname, self.subject.givenname)
+        return "%s, %s: %s" % (self.subject.first_name, self.subject.last_name, self.questionnaire.name)
 
     class Meta:
-        verbose_name_plural = 'Run Info'
+        verbose_name = '记录查看'
+        verbose_name_plural = verbose_name
 
 
 class Answer(models.Model):

@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, Question
+from .models import Questionnaire, Question, RunInfo
 
 
 class QuestionInline(object):
@@ -31,23 +31,30 @@ class QuestionAdmin(object):
     relfield_style = 'fk_ajax'
 
 
-
-# class ChoiceAdmin(object):
-#     list_display = ['text', 'question', 'sortnum']
-#     search_fields = ['text', 'question']
-#     list_filter = ['text', 'question']
-#     model_icon = 'fas fa-list-ol'
-#     # 不显示字段
-#     exclude = ['sortnum']
+class RunInfoAdmin(object):
+    list_display = ['questionnaire', 'subject', 'create_time']
+    search_fields = ['questionnaire', 'subject']
+    list_filter = ['questionnaire', 'subject', 'create_time']
+    model_icon = 'fas fa-history'#far fa-chart-bar'
+    readonly_fields = ['questionnaire', 'subject', 'create_time']
 
 
-# class AnswerAdmin(object):
-#     list_display = ['answer']
-#     search_fields = ['answer']
-#     list_filter = ['answer']
+# 效率统计
+class QuestionnaireStatisticsAdmin(object):
+    list_display = ['name', 'show_questionnaire']
+    search_fields = ['name']
+    list_filter = ['name']
+    # 列表页直接编辑
+    readonly_fields = ['name']
+    model_icon = 'far fa-chart-bar'
+    inlines = [QuestionInline]
 
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
 xadmin.site.register(Question, QuestionAdmin)
-# xadmin.site.register(Answer, AnswerAdmin)
+
+xadmin.site.register(RunInfo, RunInfoAdmin)
+
+# xadmin.site.register(Questionnaire, QuestionnaireStatisticsAdmin)
+
 

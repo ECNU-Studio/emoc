@@ -1,22 +1,14 @@
-/*网页路径样式*/
-/*.path{background: #fff;padding: 1rem 0;font-size: .9rem;}*/
-
-/*questionnaires style*/
-/*.page-title h1{text-align: center;margin-top: 1rem;}
-.questionnaires-tip{display: block;font-size: 1rem;color: red;}*/
-/*#doc-ipt-3:focus ~ .questionnaires-tip{display: block;}*/
-/*edit and preview question style*/
-
-.hitstar,/*星星评分*/
-.txt-question,/*问答题*/
-.multiple-question,/*多选题*/
-.single-question,/*单选题*/
-.preview-question-title
-{
+.question-title{
   /*box-shadow: 0 0 1rem #ccc;*/
   margin-top: 20px;
   background: #fff;
   padding: 1.5rem 1rem;
+}
+a.star:hover{
+  color:#095f8a;
+}
+a.star{
+  color: #0e90d2;
 }
 .preview-question-title,
 .edit-question-title{
@@ -33,10 +25,8 @@
   background: #fff;
   margin-top: 20px;
   padding: 30px 30px 30px 30px;
-}/*
-.problem-set{
-  margin:20 auto;
-}*/
+}
+
 .problem-set .problem-bg{
   background: #fff;
 }
@@ -49,10 +39,6 @@
   /*padding: 20px 5px 0px;*/
 }
 /*/*/
-
-/*.hitstar ol{margin: 0;padding-left: 1rem;}
-.hitstar ol li ol{padding-left: 1rem; }
-.hitstar ol li ol li{overflow: auto;}*/
 
 
 
@@ -84,86 +70,9 @@
   font-family:Georgia, "Times New Roman", Times, serif;
 }
 
-.star_score {
-  background:url(../images/starky.png);
-  width:160px;
-  height:21px;
-  position:relative;
-}
-
-.star_score a{
-  height:21px;
-  display:block;
-  text-indent:-999em;
-  position:absolute;
-  left:0;
-}
-
-.star_score a:hover{
-  background:url(../images/starsy.png);
-  left:0;
-  transition: 0s;
-}
-
-.star_score a.clibg{
-  background:url(../images/starsy.png);
-  left:0;
-}
-
-#starttwo .star_score {
-  background:url(../images/starky.png);
-}
-
-#starttwo .star_score a:hover{
-  background:url(../images/starsy.png);
-  left:0;
-}
-
-#starttwo .star_score a.clibg{
-  background:url(../images/starsy.png);
-  left:0;
-}
-
-/*星星样式*/
-
-.show_number{
-  padding-left:50px;
-  padding-top:20px;
-}
-
-.show_number li{
-  width:240px;
-  border:1px solid #ccc;
-  padding:10px;
-  margin-right:5px;
-  margin-bottom:20px;
-}
-
-.atar_Show{
-  background:url(../images/stark2.png);
-  width:160px; height:21px;
-  position:relative;
-  float:left;
-}
-
-.atar_Show p{
-  background:url(../images/stars2.png);
-  left:0;
-  height:21px;
-  width:134px;
-}
-
-.show_number li span{
-  display:inline-block;
-  line-height:21px;
-}
 
 @media only screen and (max-width: 768px) {
-    .hitstar,/*星星评分*/
-    .txt-question,/*问答题*/
-    .multiple-question,/*多选题*/
-    .single-question,/*单选题*/
-    .preview-question-title{
+    .question-title{
       margin-top: 0px;
     }
     .subject{
