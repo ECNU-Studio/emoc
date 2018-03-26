@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    {% block custom_header %}
     <header class="m-header">
     <section class="am-show-md-up" data-am-sticky>
       <div class="am-g">
@@ -79,7 +80,7 @@
     <!-- ==================================================== -->
     </section>
     </header>
-
+    {% endblock %}
     <!-- 页面 body 内容 -->
     {% block custom_content %}
     {% endblock %}

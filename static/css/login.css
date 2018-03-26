@@ -1,0 +1,36 @@
+body{
+      position: relative;
+      background-image: url(../images/login/login-bg.jpg);
+      background-position: center center; 
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #464646;
+    }
+.login-top{margin-top:30px;}
+.login-logo img{width: 60px;margin-left: 30px;}
+.login-trans{width: 50px;height: 50px;border-radius: 25px;border:2px solid #fff;font-size: 3rem;text-align: center;line-height: 45px;color: #fff;font-weight: 500px;float: right;margin:10px 30px 0 0;}
+.content{margin: 8% auto;width: 400px;height: auto;text-align: center;}
+.content h1{font-size: 3rem;color: #fff;letter-spacing: 1.4rem;}
+.content form{display: block;}
+.content input:focus{outline: none;}
+.content .account{position: relative;margin: 70px 0 0 0;}
+.content .password{position: relative;margin:30px 0 0 0;}
+.content .iconfont{position:absolute;color: #ffffff;font-size: 3rem;bottom: -3px;left: 4rem;}
+.content input{background: transparent;border: 0;border-bottom: 1px solid #ccc;color: #fff;width: 300px;height: 3.5rem;line-height: 2.8rem;text-indent: 3rem;font-size: 1.5rem;}
+.content .forgetpassword{display: block;font-size: .5rem;text-decoration:underline;color: #fff; margin:15px 0 0 250px;}
+.content .remenberpasswd{margin:30px 0 0 -250px;line-height: .5rem;}
+.content .remenberpasswd input{width: 1rem;height:1rem;display: inline-block;margin:5px 0 0 10px;background: transparent;}
+.content .remenberpasswd label{font-size: .5rem;color: #fff;display: inline-block;margin: 0 0 0 10px;cursor: pointer;}
+.login-btn{width: 300px;margin-top:20px;color: #153854;}
+
+/*Mobile End Style*/
+.sm-trans{width: 3rem;height: 3rem;border:2px solid #fff;border-radius:1.5rem;color: #fff;line-height: 2.6rem;text-align: center;margin-top: 5rem;}
+.sm-content{margin:10rem auto;width: 30rem;text-align: center;}
+.sm-content h1{font-size: 3rem; color: #fff;letter-spacing: 1.4rem;}
+.sm-content .sm-account{position: relative;margin-top: 3rem;}
+.sm-content .sm-password{position: relative;margin-top:1rem;}
+.sm-content input{background: transparent;border: 0;width:20rem;border-bottom: 1px solid #ccc;color: #fff;height: 3.5rem;line-height: 2.8rem;text-indent: 3rem;font-size: 1.5rem;}
+.sm-content .iconfont{position:absolute;color: #ffffff;font-size: 3rem;bottom: -4px;left: 5rem;}
+.sm-login-btn{width: 20rem;margin-top:5rem;}
+footer{text-align: center;color: #fff;padding: 0 0 20px 0;}

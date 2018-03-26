@@ -14,6 +14,7 @@
                 if (elem.attr('name')) elem.attr('name', elem.attr('name').replace(idRegex, replacement));
                 if (elem.attr('href')) elem.attr('href', elem.attr('href').replace(idRegex, replacement));
                 elem.find('.formset-num').html(ndx + 1);
+                //设置sortnum的值
             },
 
             hasChildElements = function(row) {

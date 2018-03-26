@@ -37,7 +37,7 @@ class Question(models.Model):
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     type = models.CharField(max_length=32, choices=CHOICES_TYPE, verbose_name=_(u"题型"))
     text = models.CharField(max_length=128, verbose_name=_(u"问题"))
-    chice_text = models.TextField(blank=True, null=True, verbose_name=_(u"选项"), help_text=_(u"每行为一个选项"))
+    chice_text = models.TextField(blank=True, null=True, verbose_name=_(u"选项"), help_text=_(u"每个选项输入后请换行"))
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 

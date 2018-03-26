@@ -51,6 +51,10 @@
   border: none;
 }
 
+.btn{
+  border-radius: 0;
+}
+
 /** fieldset **/
 @media (min-width: 768px) {
   .form-horizontal .controls{

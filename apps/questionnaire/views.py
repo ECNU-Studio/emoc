@@ -20,7 +20,7 @@ class QuestionnaireView(View):
         if questionnaire:
             questions = questionnaire.questions()
             for question in questions:
-                choices = question.chices()
+                choices = question.chice_text.split("\n")
                 question.choices = choices
                 question.template = "question_type/%s.html" % question.type
 

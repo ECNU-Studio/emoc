@@ -1,7 +1,10 @@
 <div class="question-choice">
     {% for choice in question.choices  %}
-        <input name="{{ question.id }}" type="radio" value="{{ choice.id }}">
-        {{ choice.text }}
+        <div class="am-radio">
+            <label for="single-question-1">
+                <input type="radio" name="{{ question.id }}" value="{{ choice }}">{{ choice }}
+            </label>
+        </div>
     {% endfor %}
 </div>
 

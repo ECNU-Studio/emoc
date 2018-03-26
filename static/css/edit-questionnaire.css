@@ -1,0 +1,21 @@
+.hitstar,/*星星评分*/
+.txt-question,/*问答题*/
+.multiple-question,/*多选题*/
+.single-question,/*单选题*/
+.edit-question-title
+{
+  /*box-shadow: 0 0 1rem #ccc;*/
+  margin-top: 20px;
+  background: #fff;
+  padding: 1.5rem 1rem;
+}
+.preview-question-title,
+.edit-question-title{
+  background: #fff;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.edit-question-title h2,
+.preview-question-title h2{
+  margin-bottom: 0;
+}
