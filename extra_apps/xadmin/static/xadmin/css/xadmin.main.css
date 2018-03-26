@@ -2,7 +2,6 @@
 a { cursor: pointer;}
 
 #body-content {
-  margin-top: 100px;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -10,6 +9,7 @@ a { cursor: pointer;}
 .popover{
   width: auto;
 }
+
 .dropdown-submenu .popover {
   padding: 0px;
   max-width: none;
@@ -308,8 +308,7 @@ a[class^="icon-"]:before, a[class*=" icon-"]:before {
 }
 
 .navbar .navbar-brand > img{
-  width: 56px;
-  margin-right: 20px;
+  width: 36px;
 }
 
 /** import for bp3.0 */

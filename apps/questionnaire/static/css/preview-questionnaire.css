@@ -1,0 +1,70 @@
+/*网页路径样式*/
+.path{background: #fff;padding: 1rem 0;font-size: .9rem;}
+
+/*questionnaires style*/
+.page-title h1{text-align: center;margin-top: 1rem;}
+.questionnaires-tip{display: block;font-size: 1rem;color: red;}
+/*#doc-ipt-3:focus ~ .questionnaires-tip{display: block;}*/
+/*edit and preview question style*/
+.txt-question,/*问答题*/
+.multiple-question,/*多选题*/
+.single-question,/*单选题*/
+.preview-questionnaire-title
+{
+  /*box-shadow: 0 0 1rem #ccc;*/
+  margin-top: 20px;
+  background: #fff;
+  padding: 1.5rem 1rem;
+}
+.preview-questionnaire-title{
+  background: #fff;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.block{ 
+  width: 20rem;
+  padding-right: 6rem;
+  float: right;
+
+}
+
+.block p,.block .attitude{ 
+  padding-left:20px; 
+  line-height:21px; 
+  display:inline-block;
+}
+.block p span{ 
+  color:#C00; 
+  font-size:16px; 
+  font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+.star_score a{ 
+  height:21px; 
+  display:block; 
+  text-indent:-999em; 
+  position:absolute;
+  left:0;
+}
+
+/*星星样式*/
+
+.show_number{ 
+  padding-left:50px; 
+  padding-top:20px;
+}
+
+.show_number li{ 
+  width:240px; 
+  border:1px solid #ccc; 
+  padding:10px; 
+  margin-right:5px; 
+  margin-bottom:20px;
+}
+
+.show_number li span{ 
+  display:inline-block; 
+  line-height:21px;
+}
+

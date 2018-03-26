@@ -1,4 +1,5 @@
-{% load xadmin_tags %}{% load i18n %}<!DOCTYPE html>
+{% load xadmin_tags %}{% load i18n %}
+<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -8,6 +9,7 @@
   {% endblock %}
   {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
   <title>{% block title %}{% endblock %}</title>
+  <link rel="alternate icon" type="image/png" href="{% static "xadmin/images/favicon.png" %}">
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "xadmin/css/rtl.css" %}{% endblock %}" />{% endif %}
   {% vendor 'bootstrap.css' %}
   {% if site_theme %}
