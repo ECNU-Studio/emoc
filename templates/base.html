@@ -85,13 +85,15 @@
     {% block custom_content %}
     {% endblock %}
 
-    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+    {% block custom_footer %}
+        <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
     <div class="am-footer-miscs">
           <p>由 <a href="http://www.yunshipei.com/" title="五润科技" target="_blank" class="">五润科技</a>
             提供技术支持</p>
         <p>CopyRight©2014  AllMobilize Inc.</p>
         <p>京ICP备13033158</p>
     </div>
+    {% endblock %}
   </footer>
 
     <!--[if (gte IE 9)|!(IE)]><!-->

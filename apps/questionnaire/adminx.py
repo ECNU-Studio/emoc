@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, Question, RunInfo
+from .models import Questionnaire, Question, RunInfo, Choice
 
 
 class QuestionInline(object):
@@ -8,8 +8,13 @@ class QuestionInline(object):
     extra = 0
 
 
+class ChoiceInline(object):
+    model = Choice
+    extra = 0
+
+
 class QuestionnaireAdmin(object):
-    list_display = ['name', 'show_questionnaire']
+    list_display = ['name', 'edit_questionnaire', 'show_questionnaire']
     search_fields = ['name']
     list_filter = ['name']
     # 列表页直接编辑
@@ -21,14 +26,26 @@ class QuestionnaireAdmin(object):
 
 
 class QuestionAdmin(object):
-    list_display = ['text', 'type']
+    list_display = ['questionnaire', 'text', 'type']
     search_fields = ['text']
-    list_filter = ['type']
+    # list_filter = ['type']
     readonly_fields = ['sortnum']
     model_icon = 'fas fa-question'
     # 不显示字段
     # exclude = ['sortnum']
     relfield_style = 'fk_ajax'
+    inlines = [ChoiceInline]
+
+
+# class ChoiceAdmin(object):
+#     list_display = ['question', 'text']
+#     search_fields = ['text']
+#     # list_filter = ['question', 'text']
+#     readonly_fields = ['sortnum']
+#     model_icon = 'fas fa-question'
+#     # 不显示字段
+#     # exclude = ['sortnum']
+#     relfield_style = 'fk_ajax'
 
 
 class RunInfoAdmin(object):
@@ -52,7 +69,7 @@ class QuestionnaireStatisticsAdmin(object):
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
 xadmin.site.register(Question, QuestionAdmin)
-
+# xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)
 
 # xadmin.site.register(Questionnaire, QuestionnaireStatisticsAdmin)

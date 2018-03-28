@@ -38,9 +38,11 @@ csrf_protect_m = method_decorator(csrf_protect)
 class IncorrectPluginArg(Exception):
     pass
 
+
 def get_content_type_for_model(obj):
     from django.contrib.contenttypes.models import ContentType
     return ContentType.objects.get_for_model(obj, for_concrete_model=False)
+
 
 def filter_chain(filters, token, func, *args, **kwargs):
     if token == -1:

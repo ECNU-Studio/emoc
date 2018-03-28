@@ -46,7 +46,6 @@
 
 
         <!-- 完成按钮 -->
-        <div class="content" style="margin:2rem 0;" >
             <button id="js-questionnaire-submit" class="am-btn am-btn-primary am-center">完成</button>
         </div>
 
@@ -64,7 +63,7 @@
                 $.ajax({
                     cache: false,
                     type: "POST",
-                    url: "{% url 'add_questionnaire' %}",
+                    url: "{% url 'questionnaire:submit_questionnaire' %}",
                     data: {
                         questionnaire_id:{{ questionnaire.id }},
                         answerStr: JSON.stringify(answerList)

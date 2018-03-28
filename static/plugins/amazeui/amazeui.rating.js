@@ -62,12 +62,16 @@
         });
         $icon.on('click', function() {
         	var count = index + 1;
-          $form.find('input[name="score"]').val(count);
-          for(var i=0;i<count;i++){
-          	$icons.removeClass(all);
-	          $icon.prevAll().addBack().addClass(full);
-	          $icon.nextAll().addClass(empty);
-          }
+            $form.find('input[name="score"]').val(count);
+            for(var i=0;i<count;i++){
+              $icons.removeClass(all);
+                $icon.prevAll().addBack().addClass(full);
+                $icon.nextAll().addClass(empty);
+            }
+            //显示对应的提示符
+            var text = $icon.data("text");
+            $icon.parent().parent().find('.star_text').html(text);
+
         });
       });
       $parent.on('mouseleave', function() {

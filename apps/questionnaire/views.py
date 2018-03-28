@@ -11,7 +11,16 @@ import json
 from hashlib import md5
 
 
-class QuestionnaireView(View):
+class QuestionnaireEdit(View):
+    """
+    编辑问卷
+    """
+    def get(self, request, questionnaire_id=None):
+
+        return render(request, 'edit_questionnaire.html', {})
+
+
+class QuestionnaireShow(View):
     """
     查找当前问卷并显示出来
     """
@@ -20,8 +29,7 @@ class QuestionnaireView(View):
         if questionnaire:
             questions = questionnaire.questions()
             for question in questions:
-                choices = question.chice_text.split("\n")
-                question.choices = choices
+                question.choices = question.choices()
                 question.template = "question_type/%s.html" % question.type
 
         # 判断用户登录状态
@@ -44,13 +52,13 @@ class QuestionnaireView(View):
         #     run.save()
 
         # 反解析URL
-        return render(request, 'questionnaire.html', {
+        return render(request, 'show_questionnaire.html', {
             'questionnaire': questionnaire,
             'questions': questions
         })
 
 
-class AddQuestionnaire(View):
+class SubmitQuestionnaire(View):
     # 保存记录
     def save_runinfo(self, questionnaire, user):
         runinfo = RunInfo()

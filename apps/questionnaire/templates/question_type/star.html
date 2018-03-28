@@ -2,7 +2,7 @@
     <input type="hidden" name="score">
     <a class="am-padding-lg star" role="button">
         {% for choice in question.choices  %}
-            <i class="am-icon-star-o"></i>
+            <i class="am-icon-star-o" data-text="{{ choice }}"></i>
         {% endfor %}
     </a>
     <span class="star_text"></span>

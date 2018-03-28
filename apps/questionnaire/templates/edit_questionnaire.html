@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}表单设计器{% endblock %}
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
+  <link rel="stylesheet" href="{% static 'plugins/dist/formbuilder.css' %}" />
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #444;
+    font-family: sans-serif;
+  }
+
+  .fb-main {
+    background-color: #fff;
+    border-radius: 5px;
+    min-height: 600px;
+  }
+
+  input[type=text] {
+    height: 26px;
+    margin-bottom: 3px;
+  }
+
+  select {
+    margin-bottom: 5px;
+    font-size: 40px;
+  }
+  </style>
+{% endblock %}
+{% block custom_header %}
+{% endblock %}
+
+{% block custom_content %}
+    <div class='fb-main'></div>
+{% endblock %}
+{% block custom_footer %}
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
+  <script src="{% static 'plugins/dist/formbuilder.js' %}"></script>
+
+  <script>
+    $(function(){
+      formJson = {};
+      fb = new Formbuilder({
+        selector: '.fb-main',
+        bootstrapData: []
+      });
+      fb.on('save', function(payload){
+        formJson = payload;
+        console.log(formJson);
+      })
+    });
+  </script>
+{% endblock %}

@@ -2,7 +2,7 @@
     {% for choice in question.choices  %}
         <div class="am-checkbox">
             <label for="multiple-question-1">
-                <input name="{{ question.id }}" type="checkbox" value="{{ choice }}">{{ choice }}
+                <input name="{{ question.id }}" type="checkbox" value="{{ choice.text }}">{{ choice.text }}
             </label>
         </div>
     {% endfor %}

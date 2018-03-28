@@ -28,9 +28,11 @@ def view_block(context, block_name, *args, **kwargs):
     else:
         return ""
 
+
 @register.filter
 def admin_urlname(value, arg):
     return 'xadmin:%s_%s_%s' % (value.app_label, value.model_name, arg)
+
 
 static = register.simple_tag(static)
 

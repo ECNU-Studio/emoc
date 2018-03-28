@@ -5,11 +5,14 @@ from xadmin.layout import *
 
 from django.utils.translation import ugettext_lazy as _, ugettext
 
+
 class UserSettingsAdmin(object):
     model_icon = 'fa fa-cog'
     hidden_menu = True
 
+
 xadmin.site.register(UserSettings, UserSettingsAdmin)
+
 
 class LogAdmin(object):
 
@@ -28,5 +31,6 @@ class LogAdmin(object):
     list_filter = ['user', 'action_time']
     search_fields = ['ip_addr', 'message']
     model_icon = 'fas fa-list-alt'
+
 
 xadmin.site.register(Log, LogAdmin)

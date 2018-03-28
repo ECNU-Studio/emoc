@@ -4,5 +4,8 @@ from views import *
 
 
 urlpatterns = [
-    # url(r'^(?P<runcode>[^/]+)/(?P<qs>[-]{0,1}\d+)/$', questionnaire, name='questionset'),
+    # questionnaire应用
+    url(r'edit/(?P<questionnaire_id>[0-9]+)/$', QuestionnaireEdit.as_view(), name='edit_questionnaire'),
+    url(r'take/(?P<questionnaire_id>[0-9]+)/$', QuestionnaireShow.as_view(), name='show_questionnaire'),
+    url(r'submit/$', SubmitQuestionnaire.as_view(), name='submit_questionnaire'),
 ]
