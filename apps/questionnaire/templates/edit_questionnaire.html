@@ -3,7 +3,7 @@
 {% block title %}表单设计器{% endblock %}
 {% block custom_css %}
   <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
-  <link rel="stylesheet" href="{% static 'plugins/dist/formbuilder.css' %}" />
+  <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
   <style>
   * {
     box-sizing: border-box;
@@ -41,7 +41,7 @@
 {% endblock %}
 {% block custom_js %}
     <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
-  <script src="{% static 'plugins/dist/formbuilder.js' %}"></script>
+  <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
 
   <script>
     $(function(){
