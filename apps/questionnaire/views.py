@@ -16,15 +16,18 @@ class QuestionnaireEdit(View):
     编辑问卷
     """
     def get(self, request, questionnaire_id=None):
+        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
 
-        return render(request, 'edit_questionnaire.html', {})
+        return render(request, 'edit_questionnaire.html', {
+            'questionnaire': questionnaire
+        })
 
 
 class QuestionnaireShow(View):
     """
     查找当前问卷并显示出来
     """
-    def get(self, request, questionnaire_id=None):
+    def get(self, request, questionnaire_id=None, preview=1):
         questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
         if questionnaire:
             questions = questionnaire.questions()
@@ -54,7 +57,8 @@ class QuestionnaireShow(View):
         # 反解析URL
         return render(request, 'show_questionnaire.html', {
             'questionnaire': questionnaire,
-            'questions': questions
+            'questions': questions,
+            'preview': preview
         })
 
 
@@ -89,6 +93,22 @@ class SubmitQuestionnaire(View):
                 answer.question = question
                 answer.runinfo = runinfo
                 answer.save()
+
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '完成'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class SaveQuestionnaire(View):
+    def post(self, request):
+        questionnaire_id = int(request.POST.get('questionnaire_id', 0))
+        questionnaire = Questionnaire.objects.get(id=questionnaire_id)
+        
+        if questionnaire:
+            payload = json.loads(request.POST.get('payload'))
+            questions = payload["fields"]
+            print(questions)
 
             res = dict()
             res['status'] = 'success'

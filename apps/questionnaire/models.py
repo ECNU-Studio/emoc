@@ -22,7 +22,7 @@ class Questionnaire(models.Model):
 
     def show_questionnaire(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/take/%s' target='_blank'>预览问卷</a>" % self.id)
+        return mark_safe("<a href='/questionnaire/take/%s/0' target='_blank'>预览问卷</a>" % self.id)
 
     show_questionnaire.short_description = u"预览"
 
