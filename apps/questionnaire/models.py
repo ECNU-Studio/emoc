@@ -3,7 +3,7 @@ from django.db import models
 from users.models import UserProfile
 from django.utils.translation import ugettext as _
 
-CHOICES_TYPE = [('choice', u'单选'), ('multi', u'多选'), ('star', u'打星'), ('ask', u'问答')]
+CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
 
 class Questionnaire(models.Model):
