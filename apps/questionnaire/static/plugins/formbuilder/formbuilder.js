@@ -669,7 +669,7 @@
 
 // 单选
 (function() {
-  Formbuilder.registerField('单选题', {
+  Formbuilder.registerField('radio', {
     order: 1,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='radio' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %>",
@@ -691,7 +691,7 @@
 
 // 多选
 (function() {
-  Formbuilder.registerField('多选题', {
+  Formbuilder.registerField('checkbox', {
     order: 2,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='checkbox' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='checkbox' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %>",
@@ -713,7 +713,7 @@
 }).call(this);
 // 问答
 (function() {
-  Formbuilder.registerField('问答题', {
+  Formbuilder.registerField('text', {
     order: 3,
     view: "<input type='text' class='rf-size-<%= rf.get(Formbuilder.options.mappings.SIZE) %>' />",
     edit: "<%= Formbuilder.templates['edit/size']() %>\n<%= Formbuilder.templates['edit/min_max_length']() %>",
@@ -726,7 +726,7 @@
 }).call(this);
 // 打星
 (function() {
-  Formbuilder.registerField('打星题', {
+  Formbuilder.registerField('star', {
     order: 4,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      \n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n  <span class=\"fa fa-star-o\"></span>  </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %><%= Formbuilder.templates['edit/star']({}) %>",
@@ -901,18 +901,18 @@ this["Formbuilder"]["templates"]["edit/star"] = function(obj) {
   function print() {
     __p += __j.call(arguments, '')
   }
-  with (obj) {
-    __p += '<div class=\'fb-edit-section-header\'>评级</div>\n\n';
-    __p += '\n\n<div class=\'star\'>\n  <input type="text" class=\'option-label-input\' />\n  <a class="js-add-star ' +
-((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
-'" title="Add Star"><i class=\'fa fa-plus-circle\'></i></a>\n  <a class="js-remove-option ' +
-((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
-'" title="Remove Star"><i class=\'fa fa-minus-circle\'></i></a>\n</div>\n\n';
-__p += '\n\n<div class=\'fb-bottom-add\'>\n  <a class="js-add-star ' +
-((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
-'">再加一星</a>\n</div>\n';
-
-}
+//   with (obj) {
+//     __p += '<div class=\'fb-edit-section-header\'>评级</div>\n\n';
+//     __p += '\n\n<div class=\'star\'>\n  <input type="text" class=\'option-label-input\' />\n  <a class="js-add-star ' +
+// ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
+// '" title="Add Star"><i class=\'fa fa-plus-circle\'></i></a>\n  <a class="js-remove-option ' +
+// ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
+// '" title="Remove Star"><i class=\'fa fa-minus-circle\'></i></a>\n</div>\n\n';
+// __p += '\n\n<div class=\'fb-bottom-add\'>\n  <a class="js-add-star ' +
+// ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
+// '">再加一星</a>\n</div>\n';
+//
+// }
 return __p
 };
 

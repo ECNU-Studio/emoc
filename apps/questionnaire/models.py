@@ -59,10 +59,10 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     text = models.CharField(max_length=128, verbose_name=_(u"选项"))
-    tags = models.CharField(u"Tags", max_length=64, blank=True,editable=False)
+    tags = models.CharField(u"Tags", max_length=64, blank=True, editable=False)
 
     class Meta:
         verbose_name = '选项'

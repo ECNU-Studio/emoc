@@ -45,33 +45,33 @@
 
   <script>
     $(function(){
-      formJson = {};
-      fb = new Formbuilder({
-        selector: '.fb-main',
-        bootstrapData: []
-      });
-      fb.on('save', function(payload){
-        console.log(payload)
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "{% url 'questionnaire:save_questionnaire' %}",
-            data: {
-                questionnaire_id:{{ questionnaire.id }},
-                payload: payload
-            },
-            async: true,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            },
-            success: function (data) {
-                alert(data.msg);
-            },
-            error: function(error) {
-              alert('ajax 失败!')
-            }
+        console.log({{ question_list|safe }})
+        fb = new Formbuilder({
+            selector: '.fb-main',
+            bootstrapData: {{ question_list|safe }}
         });
-      })
-    });
+        fb.on('save', function(payload){
+            console.log(payload)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'questionnaire:save_questionnaire' %}",
+                data: {
+                    questionnaire_id:{{ questionnaire.id }},
+                    payload: payload
+                },
+                async: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(error) {
+                  alert('ajax 失败!')
+                }
+            });
+        })
+        });
   </script>
 {% endblock %}
