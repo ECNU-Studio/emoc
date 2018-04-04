@@ -106,8 +106,8 @@ class SubmitQuestionnaire(View):
         if questionnaire:
             runinfo = self.save_runinfo(questionnaire, user)
             # 未处理好
-            answer_list = json.loads(request.POST.get('answerStr'))
-            for answer_obj in answer_list:
+            answers = json.loads(request.POST.get('answerStr'))
+            for answer_obj in answers:
                 answer = Answer()
                 answer.text = answer_obj["answer"]
                 question = Question.objects.get(id=answer_obj["question_id"])
@@ -123,6 +123,8 @@ class SubmitQuestionnaire(View):
 
 class SaveQuestionnaire(View):
     def post(self, request):
+        res = dict()
+
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))
         questionnaire = Questionnaire.objects.get(id=questionnaire_id)
         if questionnaire:
@@ -146,12 +148,12 @@ class SaveQuestionnaire(View):
                         choice_obj.sortnum = index2 + 1
                         choice_obj.text = value2['label']
                         choice_obj.save()
-            res = dict()
+
             res['status'] = 'success'
-            res['msg'] = '完成'
+            res['msg'] = '保存成功'
         else:
             res = dict()
-            res['status'] = 'success'
+            res['status'] = 'failed'
             res['msg'] = '问卷未创建'
         return HttpResponse(json.dumps(res), content_type='application/json')
 
