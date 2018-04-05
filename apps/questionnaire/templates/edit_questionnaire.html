@@ -51,7 +51,6 @@
             bootstrapData: {{ question_list|safe }}
         });
         fb.on('save', function(payload){
-            console.log(payload)
             $.ajax({
                 cache: false,
                 type: "POST",
