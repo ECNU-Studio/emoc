@@ -105,3 +105,4 @@ ENV/
 .idea/workspace.xml
 .DS_Store
 emoc/settings.py
+image/
