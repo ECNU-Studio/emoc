@@ -106,3 +106,4 @@ ENV/
 .DS_Store
 emoc/settings.py
 image/
+uploads/

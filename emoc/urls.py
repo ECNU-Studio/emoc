@@ -28,6 +28,8 @@ from users.views import user_login
 # admin.autodiscover()
 
 urlpatterns = [
+    url(r'mdeditor/', include('mdeditor.urls')),
+
     url(r'^xadmin/', xadmin.site.urls),
 
     url(r'^$', TemplateView.as_view(template_name='index.html'), name="index"),
