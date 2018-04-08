@@ -20,9 +20,9 @@ class QuestionnaireAdmin(object):
     # 列表页直接编辑
     list_editable = ['name']
     model_icon = 'fas fa-clipboard-list'
-    inlines = [QuestionInline]
+    # inlines = [QuestionInline]
     # 根据更新时间倒序
-    # ordering = ['-update_time']
+    ordering = ['-update_time']
 
 
 class QuestionAdmin(object):
@@ -68,7 +68,7 @@ class QuestionnaireStatisticsAdmin(object):
 
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
-xadmin.site.register(Question, QuestionAdmin)
+# xadmin.site.register(Question, QuestionAdmin)
 # xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)
 

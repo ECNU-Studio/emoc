@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from collections import OrderedDict
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
@@ -361,6 +362,7 @@ class ListAdminView(ModelAdminView):
         return [FakeMethodField(name, getattr(method, 'short_description', capfirst(name.replace('_', ' '))))
                 for name, method in methods]
 
+    # 可以被插件截获或修改的方法使用该装饰器装饰
     @filter_hook
     def get_context(self):
         """
