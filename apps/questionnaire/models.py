@@ -74,7 +74,7 @@ class Choice(models.Model):
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    subject = models.ForeignKey(UserProfile, verbose_name=_(u"问卷用户"))
+    user = models.ForeignKey(UserProfile, verbose_name=_(u"问卷用户"))
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 
