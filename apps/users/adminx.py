@@ -30,10 +30,9 @@ class BannerAdmin(object):
     model_icon = 'fas fa-images'
 
 
-xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
+# xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
 
-xadmin.site.register(Banner, BannerAdmin)
-
+# xadmin.site.register(Banner, BannerAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)

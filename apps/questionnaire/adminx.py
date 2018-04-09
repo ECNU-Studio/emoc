@@ -49,11 +49,11 @@ class QuestionAdmin(object):
 
 
 class RunInfoAdmin(object):
-    list_display = ['questionnaire', 'subject', 'create_time']
-    search_fields = ['questionnaire', 'subject']
-    list_filter = ['questionnaire', 'subject', 'create_time']
-    model_icon = 'fas fa-history'#far fa-chart-bar'
-    readonly_fields = ['questionnaire', 'subject', 'create_time']
+    list_display = ['questionnaire', 'user', 'create_time']
+    search_fields = ['questionnaire', 'user']
+    list_filter = ['questionnaire', 'user', 'create_time']
+    model_icon = 'fas fa-history'   #far fa-chart-bar'
+    readonly_fields = ['questionnaire', 'user', 'create_time']
 
 
 # 效率统计
