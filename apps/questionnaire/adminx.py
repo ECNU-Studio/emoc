@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, Question, RunInfo, Choice
+from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice
 
 
 class QuestionInline(object):
@@ -23,6 +23,30 @@ class QuestionnaireAdmin(object):
     # inlines = [QuestionInline]
     # 根据更新时间倒序
     ordering = ['-update_time']
+
+    def queryset(self):
+        # super调用方法
+        qs = super(QuestionnaireAdmin, self).queryset()
+        qs = qs.filter(is_published=False)
+        return qs
+
+
+class PublishedQuestionnaireAdmin(object):
+    list_display = ['name', 'show_questionnaire']
+    search_fields = ['name']
+    list_filter = ['name']
+    # 不显示字段
+    exclude = ['is_published']
+    # 列表页直接编辑
+    model_icon = 'fas fa-clipboard-list'
+    # 根据更新时间倒序
+    ordering = ['-update_time']
+
+    def queryset(self):
+        # super调用方法
+        qs = super(PublishedQuestionnaireAdmin, self).queryset()
+        qs = qs.filter(is_published=True)
+        return qs
 
 
 class QuestionAdmin(object):
@@ -68,6 +92,7 @@ class QuestionnaireStatisticsAdmin(object):
 
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
+xadmin.site.register(PublishedQuestionnaire, PublishedQuestionnaireAdmin)
 # xadmin.site.register(Question, QuestionAdmin)
 # xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)

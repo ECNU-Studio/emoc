@@ -8,6 +8,7 @@ CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星
 
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128, verbose_name=_(u"问卷标题"))
+    is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
@@ -32,10 +33,18 @@ class Questionnaire(models.Model):
     class Meta:
         verbose_name = '问卷'
         verbose_name_plural = verbose_name
+        # proxy = True
         permissions = (
             ("export", "Can export questionnaire answers"),
             ("management", "Management Tools")
         )
+
+
+class PublishedQuestionnaire(Questionnaire):
+    class Meta:
+        verbose_name = '发布问卷'
+        verbose_name_plural = verbose_name
+        proxy = True
 
 
 class Question(models.Model):
