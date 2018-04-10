@@ -3,6 +3,7 @@
 
 {% block title %}问卷统计{% endblock %}
 {% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
     <link rel="stylesheet" href="{% static 'css/questionnaire_statistics.css' %}">
 {% endblock %}
 
@@ -24,8 +25,15 @@
             <h2 class="am-vertical-align-middle">{{ questionnaire.name }}</h2>
         </div>
         <!-- 问卷的内容 -->
-        <div class="am-container am-cf">
-
+        <div class="am-container am-cf am-form subject">
+            <div class="problem-set">
+                {% for question in questions %}
+                     <label for="question-title">
+                         {{ question.sortnum }}.&nbsp;{{ question.text }}
+                    </label>
+                    {% include question.template %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

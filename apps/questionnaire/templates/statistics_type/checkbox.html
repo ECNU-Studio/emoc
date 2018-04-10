@@ -1,0 +1,9 @@
+<div class="question-multi">
+    {% for choice in question.choices  %}
+        <div class="am-checkbox">
+            <label for="multiple-question-1">
+                <input name="{{ question.id }}" data-schema-key="{{ question.id }}" type="checkbox" value="{{ choice.id }}">{{ choice.text }}
+            </label>
+        </div>
+    {% endfor %}
+</div>
