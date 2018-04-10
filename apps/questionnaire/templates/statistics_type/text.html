@@ -1,3 +1,9 @@
-<div class="question-ask am-form-group">
-  <textarea data-schema-key="{{ question.id }}" class="question_ask_text" rows="4"></textarea>
-</div>
+{% for statistic in question.statistics  %}
+    <li class="option-item">
+        <p>{{ statistic.choice_text }}</p>
+            <div class="am-progress">
+                <div class="am-progress-bar am-progress-bar-success" style="width: {{ statistic.num }}%">{{ statistic.num }}%</div>
+            </div>
+        <hr>
+    </li>
+{% endfor %}

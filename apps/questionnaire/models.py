@@ -69,7 +69,7 @@ class Question(models.Model):
         return Choice.objects.filter(question=self).order_by('sortnum')
 
     def statistics(self):
-        return QuestionnaireStatistics.objects.values('choice_text', 'num').filter(question=self.id).order_by('csort')
+        return QuestionnaireStatistics.objects.values('choice', 'choice_text', 'num').filter(question=self.id).order_by('csort')
 
     class Meta:
         verbose_name = '问题'

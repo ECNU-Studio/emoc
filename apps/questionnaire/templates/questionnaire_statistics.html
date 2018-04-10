@@ -27,13 +27,21 @@
         <!-- 问卷的内容 -->
         <div class="am-container am-cf am-form subject">
             <div class="problem-set">
+            <ul>
                 {% for question in questions %}
-                     <label for="question-title">
-                         {{ question.sortnum }}.&nbsp;{{ question.text }}
-                    </label>
-                    {% include question.template %}
+                    <li>
+                        <p>{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
+                    </li>
+                    <ul>
+                        {% include question.template %}
+                    </ul>
                 {% endfor %}
+            </ul>
+
             </div>
         </div>
     </div>
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
 {% endblock %}
