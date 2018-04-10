@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice
+from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice, QuestionnaireStatistics
 
 
 class QuestionInline(object):
@@ -20,7 +20,8 @@ class QuestionnaireAdmin(object):
     # 列表页直接编辑
     list_editable = ['name']
     model_icon = 'fas fa-clipboard-list'
-    # inlines = [QuestionInline]
+    # 不显示字段
+    exclude = ['take_nums']
     # 根据更新时间倒序
     ordering = ['-update_time']
 
@@ -32,11 +33,13 @@ class QuestionnaireAdmin(object):
 
 
 class PublishedQuestionnaireAdmin(object):
-    list_display = ['name', 'show_questionnaire']
+    list_display = ['name', 'show_statistics']
     search_fields = ['name']
     list_filter = ['name']
     # 不显示字段
     exclude = ['is_published']
+    # 只读字段
+    readonly_fields = ['name', 'take_nums']
     # 列表页直接编辑
     model_icon = 'fas fa-clipboard-list'
     # 根据更新时间倒序
@@ -53,6 +56,7 @@ class QuestionAdmin(object):
     list_display = ['questionnaire', 'text', 'type']
     search_fields = ['text']
     # list_filter = ['type']
+    # 只读字段
     readonly_fields = ['sortnum']
     model_icon = 'fas fa-question'
     # 不显示字段
@@ -82,13 +86,10 @@ class RunInfoAdmin(object):
 
 # 效率统计
 class QuestionnaireStatisticsAdmin(object):
-    list_display = ['name', 'show_questionnaire']
-    search_fields = ['name']
-    list_filter = ['name']
-    # 列表页直接编辑
-    readonly_fields = ['name']
+    list_display = ['question']
+    search_fields = ['question']
+    list_filter = ['question']
     model_icon = 'far fa-chart-bar'
-    inlines = [QuestionInline]
 
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
@@ -97,6 +98,6 @@ xadmin.site.register(PublishedQuestionnaire, PublishedQuestionnaireAdmin)
 # xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)
 
-# xadmin.site.register(Questionnaire, QuestionnaireStatisticsAdmin)
+# xadmin.site.register(QuestionnaireStatistics, QuestionnaireStatisticsAdmin)
 
 

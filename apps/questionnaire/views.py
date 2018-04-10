@@ -43,6 +43,26 @@ class QuestionnaireEdit(View):
             'question_list': json.dumps(question_list)
         })
 
+class StatisticsShow(View):
+    """
+    查找当前问卷的统计信息并显示出来
+    """
+    def get(self, request, questionnaire_id=None):
+        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
+        if questionnaire:
+            questions = questionnaire.questions()
+            for question in questions:
+                question.statistics = question.statistics()
+                question.template = "statistics_type/%s.html" % question.type
+
+        # 反解析URL
+        return render(request, 'questionnaire_statistics.html', {
+            'questionnaire': questionnaire,
+            'questions': questions
+        })
+
+
+
 
 class QuestionnaireShow(View):
     """
@@ -87,7 +107,7 @@ class SubmitQuestionnaire(View):
     # 保存记录
     def save_runinfo(self, questionnaire, user):
         runinfo = RunInfo()
-        runinfo.subject = user
+        runinfo.user = user
         runinfo.questionnaire = questionnaire
         runinfo.save()
         return runinfo
@@ -98,23 +118,24 @@ class SubmitQuestionnaire(View):
             user = UserProfile.objects.filter(username='Anonymous')[0:1]
         else:
             user = request.user
-
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))
-
         questionnaire = Questionnaire.objects.get(id=questionnaire_id)
-
         if questionnaire:
             runinfo = self.save_runinfo(questionnaire, user)
             # 未处理好
             answers = json.loads(request.POST.get('answerStr'))
             for answer_obj in answers:
-                answer = Answer()
-                answer.text = answer_obj["answer"]
-                question = Question.objects.get(id=answer_obj["question_id"])
-                answer.question = question
-                answer.runinfo = runinfo
-                answer.save()
-
+                choices = answer_obj["choice"].split(',')
+                for choice in choices:
+                    answer = Answer()
+                    answer.question = answer_obj["question_id"]
+                    if choice.strip():
+                        answer.choice = int(choice)
+                    answer.text = answer_obj["text"]
+                    answer.runinfo = runinfo
+                    answer.save()
+            questionnaire.take_nums += 1
+            questionnaire.save()
             res = dict()
             res['status'] = 'success'
             res['msg'] = '完成'

@@ -1,0 +1,30 @@
+body{
+    background:#fff;
+}
+.page-back{
+    background:#fff;
+    height: 4rem;
+    line-height: 4rem;
+}
+.page-title{
+    text-align: center;
+    font-size: 2rem;
+}
+.options{
+    background: #ccc;
+    padding: 5px 0 5px 1rem;
+    margin: 0 1rem 0 -1.5rem;
+}
+ol li>p{
+    /* margin: 0; */
+}
+ol li>ol{
+    margin-left: -1.5rem;
+    margin-right: 1.5rem;
+}
+.am-progress{
+    margin-bottom: 0;
+}
+hr{
+    margin-left: -2rem;
+}
