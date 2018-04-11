@@ -36,12 +36,12 @@ class QuestionnaireEdit(View):
 
             question_list.append(question_obj)
 
-        print(json.dumps(question_list))
 
         return render(request, 'edit_questionnaire.html', {
             'questionnaire': questionnaire,
             'question_list': json.dumps(question_list)
         })
+
 
 class StatisticsShow(View):
     """

@@ -28,3 +28,7 @@ ol li>ol{
 hr{
     margin-left: -2rem;
 }
+
+p.star{
+    color: #0e90d2;
+}
