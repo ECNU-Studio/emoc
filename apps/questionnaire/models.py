@@ -7,7 +7,7 @@ CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星
 
 
 class Questionnaire(models.Model):
-    name = models.CharField(max_length=128, verbose_name=_(u"问卷标题"))
+    name = models.CharField(max_length=128, verbose_name=_(u"标题"))
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
     create_time = models.DateTimeField(auto_now_add=True)
@@ -21,21 +21,21 @@ class Questionnaire(models.Model):
 
     def edit_questionnaire(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/edit/%s' target='_blank'>编辑问卷</a>" % self.id)
+        return mark_safe("<a href='/questionnaire/edit/%s' target='_blank'>编辑</a>" % self.id)
 
     edit_questionnaire.short_description = u"编辑"
 
     def show_questionnaire(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/take/%s/1' target='_blank'>预览问卷</a>" % self.id)
+        return mark_safe("<a href='/questionnaire/take/%s/1' target='_blank'>预览</a>" % self.id)
 
     show_questionnaire.short_description = u"预览"
 
     def show_statistics(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/statistics/%s/' target='_blank'>统计问卷</a>" % self.id)
+        return mark_safe("<a href='/questionnaire/statistics/%s/' target='_blank'>统计</a>" % self.id)
 
-        show_statistics.short_description = u"统计"
+    show_statistics.short_description = u"统计"
 
     def __unicode__(self):
         return self.name
@@ -95,12 +95,12 @@ class Choice(models.Model):
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    user = models.ForeignKey(UserProfile, verbose_name=_(u"问卷用户"))
+    user = models.ForeignKey(UserProfile, verbose_name=_(u"问卷用户"), related_name='questionnaire_user_id')
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 
     def __unicode__(self):
-        return "%s, %s: %s" % (self.subject.first_name, self.subject.last_name, self.questionnaire.name)
+        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.questionnaire.name)
 
     class Meta:
         verbose_name = '记录'
@@ -116,7 +116,7 @@ class Answer(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "Answer(%s: %s, %s)" % (self.question.sortnum, self.subject.surname, self.subject.givenname)
+        return "Answer(%s: %s, %s)" % (self.question.sortnum, self.question.text, self.text)
 
 
 # 效率统计
