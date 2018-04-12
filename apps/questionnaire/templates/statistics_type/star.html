@@ -31,15 +31,11 @@
             </p>
         {% endif %}
     {% if statistic.choice == 1 %}
-            <p class="star">
-                <i class="am-icon-star"></i>
-            </p>
-        {% endif %}
-        <div class="am-progress">
-            <div class="am-progress-bar" style="width: {{ statistic.num }}%">
-                {{ statistic.num }}%
-            </div>
-        </div>
-        <hr>
+        <p class="star">
+            <i class="am-icon-star"></i>
+        </p>
+    {% endif %}
+    {% include 'process_bar.html' %}
+    <hr>
     </div>
 {% endfor %}
