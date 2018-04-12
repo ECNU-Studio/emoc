@@ -52,7 +52,10 @@ class StatisticsShow(View):
         if questionnaire:
             questions = questionnaire.questions()
             for question in questions:
-                question.statistics = question.statistics()
+                if question.type == 'text':
+                    question.answer_texts = question.get_answer_texts()
+                else:
+                    question.statistics = question.statistics()
                 question.template = "statistics_type/%s.html" % question.type
 
         # 反解析URL

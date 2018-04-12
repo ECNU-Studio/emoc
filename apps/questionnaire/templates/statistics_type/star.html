@@ -1,5 +1,5 @@
 {% for statistic in question.statistics  %}
-    <li class="option-item">
+    <div class="option-item">
         {% if statistic.choice == 5 %}
             <p class="star">
                 <i class="am-icon-star"></i>
@@ -41,5 +41,5 @@
             </div>
         </div>
         <hr>
-    </li>
+    </div>
 {% endfor %}

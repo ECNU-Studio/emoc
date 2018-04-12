@@ -71,6 +71,9 @@ class Question(models.Model):
     def statistics(self):
         return QuestionnaireStatistics.objects.values('choice', 'choice_text', 'num').filter(question=self.id).order_by('csort')
 
+    def get_answer_texts(self):
+        return Answer.objects.values('text').filter(question=self.id).order_by('id')[:5]
+
     class Meta:
         verbose_name = '问题'
         verbose_name_plural = verbose_name
@@ -113,7 +116,6 @@ class Answer(models.Model):
     choice = models.IntegerField(blank=True, null=True)
     text = models.TextField(blank=True, null=True)
     create_time = models.DateTimeField(auto_now_add=True)
-    update_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return "Answer(%s: %s, %s)" % (self.question.sortnum, self.question.text, self.text)

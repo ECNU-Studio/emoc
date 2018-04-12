@@ -27,17 +27,14 @@
         <!-- 问卷的内容 -->
         <div class="am-container am-cf am-form subject">
             <div class="problem-set">
-            <ul>
                 {% for question in questions %}
-                    <li>
+                    <div>
                         <p>{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
-                    </li>
-                    <ul>
+                    </div>
+                    <div>
                         {% include question.template %}
-                    </ul>
+                    </div>
                 {% endfor %}
-            </ul>
-
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
-{% for statistic in question.statistics  %}
-    <li class="option-item">
-        <p>{{ statistic.choice_text }}</p>
-            <div class="am-progress">
-                <div class="am-progress-bar" style="width: {{ statistic.num }}%">{{ statistic.num }}%</div>
+<div>
+    <div>
+        {% for answer_text in question.answer_texts  %}
+            <div class="option-item">
+                {{ answer_text.text }}
             </div>
-        <hr>
-    </li>
-{% endfor %}
+        {% endfor %}
+    </div>
+</div>
