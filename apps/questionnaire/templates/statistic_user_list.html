@@ -1,0 +1,18 @@
+<table class="am-table am-table-hover am-text-nowrap">
+    <thead>
+        <tr>
+            <th>用户</th>
+            <th>调查时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for runinfo in runinfos  %}
+            <tr>
+                <td>
+                    <a href="#">{{ runinfo.user }}</a>
+                </td>
+                <td>{{ runinfo.create_time }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

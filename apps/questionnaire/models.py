@@ -69,7 +69,7 @@ class Question(models.Model):
         return Choice.objects.filter(question=self).order_by('sortnum')
 
     def statistics(self):
-        return QuestionnaireStatistics.objects.values('choice', 'choice_text', 'num').filter(question=self.id).order_by('csort')
+        return QuestionnaireStatistics.objects.values('choice', 'choice_text', 'sum', 'percent').filter(question=self.id).order_by('csort')
 
     def get_answer_texts(self):
         return Answer.objects.values('text').filter(question=self.id).order_by('id')[:5]
@@ -132,7 +132,8 @@ class QuestionnaireStatistics(models.Model):
     choice = models.IntegerField()
     choice_text = models.CharField(max_length=128, verbose_name=_(u"选项"))
     csort = models.IntegerField()
-    num = models.IntegerField()
+    sum = models.IntegerField()
+    percent = models.IntegerField()
 
     class Meta:
         managed = False

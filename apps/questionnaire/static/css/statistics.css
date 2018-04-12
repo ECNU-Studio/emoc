@@ -1,0 +1,207 @@
+.statistics-teble {
+    background: #fff;
+}
+
+.tab {
+    margin: 4rem 0 2rem;
+    width: 100%;
+    height: 5rem;
+    padding: 0;
+}
+
+.tab-content {
+    padding: 2rem 1rem;
+}
+
+.tab-content h2 {
+    font-size: 3rem;
+    font-weight: normal;
+}
+
+.tab li {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+    background: #dfdfe3;
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    position: relative;
+    color: #094270;
+}
+
+.tab li:last-child {
+    float: right;
+}
+
+.tab li:hover {
+    background: #24b1bb;
+    position: relative;
+    color: #fff;
+}
+
+.tab .tab-active {
+    background: #094270;
+    color: #fff;
+}
+
+.tab .tab-active:hover {
+    background: #094270;
+    color: #fff;
+}
+
+.triangle {
+    display: none;
+    position: absolute;
+    left: 45%;
+    height: 0px;
+    width: 0px;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 13px solid #094270;
+}
+
+.tab .tab-active>.triangle {
+    display: block;
+}
+
+.tab li .iconfont {
+    font-size: 2.5rem;
+    position: relative;
+    top: 2px;
+}
+
+.tab-content {
+    background: #fff;
+}
+
+.tab-content-show {
+    display: block;
+}
+
+.tab-content-hiden {
+    display: none;
+}
+
+.am-pagination {
+    margin: 3rem 0 2rem;
+}
+
+.am-pagination li:first-child>a, .am-pagination li:last-child>a {
+    border: 0;
+}
+
+/* 数据统计样式 */
+
+.am-table {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.am-table>thead {
+    background: #f7f7f9;
+}
+
+.am-table>thead>tr>th {
+    border: 0;
+}
+
+.am-progress {
+    margin: 0;
+    background: #fff;
+    box-shadow: inset 0 0 0;
+    -webkit-box-shadow: inset 0 0 0;
+    border: 0;
+    /* line-height: 100%; */
+    /* vertical-align:middle; */
+}
+
+.problem {
+    margin: 0 0 4rem 0;
+}
+
+/* 样本统计样式 */
+
+.person-info {
+    overflow: auto;
+    position: relative;
+    width: 35%;
+    left: 34%;
+}
+
+.person-info .head-img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 5rem;
+    float: left;
+}
+
+.person-info .head-img img {
+    width: 100%;
+}
+
+.person-info .person-content {
+    float: left;
+}
+
+.person-info .person-content p {
+    text-indent: 2rem;
+}
+p.star{
+    color: #0e90d2;
+}
+
+@media only screen and (max-width: 640px) {
+    .tab {
+        margin: 1rem 0 2rem;
+        width: 100%;
+        height: 4rem;
+        padding: 0;
+    }
+    .triangle {
+        display: none;
+        position: absolute;
+        left: 40%;
+        height: 0px;
+        width: 0px;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        border-top: 13px solid #094270;
+    }
+    .tab li {
+        display: inline-block;
+        width: 49%;
+        text-align: center;
+        background: #dfdfe3;
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 2rem;
+        position: relative;
+        color: #094270;
+    }
+    .am-pagination {
+        margin: 0;
+    }
+    .person-info {
+        overflow: auto;
+        position: relative;
+        width: 100%;
+        left: 0;
+    }
+    .person-info .head-img {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 3rem;
+        float: left;
+        margin-top: 1rem;
+    }
+    .person-info .head-img img {
+        width: 100%;
+    }
+    .person-info .person-content {
+        float: left;
+    }
+    .person-info .person-content p {
+        text-indent: 2rem;
+    }
+}

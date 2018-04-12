@@ -1,41 +1,40 @@
-{% for statistic in question.statistics  %}
-    <div class="option-item">
-        {% if statistic.choice == 5 %}
-            <p class="star">
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-            </p>
-        {% endif %}
-    {% if statistic.choice == 4 %}
-            <p class="star">
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-            </p>
-        {% endif %}
-    {% if statistic.choice == 3 %}
-            <p class="star">
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-            </p>
-        {% endif %}
-    {% if statistic.choice == 2 %}
-            <p class="star">
-                <i class="am-icon-star"></i>
-                <i class="am-icon-star"></i>
-            </p>
-        {% endif %}
-    {% if statistic.choice == 1 %}
-        <p class="star">
-            <i class="am-icon-star"></i>
-        </p>
-    {% endif %}
-    {% include 'process_bar.html' %}
-    <hr>
-    </div>
-{% endfor %}
+{% extends 'statistic_choice_table.html' %}
+{% block tbody %}
+    {% for statistic in question.statistics  %}
+        <tr>
+            <td>
+                <p class="star">
+                    {% if statistic.choice == 5 %}
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                    {% endif %}
+                    {% if statistic.choice == 4 %}
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                    {% endif %}
+                    {% if statistic.choice == 3 %}
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                    {% endif %}
+                    {% if statistic.choice == 2 %}
+                        <i class="am-icon-star"></i>
+                        <i class="am-icon-star"></i>
+                    {% endif %}
+                    {% if statistic.choice == 1 %}
+                        <i class="am-icon-star"></i>
+                    {% endif %}
+                </p>
+            </td>
+            <td>{{ statistic.sum }}</td>
+            <td>
+                {% include 'process_bar.html' %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

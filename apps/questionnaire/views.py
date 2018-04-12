@@ -58,10 +58,13 @@ class StatisticsShow(View):
                     question.statistics = question.statistics()
                 question.template = "statistics_type/%s.html" % question.type
 
+            runinfos = RunInfo.objects.filter(questionnaire=questionnaire)[:10]
+
         # 反解析URL
         return render(request, 'questionnaire_statistics.html', {
             'questionnaire': questionnaire,
-            'questions': questions
+            'questions': questions,
+            'runinfos': runinfos
         })
 
 

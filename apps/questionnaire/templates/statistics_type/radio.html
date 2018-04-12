@@ -1,8 +1,13 @@
-{% for statistic in question.statistics  %}
-    <div class="option-item">
-        <p>{{ statistic.choice_text }}</p>
-        {% include 'process_bar.html' %}
-        <hr>
-    </div>
-{% endfor %}
+{% extends 'statistic_choice_table.html' %}
+{% block tbody %}
+    {% for statistic in question.statistics  %}
+        <tr>
+            <td>{{ statistic.choice_text }}</td>
+            <td>{{ statistic.sum }}</td>
+            <td>
+                {% include 'process_bar.html' %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
 

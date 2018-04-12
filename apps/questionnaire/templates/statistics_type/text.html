@@ -1,9 +1,11 @@
-<div>
-    <div>
-        {% for answer_text in question.answer_texts  %}
-            <div class="option-item">
-                {{ answer_text.text }}
-            </div>
-        {% endfor %}
-    </div>
-</div>
+{% extends 'statistic_text_table.html' %}
+{% block tbody %}
+    {% for answer_text in question.answer_texts  %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ answer_text.text }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+
