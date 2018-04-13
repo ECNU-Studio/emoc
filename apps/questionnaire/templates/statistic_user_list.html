@@ -3,15 +3,15 @@
         <tr>
             <th>用户</th>
             <th>调查时间</th>
+            <th>操作</th>
         </tr>
     </thead>
     <tbody>
         {% for runinfo in runinfos  %}
             <tr>
-                <td>
-                    <a href="#">{{ runinfo.user }}</a>
-                </td>
+                <td>{{ runinfo.user }}</td>
                 <td>{{ runinfo.create_time }}</td>
+                <td><a href="#" target="_blank">查看详细</a></td>
             </tr>
         {% endfor %}
     </tbody>
