@@ -5,14 +5,7 @@
   <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
   <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
   <style>
-  * {
-    box-sizing: border-box;
-  }
 
-  body {
-    background-color: #444;
-    font-family: sans-serif;
-  }
 
   .fb-main {
     background-color: #fff;
@@ -31,14 +24,15 @@
   }
   </style>
 {% endblock %}
-{% block custom_header %}
-{% endblock %}
+
+
 
 {% block custom_content %}
     <div class='fb-main'></div>
 {% endblock %}
-{% block custom_footer %}
-{% endblock %}
+
+
+
 {% block custom_js %}
     <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
   <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
