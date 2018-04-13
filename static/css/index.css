@@ -1,8 +1,11 @@
 /*Custom style*/
 
 @charset "UTF-8";
-/*banner style
-
+@media screen and (min-width:1024px) {
+		  .my-panel {
+			min-height: 38rem;
+		  }
+		}
 
 /*active style*/
 
