@@ -1,4 +1,20 @@
-.hitstar,/*星星评分*/
+.fb-main {
+    background-color: #fff;
+    border-radius: 5px;
+    min-height: 600px;
+  }
+
+  input[type=text] {
+    height: 26px;
+    margin-bottom: 3px;
+  }
+
+  select {
+    margin-bottom: 5px;
+    font-size: 40px;
+  }
+
+  .hitstar,/*星星评分*/
 .txt-question,/*问答题*/
 .multiple-question,/*多选题*/
 .single-question,/*单选题*/

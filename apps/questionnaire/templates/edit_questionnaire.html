@@ -4,28 +4,8 @@
 {% block custom_css %}
   <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
   <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
-  <style>
-
-
-  .fb-main {
-    background-color: #fff;
-    border-radius: 5px;
-    min-height: 600px;
-  }
-
-  input[type=text] {
-    height: 26px;
-    margin-bottom: 3px;
-  }
-
-  select {
-    margin-bottom: 5px;
-    font-size: 40px;
-  }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/edit_questionnaire.css' %}"/>
 {% endblock %}
-
-
 
 {% block custom_content %}
     <div class='fb-main'></div>
