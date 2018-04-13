@@ -14,7 +14,7 @@ a:hover {
 }
 
 a, a:hover, .m-header .am-sticky {
-	-webkit-filter: none;
+	/* -webkit-filter: none; */
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
@@ -196,7 +196,6 @@ ul li {
 	.m-active {
 		margin-top: 0px;
 	}
-	.m-active .items li {}
 	.m-course {
 		margin-top: 1rem;
 	}
