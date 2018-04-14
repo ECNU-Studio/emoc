@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 from django.conf.urls import *
-from views import *
+from questionnaire.views import *
 
 
 urlpatterns = [
