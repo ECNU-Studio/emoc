@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice, QuestionnaireStatistics
+from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice
 
 
 class QuestionInline(object):
