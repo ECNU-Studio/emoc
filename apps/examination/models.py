@@ -21,19 +21,19 @@ class Examination(models.Model):
 
     def edit_examination(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/edit/%s' target='_blank'>编辑</a>" % self.id)
+        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑</a>" % self.id)
 
     edit_examination.short_description = u"编辑"
 
     def show_examination(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/take/%s/1' target='_blank'>预览</a>" % self.id)
+        return mark_safe("<a href='/examination/take/%s/1' target='_blank'>预览</a>" % self.id)
 
     show_examination.short_description = u"预览"
 
     def show_statistics(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/statistics/%s/' target='_blank'>统计</a>" % self.id)
+        return mark_safe("<a href='/examination/statistics/%s/' target='_blank'>统计</a>" % self.id)
 
         show_statistics.short_description = u"统计"
 
