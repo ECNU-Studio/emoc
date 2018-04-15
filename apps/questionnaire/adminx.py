@@ -94,7 +94,7 @@ class QuestionnaireStatisticsAdmin(object):
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
 xadmin.site.register(PublishedQuestionnaire, PublishedQuestionnaireAdmin)
-# xadmin.site.register(Question, QuestionAdmin)
+xadmin.site.register(Question, QuestionAdmin)
 # xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)
 
