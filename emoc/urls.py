@@ -40,6 +40,6 @@ urlpatterns = [
     url(r'^questionnaire/', include('questionnaire.urls', namespace='questionnaire')),
 
 # 富文本相关url
-    url(r'^ueditor/', include('DjangoUeditor.urls')),
+#     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
 ]

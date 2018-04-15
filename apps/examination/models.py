@@ -9,6 +9,15 @@ class CourseOld(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
 
+    def __unicode__(self):
+        return self.name
+
+    def manage_question(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='/examination/question/add/%s' target='_blank'>编辑问题</a>" % self.id)
+
+    manage_question.short_description = u"问题"
+
     class Meta:
         verbose_name = '课程'
         verbose_name_plural = verbose_name
@@ -67,7 +76,7 @@ class PublishedExamination(Examination):
 
 
 class Question(models.Model):
-    questionnaire = models.ForeignKey(Examination, verbose_name=_(u"问卷"))
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     type = models.CharField(max_length=32, choices=CHOICES_TYPE, verbose_name=_(u"题型"))
     text = models.CharField(max_length=128, verbose_name=_(u"问题"))

@@ -14,7 +14,7 @@ class ChoiceInline(object):
     extra = 0
 
 class CourseOldAdmin(object):
-    list_display = ['name']
+    list_display = ['name','manage_question']
     search_fields = ['name']
     list_filter = ['name']
     model_icon = 'fa fa-calendar'
@@ -35,5 +35,6 @@ class QuestionAdmin(object):
     inlines = [ChoiceInline]
 
 
-xadmin.site.register(Question, QuestionAdmin)
 xadmin.site.register(CourseOld, CourseOldAdmin)
+
+xadmin.site.register(Question, QuestionAdmin)
