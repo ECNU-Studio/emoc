@@ -9,7 +9,6 @@ from organization.models import CourseOrg, Teacher
 
 # Create your models here.
 
-
 class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name='课程机构', null=True, blank=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
