@@ -13,7 +13,7 @@ class BaseSetting(object):
 class GlobalSettings(object):
     site_title = '后台管理'
     site_footer = '时时课课'
-    # menu_style = 'accordion'
+    menu_style = 'accordion'
 
 
 class EmailVerifyRecordAdmin(object):
