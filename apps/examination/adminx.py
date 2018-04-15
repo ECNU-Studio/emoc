@@ -37,4 +37,4 @@ class QuestionAdmin(object):
 
 xadmin.site.register(CourseOld, CourseOldAdmin)
 
-xadmin.site.register(Question, QuestionAdmin)
+# xadmin.site.register(Question, QuestionAdmin)

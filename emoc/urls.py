@@ -39,7 +39,9 @@ urlpatterns = [
 
     url(r'^questionnaire/', include('questionnaire.urls', namespace='questionnaire')),
 
-# 富文本相关url
+    url(r'^examination/', include('examination.urls', namespace='examination')),
+
+    # 富文本相关url
 #     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
 ]

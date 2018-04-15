@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}表单设计器{% endblock %}
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
+  <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/edit_questionnaire.css' %}"/>
+{% endblock %}
+
+{% block custom_content %}
+    <div class='fb-main'></div>
+{% endblock %}
+
+
+
+{% block custom_js %}
+    <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
+  <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
+
+  <script>
+    $(function(){
+        console.log({{ question_list|safe }})
+        fb = new Formbuilder({
+            selector: '.fb-main',
+            bootstrapData: {{ question_list|safe }}
+        });
+        fb.on('save', function(payload){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'examination:save_question' %}",
+                data: {
+                    course_id:{{ course.id }},
+                    payload: payload
+                },
+                async: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(error) {
+                  alert('ajax 失败!')
+                }
+            });
+        })
+        });
+  </script>
+{% endblock %}

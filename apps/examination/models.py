@@ -9,22 +9,26 @@ class CourseOld(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
 
+    def questions(self):
+        return Question.objects.filter(course=self).order_by('sortnum')
+
     def __unicode__(self):
         return self.name
 
     def manage_question(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/question/add/%s' target='_blank'>编辑问题</a>" % self.id)
+        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑问题</a>" % self.id)
 
     manage_question.short_description = u"问题"
 
     class Meta:
-        verbose_name = '课程'
+        verbose_name = '问题集'
         verbose_name_plural = verbose_name
         managed = False
         db_table = 'courses'
 
 class Examination(models.Model):
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
     name = models.CharField(max_length=128, verbose_name=_(u"标题"))
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
@@ -94,7 +98,7 @@ class Question(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return u'[%s] (%d) %s' % (self.questionnaire, self.sortnum, self.text)
+        return u'[%s] (%d) %s' % (self.course, self.sortnum, self.text)
 
 
 class Choice(models.Model):
