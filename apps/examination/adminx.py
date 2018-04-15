@@ -3,20 +3,37 @@ import xadmin
 from .models import Examination
 
 
-class ExaminationAdmin(object):
-    list_display = ['name', 'edit_questionnaire', 'show_questionnaire']
+
+# _*_ coding:utf-8 _*_
+import xadmin
+from .models import CourseOld, Question, Choice
+
+
+class ChoiceInline(object):
+    model = Choice
+    extra = 0
+
+class CourseOldAdmin(object):
+    list_display = ['name']
     search_fields = ['name']
     list_filter = ['name']
-    # 列表页直接编辑
-    list_editable = ['name']
-    model_icon = 'fas fa-clipboard-list'
-    # 不显示字段
-    exclude = ['take_nums']
-    # 根据更新时间倒序
-    ordering = ['-update_time']
+    model_icon = 'fa fa-calendar'
 
-    def queryset(self):
-        # super调用方法
-        qs = super(ExaminationAdmin, self).queryset()
-        qs = qs.filter(is_published=False)
-        return qs
+
+
+
+class QuestionAdmin(object):
+    list_display = ['course', 'text', 'type']
+    search_fields = ['text']
+    # list_filter = ['type']
+    # 只读字段
+    readonly_fields = ['sortnum']
+    model_icon = 'fas fa-question'
+    # 不显示字段
+    # exclude = ['sortnum']
+    relfield_style = 'fk_ajax'
+    inlines = [ChoiceInline]
+
+
+xadmin.site.register(Question, QuestionAdmin)
+xadmin.site.register(CourseOld, CourseOldAdmin)

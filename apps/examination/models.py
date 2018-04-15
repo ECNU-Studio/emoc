@@ -5,6 +5,15 @@ from django.utils.translation import ugettext as _
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
+class CourseOld(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=52, verbose_name='课程名字')
+
+    class Meta:
+        verbose_name = '课程'
+        verbose_name_plural = verbose_name
+        managed = False
+        db_table = 'courses'
 
 class Examination(models.Model):
     name = models.CharField(max_length=128, verbose_name=_(u"标题"))
