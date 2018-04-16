@@ -5,10 +5,10 @@ from django.utils.translation import ugettext as _
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
-Examination_TYPE = [('fixed', u'固定'), ('random', u'随机')]
+Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
 
 class CourseOld(models.Model):
-    id = models.IntegerField(primary_key=True)
+    # id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
 
     def questions(self):
@@ -31,10 +31,10 @@ class CourseOld(models.Model):
 
 class Examination(models.Model):
     course = models.ForeignKey(CourseOld, verbose_name=_(u"试卷"))
-    is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
     type = models.CharField(max_length=32, choices=Examination_TYPE, verbose_name=_(u"类型"))
-    question_nums = models.IntegerField(default=0, verbose_name=u'试题数')
+    question_nums = models.IntegerField(default=0, verbose_name=u'试题数', blank=True)
+    is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
