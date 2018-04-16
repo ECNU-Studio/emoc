@@ -5,6 +5,8 @@ from django.utils.translation import ugettext as _
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
+Examination_TYPE = [('fixed', u'固定'), ('random', u'随机')]
+
 class CourseOld(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
@@ -17,59 +19,31 @@ class CourseOld(models.Model):
 
     def manage_question(self):
         from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑问题</a>" % self.id)
+        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑</a>" % self.id)
 
-    manage_question.short_description = u"问题"
+    manage_question.short_description = u"试题库"
 
     class Meta:
-        verbose_name = '问题集'
+        verbose_name = '课程试题库'
         verbose_name_plural = verbose_name
         managed = False
         db_table = 'courses'
 
 class Examination(models.Model):
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
-    name = models.CharField(max_length=128, verbose_name=_(u"标题"))
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"试卷"))
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
+    type = models.CharField(max_length=32, choices=Examination_TYPE, verbose_name=_(u"类型"))
+    question_nums = models.IntegerField(default=0, verbose_name=u'试题数')
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
-
-    def questions(self):
-        return Question.objects.filter(questionnaire=self).order_by('sortnum')
-
-    def statistics(self):
-        return ExaminationStatistics.objects.filter(questionnaire=self.id).order_by('qsort')
-
-    def edit_examination(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑</a>" % self.id)
-
-    edit_examination.short_description = u"编辑"
-
-    def show_examination(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/take/%s/1' target='_blank'>预览</a>" % self.id)
-
-    show_examination.short_description = u"预览"
-
-    def show_statistics(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/statistics/%s/' target='_blank'>统计</a>" % self.id)
-
-        show_statistics.short_description = u"统计"
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        verbose_name = '测试'
+        verbose_name = '课程试题'
         verbose_name_plural = verbose_name
-        # proxy = True
-        permissions = (
-            ("export", "Can export questionnaire answers"),
-            ("management", "Management Tools")
-        )
 
 
 class PublishedExamination(Examination):
