@@ -39,7 +39,7 @@ class Examination(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return self.course
 
     class Meta:
         verbose_name = '课程试题'
@@ -92,11 +92,11 @@ class Choice(models.Model):
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     user = models.ForeignKey(UserProfile, verbose_name=_(u"用户"), related_name='examination_user_id')
-    questionnaire = models.ForeignKey(Examination, verbose_name=_(u"测试"))
+    examination = models.ForeignKey(Examination, verbose_name=_(u"测试"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"测试时间"))
 
     def __unicode__(self):
-        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.questionnaire.name)
+        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.examination.course)
 
     class Meta:
         verbose_name = '记录'
