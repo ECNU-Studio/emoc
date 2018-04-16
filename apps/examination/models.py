@@ -89,7 +89,7 @@ class Choice(models.Model):
         return u'(%s) %d. %s' % (self.question.sortnum, self.sortnum, self.text)
 
 
-class RunInfo(models.Model):
+class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     user = models.ForeignKey(UserProfile, verbose_name=_(u"用户"), related_name='examination_user_id')
     examination = models.ForeignKey(Examination, verbose_name=_(u"测试"))
