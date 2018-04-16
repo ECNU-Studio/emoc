@@ -104,7 +104,7 @@ class TakeInfo(models.Model):
 
 
 class Answer(models.Model):
-    runinfo = models.ForeignKey(RunInfo)
+    runinfo = models.ForeignKey(TakeInfo)
     question = models.IntegerField()
     choice = models.IntegerField(blank=True, null=True)
     text = models.TextField(blank=True, null=True)
