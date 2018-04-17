@@ -7,12 +7,16 @@ CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星
 
 Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
 
+
 class CourseOld(models.Model):
     # id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
 
     def questions(self):
         return Question.objects.filter(course=self).order_by('sortnum')
+
+    def examination(self):
+        return Examination.objects.filter(course=self)
 
     def __unicode__(self):
         return self.name
@@ -23,30 +27,20 @@ class CourseOld(models.Model):
 
     manage_question.short_description = u"试题库"
 
+    def show_examination(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='/examination/take/%s/1' target='_blank'>预览</a>" % self.id)
+
+    show_examination.short_description = u"预览"
+
     class Meta:
         verbose_name = '课程试题库'
         verbose_name_plural = verbose_name
         managed = False
         db_table = 'courses'
 
-class Examination(models.Model):
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"试卷"))
-    take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
-    type = models.CharField(max_length=32, choices=Examination_TYPE, verbose_name=_(u"类型"))
-    question_nums = models.IntegerField(default=0, verbose_name=u'试题数', blank=True)
-    is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
-    create_time = models.DateTimeField(auto_now_add=True)
-    update_time = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.course
-
-    class Meta:
-        verbose_name = '课程试题'
-        verbose_name_plural = verbose_name
-
-
-class PublishedExamination(Examination):
+class PublishedExamination(CourseOld):
     class Meta:
         verbose_name = '统计'
         verbose_name_plural = verbose_name
@@ -89,10 +83,21 @@ class Choice(models.Model):
         return u'(%s) %d. %s' % (self.question.sortnum, self.sortnum, self.text)
 
 
+class Examination(models.Model):
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
+    question = models.ForeignKey(Question)
+
+    def __unicode__(self):
+        return self.course.name
+
+    def question(self):
+        return Question.objects.filter(id=int(self.question))
+
+
 class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     user = models.ForeignKey(UserProfile, verbose_name=_(u"用户"), related_name='examination_user_id')
-    examination = models.ForeignKey(Examination, verbose_name=_(u"测试"))
+    examination = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"测试时间"))
 
     def __unicode__(self):

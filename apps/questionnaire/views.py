@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from questionnaire.models import *
 from users.models import UserProfile
-import random
 import json
 from hashlib import md5
 

@@ -8,7 +8,12 @@
 {% endblock %}
 
 {% block custom_content %}
-    <div class='fb-main'></div>
+
+    <div class='fb-main'>
+
+    </div>
+    <input id="random" type="checkbox" name="random">随机题
+    题目数量：<input id="count" type="text" name="question-count">
 {% endblock %}
 
 
@@ -19,19 +24,22 @@
 
   <script>
     $(function(){
-        console.log({{ question_list|safe }})
         fb = new Formbuilder({
             selector: '.fb-main',
             bootstrapData: {{ question_list|safe }}
         });
         fb.on('save', function(payload){
+            question_count = $("#count").val() || 0
+            is_random = document.getElementById("random").checked
             $.ajax({
                 cache: false,
                 type: "POST",
                 url: "{% url 'examination:save_question' %}",
                 data: {
                     course_id:{{ course.id }},
-                    payload: payload
+                    payload: payload,
+                    question_count: question_count,
+                    is_random: is_random
                 },
                 async: true,
                 beforeSend: function (xhr) {
