@@ -17,11 +17,13 @@ class ExaminationShow(View):
     """
     def get(self, request, course_id=None, preview=1):
         course = get_object_or_404(CourseOld, id=int(course_id))
-        examinations = course.examination()
-        for examination in examinations:
-            question = examination.question()
+        examination = course.examination()
+        questions = []
+        for exam in examination:
+            question = Question.objects.get(id=exam.question_id)
             question.choices = question.choices()
             question.template = "question_type/%s.html" % question.type
+            questions.append(question)
 
         # 判断用户登录状态
         # res = dict()
@@ -45,6 +47,32 @@ class ExaminationShow(View):
         # 反解析URL
         return render(request, 'show_examination.html',
                       {'course': course, 'questions': questions, 'preview': preview})
+
+
+class StatisticsShow(View):
+    """
+    查找当前问卷的统计信息并显示出来
+    """
+    def get(self, request, course_id=None):
+        course = get_object_or_404(CourseOld, id=int(course_id))
+        examination = course.examination()
+        questions = []
+        for exam in examination:
+            question = Question.objects.get(id=exam.question_id)
+            if question.type == 'text':
+                question.answer_texts = question.get_answer_texts()
+            else:
+                question.statistics = question.statistics()
+            question.template = "statistics_type/%s.html" % question.type
+            questions.append(question)
+        takeinfos = TakeInfo.objects.filter(course=course)[:10]
+
+        # 反解析URL
+        return render(request, 'examination_statistics.html', {
+            'course': course,
+            'questions': questions,
+            'takeinfos': takeinfos
+        })
 
 
 class QuestionEdit(View):
@@ -128,4 +156,45 @@ class SaveQuestion(View):
             res = dict()
             res['status'] = 'failed'
             res['msg'] = '课程未创建'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class SubmitExamination(View):
+    # 保存记录
+    def save_takeinfo(self, course, user):
+        takeinfo = TakeInfo()
+        takeinfo.user = user
+        takeinfo.course = course
+        takeinfo.save()
+        return takeinfo
+
+    def post(self, request):
+        # 获取调查者
+        if not request.user.is_authenticated():
+            user = UserProfile.objects.filter(username='Anonymous')[0:1]
+        else:
+            user = request.user
+        course_id = int(request.POST.get('course_id', 0))
+        course = CourseOld.objects.get(id=course_id)
+        if course:
+            takeinfo = self.save_takeinfo(course, user)
+            answers = json.loads(request.POST.get('answerStr'))
+            for answer_obj in answers:
+                choices = answer_obj["choice"].split(',')
+                for choice in choices:
+                    answer = Answer()
+                    answer.question = answer_obj["question_id"]
+                    if choice.strip():
+                        answer.choice = int(choice)
+                    answer.text = answer_obj["text"]
+                    answer.takeinfo = takeinfo
+                    answer.save()
+            if course.take_nums:
+                course.take_nums += 1
+            else:
+                course.take_nums = 1
+            course.save()
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '完成'
         return HttpResponse(json.dumps(res), content_type='application/json')

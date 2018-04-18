@@ -15,7 +15,7 @@ class ChoiceInline(object):
 
 
 class CourseOldAdmin(object):
-    list_display = ['name', 'manage_question', 'show_examination']
+    list_display = ['name', 'manage_question', 'show_examination', 'show_statistics']
     search_fields = ['name']
     list_filter = ['name']
     # 只读字段
@@ -78,6 +78,6 @@ xadmin.site.register(CourseOld, CourseOldAdmin)
 
 # xadmin.site.register(Examination, ExaminationAdmin)
 
-xadmin.site.register(PublishedExamination, PublishedExaminationAdmin)
+# xadmin.site.register(PublishedExamination, PublishedExaminationAdmin)
 
 # xadmin.site.register(Question, QuestionAdmin)

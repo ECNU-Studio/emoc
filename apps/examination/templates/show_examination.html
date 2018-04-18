@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block title %}问卷调查{% endblock %}
+{% block title %}考试{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
 {% endblock %}
@@ -55,9 +55,9 @@
                 $.ajax({
                     cache: false,
                     type: "POST",
-                    url: "{% url 'questionnaire:submit_questionnaire' %}",
+                    url: "{% url 'examination:submit_examination' %}",
                     data: {
-                        questionnaire_id:{{ questionnaire.id }},
+                        course_id:{{ course.id }},
                         answerStr: JSON.stringify(answerList)
                     },
                     async: true,
