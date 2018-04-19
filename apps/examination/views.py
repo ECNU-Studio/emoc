@@ -107,6 +107,9 @@ class QuestionEdit(View):
 
 
 class SaveQuestion(View):
+    """
+    保存试卷时候，根据随机卷或者固定卷进行保存
+    """
     def post(self, request):
         res = dict()
         course_id = int(request.POST.get('course_id', 0))
