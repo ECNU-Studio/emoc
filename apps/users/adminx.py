@@ -1,8 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
 from xadmin import views
-from .models import EmailVerifyRecord
-from .models import Banner
 
 
 class BaseSetting(object):
