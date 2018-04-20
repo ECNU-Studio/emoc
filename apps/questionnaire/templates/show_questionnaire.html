@@ -3,14 +3,6 @@
 
 {% block title %}问卷调查{% endblock %}
 {% block custom_css %}
-    <style>
-        @media screen and (min-width: 1024px) {
-            .content{
-                width: 980px;
-            }
-        }
-    </style>
-
     <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
 {% endblock %}
 
@@ -44,7 +36,7 @@
 
         </div>
 
-        {% if preview == 1 %}
+        {% if preview == '1' %}
             <div>
                 <button id="js-questionnaire-submit" class="am-btn am-btn-primary am-center">完成</button>
             </div>
@@ -84,37 +76,37 @@
             //单选
             $("input[type='radio']").change(function(){
                 console.log($(this).val());
-                setQuestionAnswers($(this).attr("name"), $(this).val());
+                setQuestionAnswers($(this).attr("data-schema-key"), $(this).val());
             });
 
             //多选
             $("input[type='checkbox']").change(function(){
                 console.log($(this).val());
                 var value = getChecked($(this).attr("name"));
-                setQuestionAnswers($(this).attr("name"), value);
+                setQuestionAnswers($(this).attr("data-schema-key"), value);
             });
 
             //问答
             $(".question_ask_text").change(function(){
                 console.log($(this).val());
-                setQuestionAnswers($(this).attr("name"), $(this).val());
+                setQuestionAnswers($(this).attr("data-schema-key"), '', $(this).val());
             });
-            //打星
         });
         function getChecked(nameStr){
             var obj = document.getElementsByName(nameStr);
             var checkedStr = "";
             for(var k in obj){
                 if(obj[k].checked)
-                    checkedStr = checkedStr + obj[k].value + "|";
+                    checkedStr = checkedStr + obj[k].value + ",";
             }
             return checkedStr.substring(0, checkedStr.length - 1);
         }
-        function setQuestionAnswers(idStr, answer) {
+        function setQuestionAnswers(idStr, choice, text) {
             var question_id = parseInt(idStr);
             var obj = {
                 question_id: question_id,
-                answer: answer
+                choice: choice,
+                text: text || ''
             }
             questionIds = answerList.map(function(q){return q.question_id});
             var index = questionIds.indexOf(question_id);

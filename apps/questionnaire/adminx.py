@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Questionnaire, Question, RunInfo, Choice
+from .models import Questionnaire, PublishedQuestionnaire, Question, RunInfo, Choice
 
 
 class QuestionInline(object):
@@ -20,15 +20,43 @@ class QuestionnaireAdmin(object):
     # 列表页直接编辑
     list_editable = ['name']
     model_icon = 'fas fa-clipboard-list'
-    # inlines = [QuestionInline]
+    # 不显示字段
+    exclude = ['take_nums']
     # 根据更新时间倒序
     ordering = ['-update_time']
+
+    def queryset(self):
+        # super调用方法
+        qs = super(QuestionnaireAdmin, self).queryset()
+        qs = qs.filter(is_published=False)
+        return qs
+
+
+class PublishedQuestionnaireAdmin(object):
+    list_display = ['name', 'show_statistics']
+    search_fields = ['name']
+    list_filter = ['name']
+    # 不显示字段
+    exclude = ['is_published']
+    # 只读字段
+    readonly_fields = ['name', 'take_nums']
+    # 列表页直接编辑
+    model_icon = 'fas fa-clipboard-list'
+    # 根据更新时间倒序
+    ordering = ['-update_time']
+
+    def queryset(self):
+        # super调用方法
+        qs = super(PublishedQuestionnaireAdmin, self).queryset()
+        qs = qs.filter(is_published=True)
+        return qs
 
 
 class QuestionAdmin(object):
     list_display = ['questionnaire', 'text', 'type']
     search_fields = ['text']
     # list_filter = ['type']
+    # 只读字段
     readonly_fields = ['sortnum']
     model_icon = 'fas fa-question'
     # 不显示字段
@@ -49,29 +77,27 @@ class QuestionAdmin(object):
 
 
 class RunInfoAdmin(object):
-    list_display = ['questionnaire', 'subject', 'create_time']
-    search_fields = ['questionnaire', 'subject']
-    list_filter = ['questionnaire', 'subject', 'create_time']
-    model_icon = 'fas fa-history'#far fa-chart-bar'
-    readonly_fields = ['questionnaire', 'subject', 'create_time']
+    list_display = ['questionnaire', 'user', 'create_time']
+    search_fields = ['questionnaire', 'user']
+    list_filter = ['questionnaire', 'user', 'create_time']
+    model_icon = 'fas fa-history'   #far fa-chart-bar'
+    readonly_fields = ['questionnaire', 'user', 'create_time']
 
 
 # 效率统计
 class QuestionnaireStatisticsAdmin(object):
-    list_display = ['name', 'show_questionnaire']
-    search_fields = ['name']
-    list_filter = ['name']
-    # 列表页直接编辑
-    readonly_fields = ['name']
+    list_display = ['question']
+    search_fields = ['question']
+    list_filter = ['question']
     model_icon = 'far fa-chart-bar'
-    inlines = [QuestionInline]
 
 
 xadmin.site.register(Questionnaire, QuestionnaireAdmin)
+xadmin.site.register(PublishedQuestionnaire, PublishedQuestionnaireAdmin)
 # xadmin.site.register(Question, QuestionAdmin)
 # xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(RunInfo, RunInfoAdmin)
 
-# xadmin.site.register(Questionnaire, QuestionnaireStatisticsAdmin)
+# xadmin.site.register(QuestionnaireStatistics, QuestionnaireStatisticsAdmin)
 
 

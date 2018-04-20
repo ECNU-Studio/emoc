@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}问卷统计{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+    <link rel="stylesheet" href="{% static 'css/statistics.css' %}">
+{% endblock %}
+
+{% block custom_header %}
+    <header class="m-header">
+    <section class="am-show-md-up" data-am-sticky>
+      <div class="am-g">
+        <div class=" am-u-sm-2 am-u-md-1 am-fl">
+          <a href="/" rel="nofollow" class="m-logo"><i class="am-icon-spinner"></i>EduSoho</a>
+        </div>
+      </div>
+    </section>
+    </header>
+{% endblock %}
+
+{% block custom_content %}
+    <div class="am-container statistics-table" id="statistics-table">
+        <ul id="tab-list" class="tab">
+            <li class="tab-active">
+                <i class="iconfont icon-icon-98"></i>
+                数据统计
+                <div class="triangle"></div>
+            </li>
+            <li >
+                <i class="iconfont icon-icon-97"></i>
+                样本数据
+                <div class="triangle"></div>
+            </li>
+        </ul>
+        <div class="tab-content tab-content-show ">
+            <div class="am-container">
+                <h2>{{ questionnaire.name }}</h2>
+                <div class="problems">
+                    {% for question in questions %}
+                        <div class="problem">
+                            <p>{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
+                        </div>
+                        <div class="am-scrollable-horizontal">
+                            {% include question.template %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="tab-content tab-content-hiden">
+            <div class="am-container">
+                <h2>{{ questionnaire.name }}</h2>
+                {% include 'statistic_user_list.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
+    <script>
+        window.onload = function () {
+                var tabList = document.getElementById("tab-list");
+                var aLis = tabList.getElementsByTagName("li");
+                var tDiv = document.getElementById("statistics-table");
+                var contents = tDiv.getElementsByClassName("tab-content");
+
+                for (var i = 0; i < aLis.length; i++) {
+                    aLis[i].index = i;
+                    aLis[i].onclick = function () {
+                        for (var j = 0; j < aLis.length; j++) {
+                            aLis[j].className = '';
+                        }
+                        this.className = "tab-active";
+
+                        for (var j = 0; j < contents.length; j++) {
+                            contents[j].className = "tab-content tab-content-hiden";
+                        }
+                        contents[this.index].className = "tab-content tab-content-show";
+                    };
+                }
+            };
+    </script>
+{% endblock %}

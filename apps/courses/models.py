@@ -3,17 +3,18 @@ from datetime import datetime
 
 from django.db import models
 
+from DjangoUeditor.models import UEditorField
+
 from organization.models import CourseOrg, Teacher
 
 # Create your models here.
-
 
 class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name='课程机构', null=True, blank=True)
     name = models.CharField(max_length=52, verbose_name='课程名字')
     desc = models.TextField(verbose_name='课程描述')
     teacher = models.ForeignKey(Teacher, verbose_name='讲师', null=True, blank=True)
-    detail = models.TextField(verbose_name='课程详情')
+    # detail = UEditorField(verbose_name=u"详情", width=600, height=300, imagePath="courses/ueditor/",filePath="courses/ueditor/",default="")
     degree = models.CharField(choices=(('cj', '初级'), ('zj', '中级'), ('gj', '高级')), max_length=2, verbose_name='难度')
     learn_times = models.IntegerField(default=0, verbose_name='学习时长(分钟数)')
     students = models.IntegerField(default=0, verbose_name='学习人数')

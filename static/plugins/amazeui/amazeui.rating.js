@@ -63,6 +63,7 @@
         $icon.on('click', function() {
         	var count = index + 1;
             $form.find('input[name="score"]').val(count);
+            setQuestionAnswers($form.find('input[name="score"]').attr("data-schema-key"), count+'');
             for(var i=0;i<count;i++){
               $icons.removeClass(all);
                 $icon.prevAll().addBack().addClass(full);

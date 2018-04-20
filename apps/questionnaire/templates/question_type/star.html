@@ -1,8 +1,12 @@
 <form id="star-{{ question.id }}" data-am-rating>
-    <input type="hidden" name="score">
+    <input type="hidden" name="score" data-schema-key="{{ question.id }}">
     <a class="am-padding-lg star" role="button">
         {% for choice in question.choices  %}
-            <i class="am-icon-star-o" data-text="{{ choice }}"></i>
+            <i class="am-icon-star-o"></i>
+            <i class="am-icon-star-o"></i>
+            <i class="am-icon-star-o"></i>
+            <i class="am-icon-star-o"></i>
+            <i class="am-icon-star-o"></i>
         {% endfor %}
     </a>
     <span class="star_text"></span>

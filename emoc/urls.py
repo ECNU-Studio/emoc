@@ -28,7 +28,8 @@ from users.views import user_login
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'mdeditor/', include('mdeditor.urls')),
+    # url(r'mdeditor/', include('mdeditor.urls')),
+
 
     url(r'^xadmin/', xadmin.site.urls),
 
@@ -37,5 +38,10 @@ urlpatterns = [
     url(r'^login/$', user_login, name="login"),
 
     url(r'^questionnaire/', include('questionnaire.urls', namespace='questionnaire')),
+
+    url(r'^examination/', include('examination.urls', namespace='examination')),
+
+    # 富文本相关url
+#     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
 ]

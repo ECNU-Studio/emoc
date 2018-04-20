@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}考试{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block custom_header %}
+    <header class="m-header">
+    <section class="am-show-md-up" data-am-sticky>
+      <div class="am-g">
+        <div class=" am-u-sm-2 am-u-md-1 am-fl">
+          <a href="/" rel="nofollow" class="m-logo"><i class="am-icon-spinner"></i>EduSoho</a>
+        </div>
+      </div>
+    </section>
+    </header>
+{% endblock %}
+
+{% block custom_content %}
+    <div class="am-container content questionnaire">
+        <div class="preview-question-title am-animation-fade">
+            <h2 class="am-vertical-align-middle">{{ course.name }}</h2>
+        </div>
+        <!-- 问卷的内容 -->
+        <div class="am-form subject">
+            <div class="problem-set">
+                 {% for question in questions %}
+                     <label for="question-title">
+                         {{ question.sortnum }}.&nbsp;{{ question.text }}
+                    </label>
+                    {% include question.template %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+        {% if preview == '1' %}
+            <div>
+                <button id="js-questionnaire-submit" class="am-btn am-btn-primary am-center">完成</button>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
+    <script>
+        var answerList = new Array();
+        var questionIds = new Array();
+        $(function () {
+            //提交表单
+            $('#js-questionnaire-submit').on('click',function(){
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'examination:submit_examination' %}",
+                    data: {
+                        course_id:{{ course.id }},
+                        answerStr: JSON.stringify(answerList)
+                    },
+                    async: true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        alert(data.msg);
+                    },
+                    error: function(error) {
+                      alert('ajax 失败!')
+                    }
+                });
+            });
+
+            //单选
+            $("input[type='radio']").change(function(){
+                console.log($(this).val());
+                setQuestionAnswers($(this).attr("data-schema-key"), $(this).val());
+            });
+
+            //多选
+            $("input[type='checkbox']").change(function(){
+                console.log($(this).val());
+                var value = getChecked($(this).attr("name"));
+                setQuestionAnswers($(this).attr("data-schema-key"), value);
+            });
+
+            //问答
+            $(".question_ask_text").change(function(){
+                console.log($(this).val());
+                setQuestionAnswers($(this).attr("data-schema-key"), '', $(this).val());
+            });
+        });
+        function getChecked(nameStr){
+            var obj = document.getElementsByName(nameStr);
+            var checkedStr = "";
+            for(var k in obj){
+                if(obj[k].checked)
+                    checkedStr = checkedStr + obj[k].value + ",";
+            }
+            return checkedStr.substring(0, checkedStr.length - 1);
+        }
+        function setQuestionAnswers(idStr, choice, text) {
+            var question_id = parseInt(idStr);
+            var obj = {
+                question_id: question_id,
+                choice: choice,
+                text: text || ''
+            }
+            questionIds = answerList.map(function(q){return q.question_id});
+            var index = questionIds.indexOf(question_id);
+            if(index > -1){
+                answerList[index] = obj;
+            }else {
+                answerList.push(obj);
+            }
+            return answerList;
+        }
+    </script>
+{% endblock %}

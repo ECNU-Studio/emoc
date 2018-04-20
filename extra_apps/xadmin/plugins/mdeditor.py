@@ -1,15 +1,14 @@
 import xadmin
-from xadmin.views import BaseAdminPlugin, CreateAdminView, ModelFormAdminView, UpdateAdminView
+from xadmin.views import BaseAdminPlugin, CreateAdminView, UpdateAdminView
 from mdeditor.fields import MDTextField
 from mdeditor.widgets import MDEditorWidget
-from django.conf import settings
 
 
 class XadminMDEditorWidget(MDEditorWidget):
-    def __init__(self,**kwargs):
-        self.mdeditor_options=kwargs
+    def __init__(self, **kwargs):
+        self.mdeditor_options = kwargs
         self.Media.js = None
-        super(XadminMDEditorWidget,self).__init__(kwargs)
+        super(XadminMDEditorWidget, self).__init__(kwargs)
 
 
 class MDeditorPlugin(BaseAdminPlugin):

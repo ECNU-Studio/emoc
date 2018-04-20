@@ -1,85 +1,103 @@
 /*Custom style*/
+
 @charset "UTF-8";
-body{
-	background-color:rgb(247, 247, 249);
+body {
+	background-color: rgb(247, 247, 249);
 }
-a{
+
+a {
 	color: #959A9B;
 }
-a:hover{
-	color: rgb(9.,66,112);
+
+a:hover {
+	color: rgb(9., 66, 112);
 }
-a,
-a:hover,
-.m-header .am-sticky{
-  -webkit-filter: none;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+
+a, a:hover, .m-header .am-sticky {
+	/* -webkit-filter: none; */
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
-.m-header ul,
-.m-header-banner ul {
-  padding: 0;
+
+.m-header ul, .m-header-banner ul {
+	padding: 0;
 }
+
 ul li {
-  list-style-type: none;
+	list-style-type: none;
 }
+
 .am-container {
-  max-width: 1200px;
+	max-width: 1200px;
 }
+
 .am-g-fixed {
-  max-width: 1200px;
+	max-width: 1200px;
 }
+
 /*header*/
-.m-header{
-  width: 100%;
-  z-index: 2;
-  height: 90px;
-  padding: 18px 0 0 0;
+
+.m-header {
+	width: 100%;
+	z-index: 2;
+	height: 90px;
+	padding: 18px 0 0 0;
 }
+
 .m-header .am-sticky {
-  background: #edeef1;
-  padding: 5px 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
-  opacity: 0.95;
+	background: #edeef1;
+	padding: 5px 0;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+	opacity: 0.95;
 }
-.m-header .am-sticky .m-info{
-	top:23px;
+
+.m-header .am-sticky .m-info {
+	top: 23px;
 	right: 0px;
 }
-.m-header .m-logo{
-  display: block;
-  float: left;
-  font-size: 22px;
-  line-height: 57px;
-  width: 56px;
-  color: #959A98;
-  text-indent: -9999px;
-  background: url(../images/header-logo.png)no-repeat left center;
-  -webkit-background-size: 56px 57px;
-  background-size: 56px 57px;
-  margin-left: 11px;
+
+.m-header .m-logo {
+	display: block;
+	float: left;
+	font-size: 22px;
+	line-height: 57px;
+	width: 56px;
+	color: #959A98;
+	text-indent: -9999px;
+	background: url(../images/header-logo.png)no-repeat left center;
+	-webkit-background-size: 56px 57px;
+	background-size: 56px 57px;
+	margin-left: 11px;
 }
-.m-header .am-g-fixed{
+
+.m-header .am-g-fixed {
 	max-width: 280px;
 }
-.m-header .m-nav{
+
+.m-header .m-nav {
 	line-height: 50px;
 	text-align: center;
 }
-.m-header .m-nav li a:hover{
+
+.m-header .m-nav li a:hover {
 	background-color: transparent;
 }
-.m-header .m-info{
+
+.m-header .m-info {
 	position: absolute;
 	max-width: 175px;
 	right: 0;
-	top:33px;
+	top: 33px;
 }
-.m-header .m-info div{display: inline-block;}
-.m-header .change{
+
+.m-header .m-info div {
+	display: inline-block;
+}
+
+.m-header .change {
 	float: left;
 	width: 30px;
 	height: 30px;
@@ -90,22 +108,25 @@ ul li {
 	line-height: 25px;
 	cursor: pointer;
 }
-.m-header .news{
+
+.m-header .news {
 	float: left;
 	cursor: pointer;
 	height: 30px;
 	margin-left: 20px;
 }
-.m-header .news i{
+
+.m-header .news i {
 	position: relative;
 	float: left;
 	font-size: 3rem;
 	font-weight: 500;
 	font-style: normal;
-	margin-top:-10px;
+	margin-top: -7px;
 	color: #095f8a
 }
-.m-header .news .news-tip{
+
+.m-header .news .news-tip {
 	position: absolute;
 	width: 14px;
 	height: 14px;
@@ -115,77 +136,107 @@ ul li {
 	text-align: center;
 	line-height: 14px;
 	color: #fff;
-	top:-6px;
-	left: 80px;
+	top: -9px;
+	left: 88px;
 }
-.m-header .change:hover{
-	border:1.5px solid #ccc;
-	color:#ccc;
+
+.m-header .change:hover {
+	border: 1.5px solid #ccc;
+	color: #ccc;
 }
-.m-header .news i:hover{
-	color:#ccc;
+
+.m-header .news i:hover {
+	color: #ccc;
 }
-.m-header .avatar{
+
+.m-header .avatar {
 	float: left;
 	width: 30px;
 	height: 30px;
 	border-radius: 15px;
 	margin-left: 20px;
 }
-.m-header .avatar img{
+
+.m-header .avatar img {
 	width: 100%;
 }
-.m-header .m-dropdown{
+
+.m-header .m-dropdown {
 	width: 100px !important;
 }
 
-.page-title h1{text-align: center;margin-top: 1rem;}
+.page-title h1 {
+	text-align: center;
+	margin-top: 1rem;
+	font-size: 2rem;
+}
 
-.path{
-    background: #fff;
-    padding: 1rem 0;
-    font-size: 1rem;
+.path {
+	background: #fff;
+	padding: 1.4rem 0;
+	font-size: 1.5rem;
 }
 
 /*sidebar style*/
+
 #r-nav .am-offcanvas-bar {
-  width: 130px;
-}
-#r-nav p {
-  border-bottom: 1px solid #4F4F4F;
-  padding-bottom: 20px;
+	width: 130px;
 }
 
-@media only screen and (max-width: 640px){
-	.m-header{padding: 0;height: auto;  }
-	.m-active{margin-top:0px;}
-	.m-active .items li{}
-	.m-course{margin-top: 1rem;}
-	.m-course-list{
+#r-nav p {
+	border-bottom: 1px solid #4F4F4F;
+	padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 640px) {
+	.m-header {
+		padding: 0;
+		height: auto;
+	}
+	.m-active {
+		margin-top: 0px;
+	}
+	.m-course {
+		margin-top: 1rem;
+	}
+	.m-course-list {
 		float: left;
 		margin-left: 0rem;
 		margin-top: 0;
 	}
 }
+
 @media screen and (min-width:768px) and (max-width:1024px) {
-	.m-active{margin-top:40px;}
-	.m-active .item .m-active-info .m-active-name{
+	.m-active {
+		margin-top: 40px;
+	}
+	.m-active .item .m-active-info .m-active-name {
 		max-width: 126px;
 	}
 	.m-topic {
 		font-size: .8rem;
 	}
-	.m-topic-title{
+	.m-topic-title {
 		width: 9rem;
 	}
-	.m-topic li{margin-bottom:1rem;}
-	.m-tab-bd{
+	.m-topic li {
+		margin-bottom: 1rem;
+	}
+	.m-tab-bd {
 		height: 34rem;
 	}
 }
 
 /*因为填写问卷标题页面没有几行样式，没必要专门写一个样式表，所以样式填写问卷标题页面的样式卸载这里*/
-.questionnaires-tip{display: block;font-size: 1rem;color: red;}
+
+.questionnaires-tip {
+	display: block;
+	font-size: 1rem;
+	color: red;
+}
 
 /*footer*/
-.am-footer{background: #f7f7f9;}
+
+.am-footer {
+	background: #f7f7f9;
+}

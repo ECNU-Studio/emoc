@@ -1,0 +1,9 @@
+<div>
+    <div>
+        {% for answer_text in question.answer_texts  %}
+            <div class="option-item">
+                {{ answer_text.text }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
