@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 
 
 # 企业表单
-class Companys(models.Model):
+class companys(models.Model):
     name = models.CharField(max_length=45, verbose_name=_(u"名称"))
     account = models.CharField(max_length=45, verbose_name=_(u"账户"))
     password = models.CharField(max_length=45, verbose_name=_(u"密码"))
@@ -21,7 +21,7 @@ class Companys(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Companys'
+        db_table = 'companys'
         verbose_name = '企业'
         verbose_name_plural = verbose_name
     def __unicode__(self):

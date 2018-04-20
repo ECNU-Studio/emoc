@@ -1,6 +1,6 @@
 # _*_ coding:utf-8 _*_
 import xadmin
-from .models import Companys
+from .models import companys
 
 
 #企业
@@ -12,4 +12,4 @@ class CompanysAdmin(object):
     list_editable = ['name']
     model_icon = 'fas fa-clipboard-list'
 
-xadmin.site.register(Companys, CompanysAdmin)
+xadmin.site.register(companys, CompanysAdmin)
