@@ -1,7 +1,8 @@
 # _*_ coding:utf-8 _*_
-from __future__ import unicode_literals
+import sys
 from django.db import models
 from django.utils.translation import ugettext as _
+from teacheres.models import Teacheres
 
 # Create your models here.
 
@@ -9,8 +10,8 @@ from django.utils.translation import ugettext as _
 class Courses(models.Model):
     name = models.CharField(max_length=45, verbose_name=_(u"课程名称"))
     coursesAbstract = models.TextField(max_length=45, verbose_name=_(u"课程简介"))
-    cover = models.ImageField(max_length=45, verbose_name=_(u"封面"))
-    teacherid = models.IntegerField(default=0,  verbose_name=_(u"讲师id"))
+    cover = models.ImageField(upload_to='images/%Y/%m', verbose_name=_(u"封面"))
+    teacherid = models.ForeignKey(Teacheres,  verbose_name=_(u"讲师id"))
     # state = models.CharField(max_length=45, verbose_name=_(u"是否有效"))
     # honor = models.CharField(max_length=45, verbose_name=_(u"勋章图"))
     # abstractFile = models.CharField(max_length=1000,blank=True, null=True, verbose_name=_(u"简介附件"))
