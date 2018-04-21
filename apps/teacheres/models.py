@@ -3,7 +3,16 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext as _
 from django.db import models
 
+
 # Create your models here.
+
+#课程
+class Courses(models.Model):
+
+    class Meta:
+        db_table = 'courses_courses'
+        managed = False
+        verbose_name = '课程'
 
 #培训师表单
 class Teacheres(models.Model):
@@ -15,6 +24,7 @@ class Teacheres(models.Model):
     weixin = models.CharField(max_length=45, blank=True, null=True ,verbose_name=_(u"微信"))
     # header = models.CharField(max_length=1000, verbose_name=_(u"头像"))
     introduce = models.TextField(max_length=500, verbose_name=_(u"介绍"))
+    # courses = models.ForeignKey(Courses, to_field="id", verbose_name=_(u"课程"))
     # cv = models.CharField(max_length=500, verbose_name=_(u"简历"))
     # openid = models.CharField(max_length=45, verbose_name=_(u"openid"))
     # state = models.BooleanField(choices=(("true", "有效"), ("false", "无效")), verbose_name=_(u"是否有效"))
@@ -31,3 +41,9 @@ class Teacheres(models.Model):
         # db_table = 'teacheres'
     def __unicode__(self):
         return self.name
+
+
+class CoursestoTeachers(models.Model):
+    teacheres = models.ForeignKey(Teacheres, to_field="id" , verbose_name=_(u"培训师"))
+    courses = models.ForeignKey(Courses, to_field="id" , verbose_name=_(u"课程"))
+

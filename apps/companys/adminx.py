@@ -22,12 +22,12 @@ xadmin.site.register(Companys, CompanysAdmin)
 #     search_fields = ['name']
 #     model_icon = 'fas fa-clipboard-list'
 #users
-# class UsersAdmin(object):
-#     list_display = ['name', 'username', 'password', 'tel', 'department', 'position', 'email', 'total_class']
-#     search_fields = ['name']
-#     # list_filter = ['name']
-#     # 列表页直接编辑
-#     list_editable = ['name']
-#     model_icon = 'fas fa-clipboard-list'
-#
-# xadmin.site.register(Users, UsersAdmin)
+class UsersAdmin(object):
+    list_display = ['name', 'username', 'password', 'tel', 'department', 'position', 'email', 'total_class']
+    search_fields = ['name']
+    # list_filter = ['name']
+    # 列表页直接编辑
+    list_editable = ['name']
+    model_icon = 'fas fa-clipboard-list'
+
+xadmin.site.register(Users, UsersAdmin)
