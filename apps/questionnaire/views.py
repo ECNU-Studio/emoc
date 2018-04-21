@@ -5,6 +5,8 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from questionnaire.models import *
+# from users.models import UserProfile
+from nengli8.models import *
 import json
 from hashlib import md5
 
@@ -13,8 +15,15 @@ class QuestionnaireEdit(View):
     """
     编辑问卷
     """
-    def get(self, request, questionnaire_id=None):
-        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
+    def get(self, request, course_id=None):
+        course = get_object_or_404(CourseOld, id=int(course_id))
+        questionnaire = Questionnaire.objects.get(course=course)
+        if not questionnaire:
+            questionnaire = Questionnaire()
+            questionnaire.course = course
+            questionnaire.is_published = False
+            questionnaire.take_nums = 0
+            questionnaire.save()
         questions = questionnaire.questions()
         question_list = []
         for question in questions:
@@ -22,7 +31,6 @@ class QuestionnaireEdit(View):
             question_obj['label'] = question.text
             question_obj['field_type'] = question.type
             question_obj['field_options'] = {}
-
             choices = question.choices()
             options = []
             for choice in choices:
@@ -34,7 +42,6 @@ class QuestionnaireEdit(View):
 
             question_list.append(question_obj)
 
-
         return render(request, 'edit_questionnaire.html', {
             'questionnaire': questionnaire,
             'question_list': json.dumps(question_list)
@@ -45,8 +52,9 @@ class StatisticsShow(View):
     """
     查找当前问卷的统计信息并显示出来
     """
-    def get(self, request, questionnaire_id=None):
-        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
+    def get(self, request, course_id=None):
+        course = get_object_or_404(CourseOld, id=int(course_id))
+        questionnaire = get_object_or_404(Questionnaire, course=course)
         if questionnaire:
             questions = questionnaire.questions()
             for question in questions:
@@ -66,14 +74,13 @@ class StatisticsShow(View):
         })
 
 
-
-
 class QuestionnaireShow(View):
     """
     查找当前问卷并显示出来
     """
-    def get(self, request, questionnaire_id=None, preview=1):
-        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
+    def get(self, request, course_id=None, preview=1):
+        course = get_object_or_404(CourseOld, id=int(course_id))
+        questionnaire = get_object_or_404(Questionnaire, course=course)
         if questionnaire:
             questions = questionnaire.questions()
             for question in questions:
@@ -101,6 +108,7 @@ class QuestionnaireShow(View):
 
         # 反解析URL
         return render(request, 'show_questionnaire.html', {
+            'course': course,
             'questionnaire': questionnaire,
             'questions': questions,
             'preview': preview
@@ -119,11 +127,11 @@ class SubmitQuestionnaire(View):
     def post(self, request):
         # 获取调查者
         if not request.user.is_authenticated():
-            user = User.objects.filter(username='Anonymous')[0:1]
+            user = UserOld.objects.get(username='Anonymous')
         else:
             user = request.user
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))
-        questionnaire = Questionnaire.objects.get(id=questionnaire_id)
+        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
         if questionnaire:
             runinfo = self.save_runinfo(questionnaire, user)
             # 未处理好
@@ -149,7 +157,6 @@ class SubmitQuestionnaire(View):
 class SaveQuestionnaire(View):
     def post(self, request):
         res = dict()
-
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))
         questionnaire = Questionnaire.objects.get(id=questionnaire_id)
         if questionnaire:

@@ -5,24 +5,26 @@ from django.utils.translation import ugettext as _
 # Create your models here.
 
 
-class Course(models.Model):
+class CourseOld(models.Model):
     # id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=52, verbose_name='课程名字', db_column='name')
+    name = models.CharField(max_length=52, verbose_name='课程名字')
 
     def __unicode__(self):
         return self.name
 
     class Meta:
+        verbose_name = '课程'
+        verbose_name_plural = verbose_name
         managed = False
         db_table = 'courses'
 
 
-class User(models.Model):
+class UserOld(models.Model):
     # id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=52, verbose_name='用户名', db_column='name')
+    username = models.CharField(max_length=52, verbose_name='账号', db_column='username')
 
     def __unicode__(self):
-        return self.name
+        return self.username
 
     class Meta:
         managed = False

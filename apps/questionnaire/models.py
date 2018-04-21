@@ -2,16 +2,13 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from nengli8.models import *
-
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
 
 class Questionnaire(models.Model):
-    courseid = models.IntegerField(verbose_name=_(u"课程"))
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"问卷"), related_name='questionnaire_course_id')
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
-    create_time = models.DateTimeField(auto_now_add=True)
-    update_time = models.DateTimeField(auto_now=True)
 
     def questions(self):
         return Question.objects.filter(questionnaire=self).order_by('sortnum')
@@ -19,8 +16,26 @@ class Questionnaire(models.Model):
     def statistics(self):
         return QuestionnaireStatistics.objects.filter(questionnaire=self.id).order_by('qsort')
 
+    def edit_questionnaire(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='/questionnaire/edit/%s' target='_blank'>编辑</a>" % self.id)
+
+    edit_questionnaire.short_description = u"编辑"
+
+    def show_questionnaire(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='/questionnaire/take/%s/1' target='_blank'>预览</a>" % self.id)
+
+    show_questionnaire.short_description = u"预览"
+
+    def show_statistics(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='/questionnaire/statistics/%s/' target='_blank'>统计</a>" % self.id)
+
+    show_statistics.short_description = u"统计"
+
     def __unicode__(self):
-        return self.name
+        return self.course.name
 
     class Meta:
         verbose_name = '问卷'
@@ -73,12 +88,12 @@ class Choice(models.Model):
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    userid = models.IntegerField(verbose_name=_(u"用户"))
+    user = models.ForeignKey(UserOld, verbose_name=_(u"问卷用户"))
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 
     def __unicode__(self):
-        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.questionnaire.name)
+        return "%s: %s" % (self.user.username, self.questionnaire.course.name)
 
     class Meta:
         verbose_name = '记录'
