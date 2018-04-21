@@ -7,7 +7,7 @@ CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星
 
 
 class Questionnaire(models.Model):
-    course = models.ForeignKey(Course, verbose_name=_(u"课程"))
+    courseid = models.IntegerField(verbose_name=_(u"课程"))
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
     create_time = models.DateTimeField(auto_now_add=True)
@@ -73,7 +73,7 @@ class Choice(models.Model):
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    user = models.ForeignKey(User, verbose_name=_(u"用户"))
+    userid = models.IntegerField(verbose_name=_(u"用户"))
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 

@@ -9,7 +9,7 @@ Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
 
 
 class Examination(models.Model):
-    course = models.ForeignKey(Course, verbose_name=_(u"课程"))
+    courseid = models.IntegerField(verbose_name=_(u"课程"))
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
     create_time = models.DateTimeField(auto_now_add=True)
@@ -66,7 +66,7 @@ class Choice(models.Model):
 
 class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    user = models.ForeignKey(User, verbose_name=_(u"用户"), related_name='examination_user_id')
+    userid = models.IntegerField(verbose_name=_(u"用户"))
     examination = models.ForeignKey(Examination, verbose_name=_(u"课程"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"测试时间"))
 
