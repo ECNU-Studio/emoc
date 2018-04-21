@@ -1,62 +1,35 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from users.models import UserProfile
 from django.utils.translation import ugettext as _
+from nengli8.models import *
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
 Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
 
 
-class CourseOld(models.Model):
-    # id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=52, verbose_name='课程名字')
+class Examination(models.Model):
+    course = models.ForeignKey(Course, verbose_name=_(u"课程"))
+    is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
-
-    def questions(self):
-        return Question.objects.filter(course=self).order_by('sortnum')
-
-    def examination(self):
-        examination = Examination.objects.filter(course=self)
-        return examination
+    create_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
 
-    def manage_question(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/edit/%s' target='_blank'>编辑</a>" % self.id)
-
-    manage_question.short_description = u"试题库"
-
-    def show_examination(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/take/%s/1' target='_blank'>预览</a>" % self.id)
-
-    show_examination.short_description = u"预览"
-
-    def show_statistics(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/examination/statistics/%s/' target='_blank'>统计</a>" % self.id)
-
-    show_statistics.short_description = u"统计"
-
     class Meta:
-        verbose_name = '课程试题库'
+        verbose_name = '问卷'
         verbose_name_plural = verbose_name
-        managed = False
-        db_table = 'courses'
-
-
-class PublishedExamination(CourseOld):
-    class Meta:
-        verbose_name = '统计'
-        verbose_name_plural = verbose_name
-        proxy = True
+        # proxy = True
+        permissions = (
+            ("export", "Can export questionnaire answers"),
+            ("management", "Management Tools")
+        )
 
 
 class Question(models.Model):
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
+    examination = models.ForeignKey(Examination, verbose_name=_(u"问卷"))
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     type = models.CharField(max_length=32, choices=CHOICES_TYPE, verbose_name=_(u"题型"))
     text = models.CharField(max_length=128, verbose_name=_(u"问题"))
@@ -74,7 +47,7 @@ class Question(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return u'[%s] (%d) %s' % (self.course, self.sortnum, self.text)
+        return u'[%s] (%d) %s' % (self.examination, self.sortnum, self.text)
 
 
 class Choice(models.Model):
@@ -91,25 +64,14 @@ class Choice(models.Model):
         return u'(%s) %d. %s' % (self.question.sortnum, self.sortnum, self.text)
 
 
-class Examination(models.Model):
-    question = models.ForeignKey(Question, verbose_name=_(u"问题"))
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
-
-    def __unicode__(self):
-        return self
-
-    def get_questions(self):
-        return Question.objects.get(course=self.course)
-
-
 class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
-    user = models.ForeignKey(UserProfile, verbose_name=_(u"用户"), related_name='examination_user_id')
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
+    user = models.ForeignKey(User, verbose_name=_(u"用户"), related_name='examination_user_id')
+    examination = models.ForeignKey(Examination, verbose_name=_(u"课程"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"测试时间"))
 
     def __unicode__(self):
-        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.course.name)
+        return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.examination.name)
 
     class Meta:
         verbose_name = '记录'
@@ -130,7 +92,7 @@ class Answer(models.Model):
 
 # 效率统计
 class ExaminationStatistics(models.Model):
-    course = models.IntegerField()
+    examination = models.IntegerField()
     name = models.CharField(max_length=128, verbose_name=_(u"标题"))
     question = models.IntegerField()
     question_text = models.CharField(max_length=128, verbose_name=_(u"问题"))

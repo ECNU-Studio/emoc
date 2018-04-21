@@ -5,7 +5,6 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from questionnaire.models import *
-from users.models import UserProfile
 import json
 from hashlib import md5
 
@@ -120,7 +119,7 @@ class SubmitQuestionnaire(View):
     def post(self, request):
         # 获取调查者
         if not request.user.is_authenticated():
-            user = UserProfile.objects.filter(username='Anonymous')[0:1]
+            user = User.objects.filter(username='Anonymous')[0:1]
         else:
             user = request.user
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))

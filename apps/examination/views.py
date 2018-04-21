@@ -5,7 +5,6 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from examination.models import *
-from users.models import UserProfile
 import random
 import json
 from hashlib import md5
@@ -16,7 +15,7 @@ class ExaminationShow(View):
     预览试卷
     """
     def get(self, request, course_id=None, preview=1):
-        course = get_object_or_404(CourseOld, id=int(course_id))
+        course = get_object_or_404(Course, id=int(course_id))
         examination = course.examination()
         questions = []
         for exam in examination:
@@ -54,7 +53,7 @@ class StatisticsShow(View):
     查找当前问卷的统计信息并显示出来
     """
     def get(self, request, course_id=None):
-        course = get_object_or_404(CourseOld, id=int(course_id))
+        course = get_object_or_404(Course, id=int(course_id))
         examination = course.examination()
         questions = []
         for exam in examination:
@@ -80,7 +79,7 @@ class QuestionEdit(View):
     编辑试卷
     """
     def get(self, request, course_id=None):
-        course = get_object_or_404(CourseOld, id=int(course_id))
+        course = get_object_or_404(Course, id=int(course_id))
         questions = course.questions()
         question_list = []
         for question in questions:
@@ -113,7 +112,7 @@ class SaveQuestion(View):
     def post(self, request):
         res = dict()
         course_id = int(request.POST.get('course_id', 0))
-        course = CourseOld.objects.get(id=course_id)
+        course = Course.objects.get(id=course_id)
         if course:
             # 删除原有的问题记录
             Question.objects.filter(course=course).delete()
@@ -174,11 +173,11 @@ class SubmitExamination(View):
     def post(self, request):
         # 获取调查者
         if not request.user.is_authenticated():
-            user = UserProfile.objects.filter(username='Anonymous')[0:1]
+            user = User.objects.filter(username='Anonymous')[0:1]
         else:
             user = request.user
         course_id = int(request.POST.get('course_id', 0))
-        course = CourseOld.objects.get(id=course_id)
+        course = Course.objects.get(id=course_id)
         if course:
             takeinfo = self.save_takeinfo(course, user)
             answers = json.loads(request.POST.get('answerStr'))
