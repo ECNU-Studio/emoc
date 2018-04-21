@@ -8,23 +8,29 @@ CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星
 
 Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
 
+
 class Examination(models.Model):
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"), related_name='examination_course_id')
+    course = models.ForeignKey(CourseOld, verbose_name=_(u"问卷"), related_name='examination_course_id')
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
-    create_time = models.DateTimeField(auto_now_add=True)
-    update_time = models.DateTimeField(auto_now=True)
+
+    def questions(self):
+        return Question.objects.filter(questionnaire=self).order_by('sortnum')
+
+    def statistics(self):
+        return ExaminationStatistics.objects.filter(questionnaire=self.id).order_by('qsort')
 
     def __unicode__(self):
-        return self
+        return self.course.name
 
-    def get_questions(self):
-        return Question.objects.get(course=self.course)
+    class Meta:
+        verbose_name = '问卷'
+        verbose_name_plural = verbose_name
 
 
 
 class Question(models.Model):
-    course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
+    examination = models.ForeignKey(Examination, verbose_name=_(u"试卷"))
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     type = models.CharField(max_length=32, choices=CHOICES_TYPE, verbose_name=_(u"题型"))
     text = models.CharField(max_length=128, verbose_name=_(u"问题"))
@@ -34,20 +40,21 @@ class Question(models.Model):
     def choices(self):
         return Choice.objects.filter(question=self).order_by('sortnum')
 
-    def statistics(self):
-        return ExaminationStatistics.objects.values('choice', 'choice_text', 'sum', 'percent').filter(question=self.id).order_by('csort')
+    def get_answer_texts(self):
+        return Answer.objects.values('text').filter(question=self.id).order_by('id')[:5]
 
     class Meta:
         verbose_name = '问题'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return u'[%s] (%d) %s' % (self.course, self.sortnum, self.text)
+        return u'[%s] (%d) %s' % (self.examination, self.sortnum, self.text)
 
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
+    is_answer = models.BooleanField(default=False, verbose_name=u'是否正确答案')
     text = models.CharField(max_length=128, verbose_name=_(u"选项"))
     tags = models.CharField(u"Tags", max_length=64, blank=True, editable=False)
 
@@ -59,14 +66,13 @@ class Choice(models.Model):
         return u'(%s) %d. %s' % (self.question.sortnum, self.sortnum, self.text)
 
 
-
-
-
 class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     user = models.ForeignKey(UserProfile, verbose_name=_(u"用户"), related_name='examination_user_id')
     course = models.ForeignKey(CourseOld, verbose_name=_(u"课程"))
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"测试时间"))
+    score = models.IntegerField(blank=True, null=True)
+    start_time = models.DateTimeField(blank=True, null=True, verbose_name=_(u"开始时间"))
+    end_time = models.DateTimeField(blank=True, null=True, verbose_name=_(u"结束时间"))
 
     def __unicode__(self):
         return "%s, %s: %s" % (self.user.first_name, self.user.last_name, self.course.name)

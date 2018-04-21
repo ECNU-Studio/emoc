@@ -16,35 +16,12 @@ class Questionnaire(models.Model):
     def statistics(self):
         return QuestionnaireStatistics.objects.filter(questionnaire=self.id).order_by('qsort')
 
-    def edit_questionnaire(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/edit/%s' target='_blank'>编辑</a>" % self.id)
-
-    edit_questionnaire.short_description = u"编辑"
-
-    def show_questionnaire(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/take/%s/1' target='_blank'>预览</a>" % self.id)
-
-    show_questionnaire.short_description = u"预览"
-
-    def show_statistics(self):
-        from django.utils.safestring import mark_safe
-        return mark_safe("<a href='/questionnaire/statistics/%s/' target='_blank'>统计</a>" % self.id)
-
-    show_statistics.short_description = u"统计"
-
     def __unicode__(self):
         return self.course.name
 
     class Meta:
         verbose_name = '问卷'
         verbose_name_plural = verbose_name
-        # proxy = True
-        permissions = (
-            ("export", "Can export questionnaire answers"),
-            ("management", "Management Tools")
-        )
 
 
 class Question(models.Model):
