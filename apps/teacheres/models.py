@@ -27,7 +27,7 @@ class Teacheres(models.Model):
     class Meta:
         verbose_name = '培训师'
         verbose_name_plural = verbose_name
-        managed = False
-        db_table = 'teacheres'
+        # managed = False
+        # db_table = 'teacheres'
     def __unicode__(self):
         return self.name

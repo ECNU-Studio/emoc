@@ -12,10 +12,10 @@ class CompanysAdmin(object):
     list_editable = ['name']
     model_icon = 'fas fa-clipboard-list'
 
-class DemoAdmin(object):
-    list_display = ['name']
-    search_fields = ['name']
-    model_icon = 'fas fa-clipboard-list'
+# class DemoAdmin(object):
+#     list_display = ['name']
+#     search_fields = ['name']
+#     model_icon = 'fas fa-clipboard-list'
 
 
 

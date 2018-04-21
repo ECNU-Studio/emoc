@@ -21,8 +21,8 @@ class Companys(models.Model):
     # add_time = models.DateTimeField(default=datetime.now, verbose_name=_(u"添加时间"))
 
     class Meta:
-        managed = False
-        db_table = 'companys'
+        # managed = False
+        # db_table = 'companys'
         verbose_name = '企业'
         verbose_name_plural = verbose_name
 

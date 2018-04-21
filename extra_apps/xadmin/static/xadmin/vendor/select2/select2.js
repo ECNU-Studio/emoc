@@ -1051,7 +1051,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // abstract
         clearDropdownAlignmentPreference: function() {
-            // clear the classes used to figure out the preference of where the dropdown should be opened
+            // clear the class used to figure out the preference of where the dropdown should be opened
             this.container.removeClass("select2-drop-above");
             this.dropdown.removeClass("select2-drop-above");
         },

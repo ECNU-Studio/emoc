@@ -18,14 +18,14 @@ class Courses(models.Model):
     # abstractFileSize = models.CharField(max_length=500, verbose_name=_(u"简介附件文件大小"))
     # abstractFileName = models.CharField(max_length=500, verbose_name=_(u"简介附件名称"))
     # teacher = models.ForeignKey(Teacheres , verbose_name=_(u"此课程的上课教师"))
-    # classes = models.ForeignKey(Classes, verbose_name=_(u"上此课程的班级"))
+    # class = models.ForeignKey(Classes, verbose_name=_(u"上此课程的班级"))
     # catalog = models.ForeignKey(Catalog , verbose_name=_(u"课程目录"))
 
     class Meta:
         verbose_name = '课程'
         verbose_name_plural = verbose_name
-        managed = False
-        db_table = 'courses'
+        # managed = False
+        # db_table = 'courses'
 
     def __unicode__(self):
         return self.name

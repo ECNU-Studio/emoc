@@ -84,7 +84,7 @@ class InputGroup(layout.Field):
         extra_context = {
             'inputs': self.inputs, 
             'input_size': self.input_size,
-            'classes': classes.replace('form-control', '')
+            'class': classes.replace('form-control', '')
         }
         if hasattr(self, 'wrapper_class'):
             extra_context['wrapper_class'] = self.wrapper_class

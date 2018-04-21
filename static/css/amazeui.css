@@ -11180,7 +11180,7 @@ tbody.am-collapse.am-in {
     border: 1px solid #ddd !important;
   }
 }
-/* print helper classes */
+/* print helper class */
 .am-print-block {
   display: none !important;
 }

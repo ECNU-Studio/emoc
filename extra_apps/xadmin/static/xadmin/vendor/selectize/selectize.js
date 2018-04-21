@@ -2646,7 +2646,7 @@
 	
 		/**
 		 * Updates all state-dependent attributes
-		 * and CSS classes.
+		 * and CSS class.
 		 */
 		refreshState: function() {
 			var invalid, self = this;
@@ -2658,7 +2658,7 @@
 		},
 	
 		/**
-		 * Updates all state-dependent CSS classes.
+		 * Updates all state-dependent CSS class.
 		 */
 		refreshClasses: function() {
 			var self     = this;
