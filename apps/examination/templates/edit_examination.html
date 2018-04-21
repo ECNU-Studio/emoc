@@ -36,7 +36,7 @@
                 type: "POST",
                 url: "{% url 'examination:save_question' %}",
                 data: {
-                    course_id:{{ course.id }},
+                    examination_id:{{ examination.id }},
                     payload: payload,
                     question_count: question_count,
                     is_random: is_random

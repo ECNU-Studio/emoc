@@ -17,13 +17,15 @@ class QuestionnaireEdit(View):
     """
     def get(self, request, course_id=None):
         course = get_object_or_404(CourseOld, id=int(course_id))
-        questionnaire = Questionnaire.objects.get(course=course)
-        if not questionnaire:
+        questionnaire_set = Questionnaire.objects.filter(course=course)[0:1]
+        if not questionnaire_set:
             questionnaire = Questionnaire()
             questionnaire.course = course
             questionnaire.is_published = False
             questionnaire.take_nums = 0
             questionnaire.save()
+        else:
+            questionnaire = list(questionnaire_set)[0]
         questions = questionnaire.questions()
         question_list = []
         for question in questions:

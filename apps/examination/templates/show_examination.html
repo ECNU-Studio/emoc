@@ -57,7 +57,7 @@
                     type: "POST",
                     url: "{% url 'examination:submit_examination' %}",
                     data: {
-                        course_id:{{ course.id }},
+                        examination_id:{{ examination.id }},
                         answerStr: JSON.stringify(answerList)
                     },
                     async: true,
