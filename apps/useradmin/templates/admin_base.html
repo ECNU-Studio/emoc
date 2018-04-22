@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}后台管理{% endblock %}
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
+  <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/admin_base.css' %}"/>
+{% endblock %}
+
+{% block custom_content %}
+        <div class="am-g">
+            <div class="am-u-md-3">
+                <div class='menu-list'>
+                    <ul class=" ">
+                      <li><a href="/useradmin/manage/courses">在线课程</a></li>
+                      <li><a href="#">学员问答</a></li>
+                      <li><a href="#">课程评价</a></li>
+                      <li><a href="#">作业批阅</a></li>
+                      <li><a href="#">问卷管理</a></li>
+                      <li><a href="#">测试管理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="am-u-md-9">
+                {% block manage_content %}
+
+                {% endblock %}
+            </div>
+        </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block custom_js %}
+    <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
+  <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
+
+  <script>
+    $(function(){
+        console.log({{ question_list|safe }})
+        fb = new Formbuilder({
+            selector: '.fb-main',
+            bootstrapData: {{ question_list|safe }}
+        });
+        fb.on('save', function(payload){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'questionnaire:save_questionnaire' %}",
+                data: {
+                    questionnaire_id:{{ questionnaire.id }},
+                    payload: payload
+                },
+                async: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(error) {
+                  alert('ajax 失败!')
+                }
+            });
+        })
+        });
+  </script>
+{% endblock %}
