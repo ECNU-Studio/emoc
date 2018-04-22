@@ -106,7 +106,7 @@ class QuestionEdit(View):
             for choice in choices:
                 option = {}
                 option['label'] = choice.text
-                option['checked'] = False
+                option['checked'] = choice.is_answer
                 options.append(option)
             question_obj['field_options']['options'] = options
 
@@ -129,16 +129,20 @@ class SaveQuestion(View):
         examination = Examination.objects.get(id=examination_id)
         if examination:
             # 删除原有的问题记录
-            Question.objects.filter(examination=examination).delete()
             payload = json.loads(request.POST.get('payload'))
             question_list = payload['fields']
             question_count = int(request.POST.get('question_count', 0))
             is_random = request.POST.get('is_random')
+
+            examination.is_random = is_random
+            examination.question_count = question_count
+            examination.save()
+
+            Question.objects.filter(examination=examination).delete()
             for index1, value1 in enumerate(question_list):
                 question = Question()
                 question.examination = examination
                 question.sortnum = index1 + 1
-                # question.type = value1['field_type'].split('-')[0]
                 question.type = value1['field_type']
                 question.text = value1['label']
                 question.save()
@@ -147,10 +151,10 @@ class SaveQuestion(View):
                     for index2, value2 in enumerate(value1['field_options']['options']):
                         choice_obj = Choice()
                         choice_obj.question = question
+                        choice_obj.is_answer = value2['checked']
                         choice_obj.sortnum = index2 + 1
                         choice_obj.text = value2['label']
                         choice_obj.save()
-
             if is_random == 'false':
                 # 生成固定卷
                 questions = Question.objects.filter(examination=examination).order_by('sortnum')[:question_count]

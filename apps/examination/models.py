@@ -6,13 +6,12 @@ from nengli8.models import *
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
-Examination_TYPE = [('fixed', u'固定卷'), ('random', u'随机卷')]
-
-
 class Examination(models.Model):
     course = models.ForeignKey(CourseOld, verbose_name=_(u"问卷"), related_name='examination_course_id')
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
     take_nums = models.IntegerField(default=0, verbose_name=u'参与人数')
+    is_random = models.BooleanField(default=False, verbose_name=u'是否随机')
+    question_count = models.IntegerField(default=0, verbose_name=u'题目数量')
 
     def questions(self):
         return Question.objects.filter(examination=self).order_by('sortnum')

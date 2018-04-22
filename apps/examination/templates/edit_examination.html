@@ -5,22 +5,58 @@
   <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
   <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
   <link rel="stylesheet" href="{% static 'css/edit_questionnaire.css' %}"/>
-{% endblock %}
+  <style>
 
+      .radom_topic{
+          padding: 2rem 0;
+          background: #fff;
+          margin:0 auto;
+          text-align: center;
+          width: 1200px;
+      }
+      .radom_topic #count{
+          background: #ddd;
+          border: 0;
+          color: #fff;
+      }
+      .radom_topic #count:focus{
+          outline: none;
+      }
+      .edit_question_header{
+          padding: 1rem 0 ;
+          background: #094270;
+          color: #fff;
+          margin-bottom: 2rem;
+      }
+      .edit_question_header h1{
+          padding: 0;
+          margin:0 ;
+      }
+  </style>
+{% endblock %}
+{% block custom_header %}
+<div class="edit_question_header">
+    <div class="am-container" style="padding: 0;">
+        <h1>表单设计器</h1>
+    </div>
+</div>
+{% endblock%}
 {% block custom_content %}
 
     <div class='fb-main'>
 
     </div>
-    <input id="random" type="checkbox" name="random">随机题
-    题目数量：<input id="count" type="text" name="question-count">
+    <div class="radom_topic">
+        <input id="random" type="checkbox" name="random" {% if examination.is_random %}checked{% endif %}>随机题
+        题目数量：<input id="count" type="text" name="question-count" value="{{ examination.question_count }}">
+    </div>
 {% endblock %}
 
 
 
 {% block custom_js %}
     <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
-  <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
+  <script src="{% static 'plugins/formbuilder/formbuilder-exam.js' %}"></script>
 
   <script>
     $(function(){
@@ -29,6 +65,7 @@
             bootstrapData: {{ question_list|safe }}
         });
         fb.on('save', function(payload){
+            console.log(payload);
             question_count = $("#count").val() || 0
             is_random = document.getElementById("random").checked
             $.ajax({
