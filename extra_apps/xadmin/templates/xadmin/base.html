@@ -10,6 +10,7 @@
   {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
   <title>{% block title %}{% endblock %}</title>
   <link rel="alternate icon" type="image/png" href="{% static "xadmin/images/favicon.png" %}">
+   {% block custom_css %} {% endblock %}
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "xadmin/css/rtl.css" %}{% endblock %}" />{% endif %}
   {% vendor 'bootstrap.css' %}
   {% if site_theme %}

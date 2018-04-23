@@ -1,18 +1,30 @@
 {% extends 'xadmin/base.html' %}
 {% load i18n xadmin_tags %}
 {% block title %}{{ title }} | {{ site_title }}{% endblock %}
+{% block custom_css %}
+<style>
+  .fei_nav {
+    background: #094270;
+  }
 
+  .fei_brand {
+    padding: 6px 0 15px !important;
+  }
+
+  .fei_search_form form {
+    margin-top: -12px;
+  }
+</style>
+{% endblock %}
 {% block body %}
   <!-- Header -->
   {% block top-nav %}
-  <div id="top-nav" class="navbar navbar-xs navbar-inverse">
+  <div id="top-nav" class="navbar navbar-xs navbar-inverse fei_nav">
     <div class="navbar-header col-sm-1 col-md-2">
-      <a class="navbar-brand" href="/xadmin">
+      <a class="navbar-brand fei_brand" href="/xadmin">
           <img src="{% static "xadmin/images/favicon.png" %}" alt="logo">
           {% block branding %}{{ site_title }}{% endblock %}
       </a>
-
-
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
@@ -31,7 +43,9 @@
         {% endif %}
         <li><a href="{% url 'xadmin:logout' %}"><i class="show-sm fa fa-sign-out"></i><span class="hide-sm">{% trans 'Log out' %}</span></a></li>
       </ul>
-      {% view_block 'top_navbar' %}
+      <div class="fei_search_form">
+        {% view_block 'top_navbar' %}
+      </div>
     </div>
   </div>
   {% endblock %}
