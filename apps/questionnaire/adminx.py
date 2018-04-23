@@ -14,11 +14,11 @@ class ChoiceInline(object):
 
 
 class QuestionnaireAdmin(object):
-    list_display = ['name', 'edit_questionnaire', 'show_questionnaire']
-    search_fields = ['name']
-    list_filter = ['name']
+    list_display = ['course', 'edit_questionnaire', 'show_questionnaire']
+    search_fields = ['course']
+    list_filter = ['course']
     # 列表页直接编辑
-    list_editable = ['name']
+    list_editable = ['course']
     model_icon = 'fas fa-clipboard-list'
     # 不显示字段
     exclude = ['take_nums']

@@ -1,0 +1,11 @@
+<div class="question-multi">
+    {% for choice in question.choices  %}
+        <div class="am-checkbox">
+            <label >
+                <input name="{{ question.id }}"
+                       {% if preview == '1' and choice.is_answer %}checked{% endif %}
+                       data-schema-key="{{ question.id }}" type="checkbox" data-am-ucheck value="{{ choice.id }}">{{ choice.text }}
+            </label>
+        </div>
+    {% endfor %}
+</div>

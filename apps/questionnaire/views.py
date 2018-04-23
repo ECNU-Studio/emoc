@@ -128,12 +128,11 @@ class SubmitQuestionnaire(View):
 
     def post(self, request):
         # 获取调查者
-        if not request.user.is_authenticated():
-            user = UserOld.objects.get(username='Anonymous')
-        else:
-            user = request.user
+        # 根据userid获取
+        user_id = int(request.POST.get('user_id', 1))
+        user = get_object_or_404(UserOld, id=user_id)
         questionnaire_id = int(request.POST.get('questionnaire_id', 0))
-        questionnaire = get_object_or_404(Questionnaire, id=int(questionnaire_id))
+        questionnaire = get_object_or_404(Questionnaire, id=questionnaire_id)
         if questionnaire:
             runinfo = self.save_runinfo(questionnaire, user)
             # 未处理好

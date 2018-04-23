@@ -69,9 +69,6 @@ class RunInfo(models.Model):
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=_(u"问卷"))
     create_time = models.DateTimeField(auto_now_add=True, verbose_name=_(u"问卷时间"))
 
-    def __unicode__(self):
-        return "%s: %s" % (self.user.username, self.questionnaire.course.name)
-
     class Meta:
         verbose_name = '记录'
         verbose_name_plural = verbose_name

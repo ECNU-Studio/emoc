@@ -36,11 +36,15 @@
 
         </div>
 
-        {% if preview == '1' %}
-            <div>
+
+        <div>
+            {% if preview == '1' %}
+                <button id="js-questionnaire-publish" class="am-btn am-btn-primary am-center">发布</button>
+                {% else %}
                 <button id="js-questionnaire-submit" class="am-btn am-btn-primary am-center">完成</button>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
+
     </div>
 {% endblock %}
 

@@ -1,0 +1,10 @@
+<div class="question-choice">
+    {% for choice in question.choices  %}
+        <div class="am-radio">
+            <label >
+                <input type="radio" name="{{ question.id }}" data-schema-key="{{ question.id }}" value="{{ choice.id }}" data-am-ucheck>{{ choice.text }}
+            </label>
+        </div>
+    {% endfor %}
+</div>
+

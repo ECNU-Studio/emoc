@@ -691,11 +691,11 @@
 
 // 多选
 (function() {
-  Formbuilder.registerField('checkbox', {
+  Formbuilder.registerField('checkboxes', {
     order: 2,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='checkbox' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='checkbox' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-check-square\"></span></span>&nbsp;多选",
+    addButton: "<span class=\"symbol\"><span class=\"fa fa-square-o\"></span></span>&nbsp;多选",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -711,6 +711,7 @@
   });
 
 }).call(this);
+
 // 问答
 (function() {
   Formbuilder.registerField('text', {
@@ -775,7 +776,17 @@ return __p
 };
 
 this["Formbuilder"]["templates"]["edit/checkboxes"] = function(obj) {
-return ''
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
+((__t = ( Formbuilder.options.mappings.REQUIRED )) == null ? '' : __t) +
+'\' />\n  Required\n</label>\n<!-- label>\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
+((__t = ( Formbuilder.options.mappings.ADMIN_ONLY )) == null ? '' : __t) +
+'\' />\n  Admin only\n</label -->';
+
+}
+return __p
 };
 
 this["Formbuilder"]["templates"]["edit/common"] = function(obj) {

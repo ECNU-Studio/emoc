@@ -22,26 +22,7 @@ class ExaminationShow(View):
             questions = examination.questions_use()
             for question in questions:
                 question.choices = question.choices()
-                question.template = "question_type/%s.html" % question.type
-
-        # 判断用户登录状态
-        # res = dict()
-        # if not request.user.is_authenticated():
-        #     res['status'] = 'fail'
-        #     res['msg'] = u'用户未登录'
-        #     return HttpResponse(json.dumps(res), content_type='application/json')
-        # if qu:
-        #     # 生成唯一key
-        #     str_to_hash = "".join(map(lambda i: chr(random.randint(0, 255)), range(16)))
-        #     str_to_hash += settings.SECRET_KEY
-        #     key = md5(str_to_hash).hexdigest()
-        #
-        #     run = RunInfo()
-        #     # run.subject = request.user
-        #     run.random = key
-        #     run.runid = key
-        #     run.questionnaire = qu
-        #     run.save()
+                question.template = "question_type/exam-%s.html" % question.type
 
         # 反解析URL
         return render(request, 'show_examination.html',
@@ -58,8 +39,6 @@ class StatisticsShow(View):
     def get(self, request, course_id=None):
         course = get_object_or_404(CourseOld, id=int(course_id))
         examination = get_object_or_404(Examination, course=course)
-
-
         if examination:
             questions = examination.questions_use()
             for question in questions:
@@ -186,10 +165,9 @@ class SubmitExamination(View):
 
     def post(self, request):
         # 获取调查者
-        if not request.user.is_authenticated():
-            user = UserOld.objects.get(username='Anonymous')
-        else:
-            user = request.user
+        # 根据userid获取
+        user_id = int(request.POST.get('user_id', 1))
+        user = get_object_or_404(UserOld, id=user_id)
         examination_id = int(request.POST.get('examination_id', 0))
         examination = get_object_or_404(Examination, id=int(examination_id))
         if examination:

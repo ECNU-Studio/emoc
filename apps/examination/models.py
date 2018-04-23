@@ -99,7 +99,7 @@ class Answer(models.Model):
         return "Answer(%s: %s, %s)" % (self.question.sortnum, self.question.text, self.text)
 
 
-# 效率统计
+# 统计
 class ExaminationStatistics(models.Model):
     examination = models.IntegerField()
     name = models.CharField(max_length=128, verbose_name=_(u"标题"))
