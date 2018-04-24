@@ -175,15 +175,27 @@ class SubmitExamination(View):
             # 未处理好
             answers = json.loads(request.POST.get('answerStr'))
             for answer_obj in answers:
+                right_num = 0
+                question_id = answer_obj["question_id"]
                 choices = answer_obj["choice"].split(',')
+                answerObjs = Choice.objects.filter(question_id=int(question_id), is_answer=True).values('id')
+                answers = []
+                for answerObj in answerObjs:
+                    answers.append(answerObj.get('id'))
+                if answers == choices:
+                    right_num = right_num + 1
+                print(choices == answers)
                 for choice in choices:
                     answer = Answer()
-                    answer.question = answer_obj["question_id"]
+                    answer.question = question_id
+                    # 去除空格
                     if choice.strip():
                         answer.choice = int(choice)
                     answer.text = answer_obj["text"]
                     answer.takeinfo = takeinfo
                     answer.save()
+            takeinfo.score = (100/examination.question_count)*right_num
+            takeinfo.save()
             examination.take_nums += 1
             examination.save()
             res = dict()

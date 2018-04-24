@@ -6,6 +6,7 @@ from nengli8.models import *
 
 CHOICES_TYPE = [('radio', u'单选'), ('checkbox', u'多选'), ('star', u'打星'), ('text', u'问答')]
 
+
 class Examination(models.Model):
     course = models.ForeignKey(CourseOld, verbose_name=_(u"问卷"), related_name='examination_course_id')
     is_published = models.BooleanField(default=False, verbose_name=u'是否发布')
@@ -41,6 +42,10 @@ class Question(models.Model):
 
     def choices(self):
         return Choice.objects.filter(question=self).order_by('sortnum')
+
+    def get_answers(self):
+        choices = Choice.objects.filter(question=self, is_answer=True).values('id').order_by('sortnum')
+        return choices
 
     def statistics(self):
         return ExaminationStatistics.objects.values('choice', 'choice_text', 'sum', 'percent').filter(question=self.id).order_by('csort')

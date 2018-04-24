@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>用户</th>
+            <td>分数</td>
             <th>考试时间</th>
             <th>操作</th>
         </tr>
@@ -10,6 +11,7 @@
         {% for takeinfo in takeinfos  %}
             <tr>
                 <td>{{ takeinfo.user }}</td>
+                <td>{{ takeinfo.score }}</td>
                 <td>{{ takeinfo.create_time }}</td>
                 <td><a href="#" target="_blank">查看详细</a></td>
             </tr>
