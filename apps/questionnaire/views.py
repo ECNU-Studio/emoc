@@ -75,6 +75,28 @@ class StatisticsShow(View):
             'runinfos': runinfos
         })
 
+class ShowRuninfoDetail(View):
+    """
+    查找一个问卷的答案显示
+    """
+    def get(self, request, runinfo_id=None):
+        runinfo = get_object_or_404(RunInfo, id=int(runinfo_id))
+        questionnaire = get_object_or_404(Questionnaire, id=runinfo.questionnaire_id)
+        if questionnaire:
+            questions = questionnaire.questions()
+            for question in questions:
+                choices = question.choices()
+                for choice in choices:
+                    if Answer.objects.filter(runinfo=runinfo.id, question=question.id, choice=choice.id).exists():
+                        choice.checked = True
+                question.choices = choices
+                question.template = "runinfo_detail_type/%s.html" % question.type
+                # 反解析URL
+        return render(request, 'show_runinfo_detail.html', {
+            'questions': questions
+        })
+
+
 
 class QuestionnaireShow(View):
     """
@@ -88,25 +110,6 @@ class QuestionnaireShow(View):
             for question in questions:
                 question.choices = question.choices()
                 question.template = "question_type/%s.html" % question.type
-
-        # 判断用户登录状态
-        # res = dict()
-        # if not request.user.is_authenticated():
-        #     res['status'] = 'fail'
-        #     res['msg'] = u'用户未登录'
-        #     return HttpResponse(json.dumps(res), content_type='application/json')
-        # if qu:
-        #     # 生成唯一key
-        #     str_to_hash = "".join(map(lambda i: chr(random.randint(0, 255)), range(16)))
-        #     str_to_hash += settings.SECRET_KEY
-        #     key = md5(str_to_hash).hexdigest()
-        #
-        #     run = RunInfo()
-        #     # run.subject = request.user
-        #     run.random = key
-        #     run.runid = key
-        #     run.questionnaire = qu
-        #     run.save()
 
         # 反解析URL
         return render(request, 'show_questionnaire.html', {
