@@ -58,6 +58,28 @@ class StatisticsShow(View):
         })
 
 
+class ShowTakeinfoDetail(View):
+    """
+    查找一个问卷的答案显示
+    """
+    def get(self, request, takeinfo_id=None):
+        takeinfo = get_object_or_404(TakeInfo, id=int(takeinfo_id))
+        examination = get_object_or_404(Examination, id=takeinfo.examination_id)
+        if examination:
+            questions = examination.questions_use()
+            for question in questions:
+                choices = question.choices()
+                for choice in choices:
+                    if Answer.objects.filter(takeinfo=takeinfo.id, question=question.id, choice=choice.id).exists():
+                        choice.checked = True
+                question.choices = choices
+                question.template = "takeinfo_detail_type/%s.html" % question.type
+                # 反解析URL
+        return render(request, 'show_takeinfo_detail.html', {
+            'takeinfo': takeinfo,
+            'questions': questions
+        })
+
 class QuestionEdit(View):
     """
     编辑试卷
@@ -174,17 +196,16 @@ class SubmitExamination(View):
             takeinfo = self.save_takeinfo(examination, user)
             # 未处理好
             answers = json.loads(request.POST.get('answerStr'))
+            right_num = 0
             for answer_obj in answers:
-                right_num = 0
                 question_id = answer_obj["question_id"]
                 choices = answer_obj["choice"].split(',')
                 answerObjs = Choice.objects.filter(question_id=int(question_id), is_answer=True).values('id')
                 answers = []
                 for answerObj in answerObjs:
-                    answers.append(answerObj.get('id'))
+                    answers.append(str(answerObj.get('id')))
                 if answers == choices:
                     right_num = right_num + 1
-                print(choices == answers)
                 for choice in choices:
                     answer = Answer()
                     answer.question = question_id
@@ -194,6 +215,7 @@ class SubmitExamination(View):
                     answer.text = answer_obj["text"]
                     answer.takeinfo = takeinfo
                     answer.save()
+
             takeinfo.score = (100/examination.question_count)*right_num
             takeinfo.save()
             examination.take_nums += 1

@@ -13,7 +13,7 @@
                 <td>{{ takeinfo.user }}</td>
                 <td>{{ takeinfo.score }}</td>
                 <td>{{ takeinfo.create_time }}</td>
-                <td><a href="#" target="_blank">查看详细</a></td>
+                <td><a href="/examination/show/{{ takeinfo.id }}/" target="_blank">查看详细</a></td>
             </tr>
         {% endfor %}
     </tbody>
