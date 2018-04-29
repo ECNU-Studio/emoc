@@ -50,7 +50,7 @@ class StatisticsShow(View):
                     question.statistics = question.statistics()
                 question.template = "statistics_type/%s.html" % question.type
 
-            takeinfos = TakeInfo.objects.filter(examination=examination)[:10]
+            takeinfos = TakeInfo.objects.filter(examination=examination).order_by('score')
 
         # 反解析URL
         return render(request, 'examination_statistics.html', {
