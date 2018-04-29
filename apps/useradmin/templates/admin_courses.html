@@ -1,4 +1,47 @@
 {% extends 'admin_base.html' %}
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul class="crumbs">
+                <li><a href="{% url 'index' %}">后台管理</a>></li>
+                <li>课程管理</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
 {% block manage_content %}
-    <P>DFASDFDSFSFSFSD</P>
+   <div>
+       <button type="button" class="am-btn am-btn-primary">创建课程</button>
+        <button type="button" class="am-btn am-btn-primary">删除课程</button>
+      </div>
+    <div>
+    {% for courses in all_courses %}
+{#            <dl class="des difdes">#}
+{#            <dt>#}
+{#              <a href="{% url 'org:org_home' org.id %}">#}
+{#                <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>#}
+{#              </a>#}
+{#            </dt>#}
+{#            <dd>#}
+{#              <div class="clearfix">#}
+{#                <a href="{% url 'org:org_home' org.id %}">#}
+{#                  <h1>{{ org.name }}</h1>#}
+{#                  <div class="pic fl">#}
+{#                    <img src="{% static 'images/authentication.png' %}"/>#}
+{#                    <img src="{% static 'images/gold.png' %}"/>#}
+{#                  </div>#}
+{#                </a>#}
+{#              </div>#}
+              <ul class="cont">
+                <li class="first">
+{#                    <p class="">课程封面<span>{{ org.nums }}</span></p>#}
+                    <p class="">课程名称<span>{{ org.nums }}</span></p>
+                    <p class="">上课教师<span>{{ org.teacherid }}</span></p>
+                    <p class="">课程描述<span>{{ org.coursesabstract }}</span></p>
+                </li>
+              </ul>
+{#            </dd>#}
+{#          </dl>#}
+          {% endfor %}
+    </div>
 {% endblock %}
