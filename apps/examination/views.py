@@ -69,6 +69,7 @@ class ShowTakeinfoDetail(View):
         examination = get_object_or_404(Examination, id=takeinfo.examination_id)
         if examination:
             questions = examination.questions_use()
+            questions.count = questions.count()
             for question in questions:
                 choices = question.choices()
                 for choice in choices:

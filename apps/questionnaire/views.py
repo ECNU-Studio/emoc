@@ -107,6 +107,7 @@ class QuestionnaireShow(View):
         questionnaire = get_object_or_404(Questionnaire, course=course)
         if questionnaire:
             questions = questionnaire.questions()
+            questions.count = questions.count()
             for question in questions:
                 question.choices = question.choices()
                 question.template = "question_type/%s.html" % question.type
