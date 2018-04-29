@@ -9,6 +9,8 @@ from users.models import UserProfile
 import random
 import json
 from hashlib import md5
+from datetime import *
+import time
 
 
 class ExaminationShow(View):
@@ -176,12 +178,39 @@ class SaveQuestion(View):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
+class CancelExamination(View):
+    def post(self, request):
+        examination_id = int(request.POST.get('examination_id', 0))
+        examination = get_object_or_404(Examination, id=int(examination_id))
+        if examination:
+            examination.is_published = False
+            examination.save()
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '已取消'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class PublishExamination(View):
+    def post(self, request):
+        examination_id = int(request.POST.get('examination_id', 0))
+        examination = get_object_or_404(Examination, id=int(examination_id))
+        if examination:
+            examination.is_published = True
+            examination.save()
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '发布成功'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
 class SubmitExamination(View):
     # 保存记录
     def save_takeinfo(self, examination, user):
         takeinfo = TakeInfo()
         takeinfo.user = user
         takeinfo.examination = examination
+        takeinfo.end_time = time.time()
         takeinfo.save()
         return takeinfo
 
