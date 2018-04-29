@@ -1,0 +1,7 @@
+{% for statistic in question.statistics  %}
+    <div class="option-item">
+        <p>{{ statistic.choice_text }}</p>
+            {% include 'process_bar.html' %}
+        <hr>
+    </div>
+{% endfor %}
