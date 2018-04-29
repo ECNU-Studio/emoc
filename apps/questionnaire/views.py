@@ -120,6 +120,32 @@ class QuestionnaireShow(View):
         })
 
 
+class CancelQuestionnaire(View):
+    def post(self, request):
+        questionnaire_id = int(request.POST.get('questionnaire_id', 0))
+        questionnaire = get_object_or_404(Questionnaire, id=questionnaire_id)
+        if questionnaire:
+            questionnaire.is_published = False
+            questionnaire.save()
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '已取消 '
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class PublishQuestionnaire(View):
+    def post(self, request):
+        questionnaire_id = int(request.POST.get('questionnaire_id', 0))
+        questionnaire = get_object_or_404(Questionnaire, id=questionnaire_id)
+        if questionnaire:
+            questionnaire.is_published = True
+            questionnaire.save()
+            res = dict()
+            res['status'] = 'success'
+            res['msg'] = '发布成功'
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
 class SubmitQuestionnaire(View):
     # 保存记录
     def save_runinfo(self, questionnaire, user):

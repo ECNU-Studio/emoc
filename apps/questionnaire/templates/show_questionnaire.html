@@ -36,11 +36,15 @@
 
         </div>
 
-        {% if preview == '1' %}
-            <div>
+        <div>
+            {% if preview == '1' %}
                 <button id="js-questionnaire-submit" class="am-btn am-btn-primary am-center">完成</button>
-            </div>
-        {% endif %}
+                {% elif questionnaire.is_published == False %}
+                    <button id="js-questionnaire-publish" class="am-btn am-btn-primary am-center">发布</button>
+                {% else %}
+                    <button id="js-questionnaire-cancel" class="am-btn am-btn-primary am-center">取消发布</button>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
@@ -56,6 +60,50 @@
            user_id = strs[1];
         }
         $(function () {
+            $('#js-questionnaire-cancel').on('click',function(){
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'questionnaire:cancel_questionnaire' %}",
+                    data: {
+                        questionnaire_id:{{ questionnaire.id }}
+                    },
+                    async: true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        alert(data.msg);
+                        location.reload();
+                    },
+                    error: function(error) {
+                      alert('ajax 失败!')
+                    }
+                });
+            });
+
+            $('#js-questionnaire-publish').on('click',function(){
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'questionnaire:publish_questionnaire' %}",
+                    data: {
+                        questionnaire_id:{{ questionnaire.id }}
+                    },
+                    async: true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        alert(data.msg);
+                        location.reload();
+                    },
+                    error: function(error) {
+                      alert('ajax 失败!')
+                    }
+                });
+            });
+
             //提交表单
             $('#js-questionnaire-submit').on('click',function(){
                 $.ajax({
@@ -73,6 +121,7 @@
                     },
                     success: function (data) {
                         alert(data.msg);
+                        location.reload();
                     },
                     error: function(error) {
                       alert('ajax 失败!')
