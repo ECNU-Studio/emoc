@@ -7,12 +7,21 @@
 {% endblock %}
 
 {% block custom_header %}
+    {% if preview == '1' %}
+        <div id="timer" style="color:red"></div>
     <header class="m-header">
     <section class="am-show-md-up" data-am-sticky>
-      剩余作答时间：
+
+        <div>
+        <span>剩余作答时间</span>
+        <span id="_h">00</span>
+        <span id="_m">00</span>
+        <span id="_s">00</span>
+    </div>
       </div>
     </section>
     </header>
+    {% endif %}
 {% endblock %}
 
 {% block custom_content %}
@@ -40,7 +49,7 @@
 
         <!-- 问卷的内容 -->
         <div class="am-form subject">
-            <div class="problem-set">
+            <div class="problem-set" id="question-list">
                  {% for question in questions %}
                      <label for="question-title">
                          {{ question.sortnum }}.&nbsp;{{ question.text }}
@@ -67,6 +76,8 @@
 {% block custom_js %}
     <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
     <script>
+
+
         /**
 * 时间对象的格式化
 */
@@ -119,8 +130,45 @@ return format;
                 return false;
             }
         }
+//获取当前时间
+var date = new Date();
+var now = date.getTime();
+//设置截止时间
+var endDate = new Date();
+endDate.setMinutes(date.getMinutes() + 20, date.getSeconds(), 0)
+var end = endDate.getTime();
+var is_timeout = false;
+
+ var timer = setInterval(function countTime() {
+                //获取当前时间
+                var date = new Date();
+                var now = date.getTime();
+                //时间差
+                var leftTime = end-now;
+                //定义变量 d,h,m,s保存倒计时的时间
+                var h,m,s;
+                if (leftTime>=0) {
+                    h = Math.floor(leftTime/1000/60/60%24);
+                    m = Math.floor(leftTime/1000/60%60);
+                    s = Math.floor(leftTime/1000%60);
+                }
+                //将倒计时赋值到div中
+                document.getElementById("_h").innerHTML = h+":";
+                document.getElementById("_m").innerHTML = m+":";
+                document.getElementById("_s").innerHTML = s+":";
+            },1000);
+
+
+            setInterval(function timeOut() {
+                is_timeout = true;
+                clearInterval(timer);
+                $('.choice').attr("disabled","disabled");
+
+            },1200*1000);
+
 
         $(function () {
+
             $('#js-examination-cancel').on('click',function(){
                 $.ajax({
                     cache: false,
@@ -179,7 +227,8 @@ return format;
 
 
                 var is_finished = CheckFinished();
-                if(is_finished){
+
+                if(is_finished || is_timeout){
                    var end_time = new Date();
                     $.ajax({
                         cache: false,

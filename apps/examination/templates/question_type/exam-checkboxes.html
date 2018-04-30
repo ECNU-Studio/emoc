@@ -2,7 +2,7 @@
     {% for choice in question.choices  %}
         <div class="am-checkbox">
             <label >
-                <input name="{{ question.id }}" {% if preview == '0' and choice.is_answer %}checked{% endif %} data-schema-key="{{ question.id }}" type="checkbox" data-am-ucheck value="{{ choice.id }}">{{ choice.text }}
+                <input class="choice" name="{{ question.id }}" {% if preview == '0' and choice.is_answer %}checked{% endif %} data-schema-key="{{ question.id }}" type="checkbox" data-am-ucheck value="{{ choice.id }}">{{ choice.text }}
             </label>
         </div>
     {% endfor %}
