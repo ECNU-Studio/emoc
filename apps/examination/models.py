@@ -35,7 +35,7 @@ class Question(models.Model):
     examination = models.ForeignKey(Examination, verbose_name=_(u"试卷"))
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     type = models.CharField(max_length=32, choices=CHOICES_TYPE, verbose_name=_(u"题型"))
-    text = models.CharField(max_length=128, verbose_name=_(u"问题"))
+    text = models.TextField(verbose_name=_(u"问题"))
     is_use = models.BooleanField(default=False, verbose_name=u'是否使用')
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
@@ -65,7 +65,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     sortnum = models.IntegerField(default=1, verbose_name=_(u"序号"))
     is_answer = models.BooleanField(default=False, verbose_name=u'是否正确答案')
-    text = models.CharField(max_length=128, verbose_name=_(u"选项"))
+    text = models.TextField(verbose_name=_(u"选项"))
     tags = models.CharField(u"Tags", max_length=64, blank=True, editable=False)
 
     class Meta:
@@ -79,6 +79,8 @@ class Choice(models.Model):
 class TakeInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     user = models.ForeignKey(UserOld, verbose_name=_(u"问卷用户"))
+    num = models.CharField(blank=True, null=True, max_length=128, verbose_name=_(u"学号"))
+    name = models.CharField(blank=True, null=True, max_length=128, verbose_name=_(u"姓名"))
     examination = models.ForeignKey(Examination, verbose_name=_(u"课程"))
     score = models.IntegerField(blank=True, null=True)
     start_time = models.DateTimeField(blank=True, null=True, verbose_name=_(u"开始时间"))
