@@ -6,29 +6,20 @@
     <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
 {% endblock %}
 
-{% block custom_header %}
-    {% if preview == '1' %}
-        <div id="timer" style="color:red"></div>
-    <header class="m-header">
-    <section class="am-show-md-up" data-am-sticky>
 
-        <div>
-        <span>剩余作答时间</span>
-        <span id="_h">00</span>
-        <span id="_m">00</span>
-        <span id="_s">00</span>
-    </div>
-      </div>
-    </section>
-    </header>
-    {% endif %}
-{% endblock %}
 
 {% block custom_content %}
     <div class="am-container content questionnaire">
         <div class="preview-question-title am-animation-fade">
             <h2 class="am-vertical-align-middle">{{ course.name }}</h2>
         </div>
+    {% if preview == '1' %}
+        <div class="am-container content timmer">
+        <span id="_h">00</span>
+        <span id="_m">00</span>
+        <span id="_s">00</span>
+        </div>
+    {% endif %}
 
         {% if preview == '1' %}
             <label for="question-title">
