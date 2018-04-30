@@ -9,10 +9,7 @@
 {% block custom_header %}
     <header class="m-header">
     <section class="am-show-md-up" data-am-sticky>
-      <div class="am-g">
-        <div class=" am-u-sm-2 am-u-md-1 am-fl">
-          <a href="/" rel="nofollow" class="m-logo"><i class="am-icon-spinner"></i>EduSoho</a>
-        </div>
+      剩余作答时间：
       </div>
     </section>
     </header>
@@ -23,6 +20,24 @@
         <div class="preview-question-title am-animation-fade">
             <h2 class="am-vertical-align-middle">{{ course.name }}</h2>
         </div>
+
+        {% if preview == '1' %}
+            <label for="question-title">
+                         Student Name：
+                    </label>
+            <div class="am-form-group am-form-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" class="am-form-field am-round" placeholder="姓名" id="stu_name">
+              </div>
+            <label for="question-title">
+                         Student Number：
+                    </label>
+            <div class="am-form-group am-form-icon">
+                <i class="fas fa-graduation-cap"></i>
+                <input type="text" class="am-form-field am-round" placeholder="学号" id="stu_num">
+              </div>
+        {% endif %}
+
         <!-- 问卷的内容 -->
         <div class="am-form subject">
             <div class="problem-set">
@@ -33,7 +48,6 @@
                     {% include question.template %}
                 {% endfor %}
             </div>
-
         </div>
 
 
@@ -56,8 +70,8 @@
         /**
 * 时间对象的格式化
 */
-Date.prototype.format = function(format)
-{
+        Date.prototype.format = function(format)
+        {
 /*
 * format="yyyy-MM-dd hh:mm:ss";
 */
@@ -152,6 +166,18 @@ return format;
 
             //提交表单
             $('#js-examination-submit').on('click',function(){
+                var stu_name = $('#stu_name').val();
+                if(stu_name==null || stu_name== ""){
+                    alert('Please input Student Name!');
+                    return;
+                }
+                var stu_num = $('#stu_num').val();
+                if(stu_num==null || stu_num== ""){
+                    alert('Please input Student Number!');
+                    return;
+                }
+
+
                 var is_finished = CheckFinished();
                 if(is_finished){
                    var end_time = new Date();
@@ -164,7 +190,9 @@ return format;
                             examination_id:{{ examination.id }},
                             answerStr: JSON.stringify(answerList),
                             start_time: start_time.format("yyyy-MM-dd hh:mm:ss"),
-                            end_time: end_time.format("yyyy-MM-dd hh:mm:ss")
+                            end_time: end_time.format("yyyy-MM-dd hh:mm:ss"),
+                            stu_num: stu_num,
+                            stu_name: stu_name
                         },
                         async: true,
                         beforeSend: function (xhr) {

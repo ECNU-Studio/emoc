@@ -208,12 +208,14 @@ class PublishExamination(View):
 
 class SubmitExamination(View):
     # 保存记录
-    def save_takeinfo(self, examination, user, start_time, end_time):
+    def save_takeinfo(self, examination, user, start_time, end_time, stu_name, stu_num):
         takeinfo = TakeInfo()
         takeinfo.user = user
         takeinfo.examination = examination
         takeinfo.start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
         takeinfo.end_time = datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+        takeinfo.num = stu_num
+        takeinfo.name = stu_name
         takeinfo.save()
         return takeinfo
 
@@ -226,8 +228,10 @@ class SubmitExamination(View):
         examination = get_object_or_404(Examination, id=int(examination_id))
         start_time = request.POST.get('start_time', '')
         end_time = request.POST.get('end_time', '')
+        stu_name = request.POST.get('stu_name', '')
+        stu_num = request.POST.get('stu_num', '')
         if examination:
-            takeinfo = self.save_takeinfo(examination, user, start_time, end_time)
+            takeinfo = self.save_takeinfo(examination, user, start_time, end_time, stu_name, stu_num)
             # 未处理好
             answers = json.loads(request.POST.get('answerStr'))
             right_num = 0
