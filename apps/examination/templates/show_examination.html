@@ -4,20 +4,22 @@
 {% block title %}考试{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+    <style>
+        .time{color: red;}
+        .timmer{padding-top:10px;}
+    </style>
 {% endblock %}
-
-
-
+{% block custom_header %}{% endblock %}
 {% block custom_content %}
     <div class="am-container content questionnaire">
         <div class="preview-question-title am-animation-fade">
             <h2 class="am-vertical-align-middle">{{ course.name }}</h2>
         </div>
     {% if preview == '1' %}
-        <div class="am-container content timmer">
-        <span id="_h">00</span>
-        <span id="_m">00</span>
-        <span id="_s">00</span>
+        <div class="am-container content timmer">Time left
+        <span id="_h" class="time">00</span>
+        <span id="_m" class="time">00</span>
+        <span id="_s" class="time">00</span>
         </div>
     {% endif %}
 
@@ -239,7 +241,8 @@ var is_timeout = false;
                             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                         },
                         success: function (data) {
-                            alert(data.msg);
+                            // alert(data.msg);
+                            $("#js-examination-submit").css("background","#ccc");
                         },
                         error: function(error) {
                           alert('ajax 失败!')
