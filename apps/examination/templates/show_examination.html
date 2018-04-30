@@ -242,7 +242,8 @@ var is_timeout = false;
                         },
                         success: function (data) {
                             // alert(data.msg);
-                            $("#js-examination-submit").css("background","#ccc");
+                            // $("#js-examination-submit").css("background","#ccc");
+                            window.history.back(-1)
                         },
                         error: function(error) {
                           alert('ajax 失败!')
