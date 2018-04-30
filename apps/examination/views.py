@@ -77,10 +77,11 @@ class ShowTakeinfoDetail(View):
                         choice.checked = True
                 question.choices = choices
                 question.template = "takeinfo_detail_type/%s.html" % question.type
-                # 反解析URL
+                # 反解析URL  
         return render(request, 'show_takeinfo_detail.html', {
             'takeinfo': takeinfo,
-            'questions': questions
+            'questions': questions,
+            'examination': examination
         })
 
 class QuestionEdit(View):
