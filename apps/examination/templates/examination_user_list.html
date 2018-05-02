@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>用户</th>
-            <th>分数</th>
+            <!-- <th>分数</th> -->
             <th>考试时间</th>
             <th>操作</th>
         </tr>
@@ -11,7 +11,7 @@
         {% for takeinfo in takeinfos  %}
             <tr>
                 <td>{{ takeinfo.user }}</td>
-                <td>{{ takeinfo.score }}</td>
+                <!-- <td>{{ takeinfo.score }}</td> -->
                 <td>{{ takeinfo.start_time }}</td>
                 <td><a href="/examination/show/{{ takeinfo.id }}/" target="_blank">查看详细</a></td>
             </tr>
