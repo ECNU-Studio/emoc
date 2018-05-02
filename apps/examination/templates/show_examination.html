@@ -6,22 +6,26 @@
     <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
     <style>
         .time{color: red;}
-        .timmer{padding-top:10px;}
+        .timmer{line-height: 25px;}
+        .timmer span{font-size: 25px;}
+        .left_time{background: #f7f7f9;}
     </style>
 {% endblock %}
 {% block custom_header %}{% endblock %}
 {% block custom_content %}
     <div class="am-container content questionnaire">
-        <div class="preview-question-title am-animation-fade">
+        <div class="preview-question-title am-animation-fade" style="margin-bottom:10px;">
             <h2 class="am-vertical-align-middle">{{ course.name }}</h2>
         </div>
-    {% if preview == '1' %}
-        <div class="am-container content timmer">Time left
-        <span id="_h" class="time">00</span>
-        <span id="_m" class="time">00</span>
-        <span id="_s" class="time">00</span>
+        {% if preview == '1' %}
+        <div class="left_time" data-am-scrollspynav="{offsetTop: 0,offsetLeft:0}" data-am-sticky>
+            <div class="am-container content timmer" >剩余作答时间：
+                <span id="_h" class="time">00</span>
+                <span id="_m" class="time">00</span>
+                <span id="_s" class="time">00</span>
+            </div>
         </div>
-    {% endif %}
+        {% endif %}
 
         {% if preview == '1' %}
             <label for="question-title">
@@ -128,7 +132,7 @@ var date = new Date();
 var now = date.getTime();
 //设置截止时间
 var endDate = new Date();
-endDate.setMinutes(date.getMinutes() + 20, date.getSeconds(), 0)
+endDate.setMinutes(date.getMinutes() + 25, date.getSeconds(), 0)
 var end = endDate.getTime();
 var is_timeout = false;
 
@@ -157,7 +161,7 @@ var is_timeout = false;
                 clearInterval(timer);
                 $('.choice').attr("disabled","disabled");
 
-            },1200*1000);
+            },1500*1000);
 
 
         $(function () {
