@@ -152,7 +152,7 @@ var is_timeout = false;
                 //将倒计时赋值到div中
                 document.getElementById("_h").innerHTML = h+":";
                 document.getElementById("_m").innerHTML = m+":";
-                document.getElementById("_s").innerHTML = s+":";
+                document.getElementById("_s").innerHTML = s+"";
             },1000);
 
 
@@ -160,7 +160,6 @@ var is_timeout = false;
                 is_timeout = true;
                 clearInterval(timer);
                 $('.choice').attr("disabled","disabled");
-
             },1500*1000);
 
 
@@ -223,9 +222,9 @@ var is_timeout = false;
                 }
 
 
-                var is_finished = CheckFinished();
+{#                var is_finished = CheckFinished();#}
 
-                if(is_finished || is_timeout){
+{#                if(is_finished || is_timeout){#}
                    var end_time = new Date();
                     $.ajax({
                         cache: false,
@@ -256,9 +255,9 @@ var is_timeout = false;
                           alert('ajax 失败!')
                         }
                     });
-                }else{
-                    alert('有题目未选答案，无法提交');
-                }
+{#                }else{#}
+{#                    alert('有题目未选答案，无法提交');#}
+{#                }#}
 
             });
 
