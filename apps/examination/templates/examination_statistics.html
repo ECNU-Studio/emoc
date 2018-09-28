@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block title %}试卷统计{% endblock %}
@@ -36,10 +36,10 @@
         <div class="tab-content tab-content-show ">
             <div class="am-container">
                 <h2>{{ course.name }}</h2>
-                <div class="problems">
+                <div class="problems" >
                     {% for question in questions %}
-                        <div class="problem">
-                            <p>{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
+                        <div class="problem" style="margin-bottom:0;">
+                            <p style="margin-bottom:0;">{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
                         </div>
                         <div class="am-scrollable-horizontal">
                             {% include question.template %}
@@ -51,7 +51,9 @@
         <div class="tab-content tab-content-hiden">
             <div class="am-container">
                 <h2>{{ course.name }}</h2>
-                {% include 'examination_user_list.html' %}
+                <div class="am-scrollable-horizontal">
+                    {% include 'examination_user_list.html' %}
+                </div>
             </div>
         </div>
     </div>

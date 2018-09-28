@@ -725,27 +725,27 @@
   });
 }).call(this);
 // 打星
-(function() {
-  Formbuilder.registerField('star', {
-    order: 4,
-    view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      \n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n  <span class=\"fa fa-star-o\"></span>  </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
-    edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %><%= Formbuilder.templates['edit/star']({}) %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-star\"></span></span>&nbsp;打星",
-    defaultAttributes: function(attrs) {
-      attrs.field_options.options = [
-        {
-          label: ""
-        }
-      ];
-      attrs.field_options.stars = [
-        {
-          label: ""
-        }
-      ];
-      return attrs;
-    }
-  });
-}).call(this);
+// (function() {
+//   Formbuilder.registerField('star', {
+//     order: 4,
+//     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      \n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n  <span class=\"fa fa-star-o\"></span>  </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
+//     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: undefined }) %><%= Formbuilder.templates['edit/star']({}) %>",
+//     addButton: "<span class=\"symbol\"><span class=\"fa fa-star\"></span></span>&nbsp;打星",
+//     defaultAttributes: function(attrs) {
+//       attrs.field_options.options = [
+//         {
+//           label: ""
+//         }
+//       ];
+//       attrs.field_options.stars = [
+//         {
+//           label: ""
+//         }
+//       ];
+//       return attrs;
+//     }
+//   });
+// }).call(this);
 
 
 
@@ -895,12 +895,12 @@ __p += '\n\n<div class=\'fb-bottom-add\'>\n  <a class="js-add-option ' +
 return __p
 };
 
-this["Formbuilder"]["templates"]["edit/star"] = function(obj) {
-  obj || (obj = {});
-  var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-  function print() {
-    __p += __j.call(arguments, '')
-  }
+// this["Formbuilder"]["templates"]["edit/star"] = function(obj) {
+//   obj || (obj = {});
+//   var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+//   function print() {
+//     __p += __j.call(arguments, '')
+//   }
 //   with (obj) {
 //     __p += '<div class=\'fb-edit-section-header\'>评级</div>\n\n';
 //     __p += '\n\n<div class=\'star\'>\n  <input type="text" class=\'option-label-input\' />\n  <a class="js-add-star ' +
@@ -913,8 +913,8 @@ this["Formbuilder"]["templates"]["edit/star"] = function(obj) {
 // '">再加一星</a>\n</div>\n';
 //
 // }
-return __p
-};
+// return __p
+// };
 
 
 

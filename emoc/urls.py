@@ -41,8 +41,6 @@ urlpatterns = [
 
     url(r'^examination/', include('examination.urls', namespace='examination')),
 
-    url(r'^useradmin/', include('useradmin.urls', namespace='useradmin')),
-
     # 富文本相关url
 #     url(r'^ueditor/', include('DjangoUeditor.urls')),
 

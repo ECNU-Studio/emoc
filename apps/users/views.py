@@ -8,6 +8,7 @@ from django.shortcuts import render
 
 def user_login(request):
     if request.method == 'POST':
+        #
         pass
     elif request.method == 'GET':
         # render方法的三个参数

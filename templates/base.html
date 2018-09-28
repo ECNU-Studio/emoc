@@ -12,11 +12,13 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="author" content="John-fei" />
     <title>{% block title %}时时课课{% endblock %}</title>
+    {% block custom_css_cover %}{% endblock %}
     <link rel="alternate icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'css/amazeui.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/amazeui.min.css' %}"> -->
+    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/iconfont.css' %}">
     <link rel="stylesheet" href="{% static 'css/public.css' %}">
-     {% block custom_css%}{% endblock %}
+    {% block custom_css%}{% endblock %}
 </head>
 
 <body>
@@ -58,7 +60,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/xadmin/">
+                    <a href="#">
                       <span class="am-icon-gear am-icon-sm am-icon-fw">&nbsp&nbsp管理后台</span>
                     </a>
                   </li>
@@ -120,18 +122,19 @@
     {% block custom_footer %}
         <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
     <div class="am-footer-miscs">
-          <p>由 <a href="http://www.yunshipei.com/" title="五润科技" target="_blank" class="">五润科技</a>
+          <p>由 <a href="http://www.yunshipei.com/" title="五润科技" target="_blank" class="">瀚熠（上海）企业管理咨询有限公司</a>
             提供技术支持</p>
-        <p>CopyRight©2014  AllMobilize Inc.</p>
-        <p>京ICP备13033158</p>
     </div>
     {% endblock %}
   </footer>
 
     <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'plugins/amazeui/amazeui.min.js' %}"></script>
-    <script src="{% static 'plugins/amazeui/amazeui.ie8polyfill.min.js' %}"></script>
+    <!-- <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script> -->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="{% static 'plugins/amazeui/amazeui.min.js' %}"></script> -->
+    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <!-- <script src="{% static 'plugins/amazeui/amazeui.ie8polyfill.min.js' %}"></script> -->
+    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
     <!--<![endif]-->
     <!--[if lte IE 8 ]>
     <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>

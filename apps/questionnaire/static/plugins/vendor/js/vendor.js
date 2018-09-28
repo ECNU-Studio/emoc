@@ -1369,7 +1369,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// Catch class over-caching
 		div.firstChild.className = "i";
 		// Support: Opera<10
-		// Catch gEBCN failure to find non-leading class
+		// Catch gEBCN failure to find non-leading classes
 		return div.getElementsByClassName("i").length === 2;
 	});
 

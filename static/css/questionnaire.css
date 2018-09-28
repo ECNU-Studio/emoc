@@ -1,0 +1,95 @@
+@media screen and (min-width: 1024px) {
+    .content{
+        width: 980px;
+    }
+}
+label{
+  font-weight: 500;
+  font-size: 16px;
+}
+.question-title{
+  /*box-shadow: 0 0 1rem #ccc;*/
+  margin-top: 20px;
+  background: #fff;
+  padding: 1.5rem 1rem;
+}
+a.star:hover{
+  color:#095f8a;
+}
+a.star{
+  color: #0e90d2;
+}
+.preview-question-title,
+.edit-question-title{
+  background: #fff;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.edit-question-title h2,
+.preview-question-title h2{
+  margin-bottom: 0;
+}
+
+.subject{
+  background: #fff;
+  margin-top: 20px;
+  padding: 30px 30px 30px 30px;
+}
+
+.problem-set .problem-bg{
+  background: #fff;
+}
+.problem-set .item{
+  display:list-item;
+  list-style-type:decimal;
+  margin-left:20px;
+  background: #fff;
+  margin-top: 10px;
+  /*padding: 20px 5px 0px;*/
+}
+/*/*/
+
+
+
+
+/* 星星点灯照亮我的家门 */
+
+.block{
+  width: 20rem;
+  padding-right: 6rem;
+  float: right;
+
+}
+.block .star_score{
+  float:left;
+}
+.star_list{
+  height:21px;
+  margin:50px;
+  line-height:21px;
+}
+.block p,.block .attitude{
+  padding-left:20px;
+  line-height:21px;
+  display:inline-block;
+}
+.block p span{
+  color:#C00;
+  font-size:16px;
+  font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .question-title{
+      margin-top: 0px;
+    }
+    .subject{
+      padding: 1rem 2rem;
+      margin: 15px 0;
+    }
+    .block{
+      width: 15rem;
+      padding-right: 0;
+    }
+}

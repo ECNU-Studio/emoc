@@ -1,23 +1,73 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}表单设计器{% endblock %}
-{% block custom_css %}
+{% block custom_css_cover %}
   <link rel="stylesheet" href="{% static 'plugins/vendor/css/vendor.css' %}" />
   <link rel="stylesheet" href="{% static 'plugins/formbuilder/formbuilder.css' %}" />
   <link rel="stylesheet" href="{% static 'css/edit_questionnaire.css' %}"/>
+  <style>
+      .edit_question_header{
+          padding: 1rem 0 ;
+          background: #094270;
+          color: #fff;
+          margin-bottom: 2rem;
+      }
+      .edit_question_header h1{
+          padding: 0;
+          margin:0 ;
+      }
+     .tip{
+         position: absolute;
+         right: 10px;
+         top:70px;
+         text-align: center;
+         display: none;
+         background:#5eb95e;
+         width: 150px;
+         height: 40px;
+         line-height: 40px;
+         font-size: 2rem;
+         z-index: 2;
+         color: #fff;
+     }
+     .tip .iconfont{
+         font-size: 2rem;
+         margin-right: 3px;
+     }
+  </style>
 {% endblock %}
 
+{% block custom_header %}
+    <div class="edit_question_header">
+        <div class="am-container" style="padding: 0;">
+            <h1>表单设计器</h1>
+        </div>
+    </div>
+{% endblock%}
+<!-- {% block top-nav %}{% endblock%} -->
 {% block custom_content %}
     <div class='fb-main'></div>
+    <div class="tip">
+        <i class="iconfont icon-icon-35"></i><span>保存成功</span>
+    </div>
 {% endblock %}
 
 
 
 {% block custom_js %}
-    <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
+  <script>
+     
+  </script>
+  <script src="{% static 'plugins/vendor/js/vendor.js' %}"></script>
   <script src="{% static 'plugins/formbuilder/formbuilder.js' %}"></script>
 
   <script>
+    //   $(function () {
+    //       $tip = $('.tip');
+    //       if ($tip.css("display") == "block") {
+    //           $tip.css("display","none");
+    //       }
+    //   })
     $(function(){
         console.log({{ question_list|safe }})
         fb = new Formbuilder({
@@ -38,13 +88,23 @@
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
                 success: function (data) {
-                    alert(data.msg);
+                    // alert(data.msg);
+                    var $tip = $(".tip");
+                    $tip.show();
+                    setTimeout(function() {
+                        $tip.hide();  
+                    }, 3000);
                 },
                 error: function(error) {
-                  alert('ajax 失败!')
+                  var $tip = $(".tip");
+                    $tip.show();
+                    setTimeout(function () {
+                        $tip.hide();
+                    }, 3000);
                 }
             });
         })
         });
   </script>
+  
 {% endblock %}

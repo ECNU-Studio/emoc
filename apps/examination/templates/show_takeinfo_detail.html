@@ -1,0 +1,55 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}测试统计{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+    <link rel="stylesheet" href="{% static 'css/questionnaire_statistics_wechat.css' %}">
+{% endblock %}
+
+{% block custom_header %}
+    <header class="m-header">
+        <section class="am-show-md-up" data-am-sticky>
+        <div class="am-g">
+            <div class=" am-u-sm-2 am-u-md-1 am-fl">
+            <a href="/" rel="nofollow" class="m-logo"><i class="am-icon-spinner"></i>EduSoho</a>
+            </div>
+        </div>
+        </section>
+    </header>
+{% endblock %}
+
+{% block custom_content %}
+    <div class="am-container content questionnaire">
+        <div class="preview-question-title am-animation-fade" style="padding-bottom: 0;">
+           <h2 class="am-vertical-align-middle">{{ examination}}</h2>
+       </div>
+        <!-- 问卷的内容 -->
+        <div class="am-container am-cf am-form subject">
+            <!-- 分数：{{ takeinfo.score }}
+            开始时间：{{ takeinfo.start_time }}
+            结束时间：{{ takeinfo.end_time }}
+            结束时间：{{ takeinfo.end_time }} -->
+            <div class="am-g" style="padding-bottom: 1rem;">
+                <div class="am-u-sm-12">开始时间：{{ takeinfo.start_time }}</div>
+                <div class="am-u-sm-12">结束时间：{{ takeinfo.end_time }}</div>
+                <!--<div class="am-u-sm-12" style="text-indent: 16rem;">分数：{{ takeinfo.score }}</div>-->
+                <div class="am-u-sm-12">学号：{{ takeinfo.num }}</div>
+                <div class="am-u-sm-12">姓名：{{ takeinfo.name }}</div>
+            </div>
+            <div class="problem-set">
+                {% for question in questions %}
+                    <div>
+                        <p style="margin-bottom: .5rem;">{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
+                    </div>
+                    <div>
+                        {% include question.template %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'plugins/amazeui/amazeui.rating.js' %}"></script>
+{% endblock %}
