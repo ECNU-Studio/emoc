@@ -71,10 +71,16 @@ class ShowTakeinfoDetail(View):
             questions = examination.questions_use()
             questions.count = questions.count()
             for question in questions:
+                question.result = True
+                # 所有问题的答案
                 choices = question.choices()
                 for choice in choices:
+                    if choice.is_answer:
+                        question.right_answer = choice.text
                     if Answer.objects.filter(takeinfo=takeinfo.id, question=question.id, choice=choice.id).exists():
                         choice.checked = True
+                        if not choice.is_answer:
+                            question.result = False
                 question.choices = choices
                 question.template = "takeinfo_detail_type/%s.html" % question.type
                 # 反解析URL  

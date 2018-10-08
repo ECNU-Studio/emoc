@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block title %}测试统计{% endblock %}
@@ -33,7 +33,7 @@
             <div class="am-g" style="padding-bottom: 1rem;">
                 <div class="am-u-sm-12">开始时间：{{ takeinfo.start_time }}</div>
                 <div class="am-u-sm-12">结束时间：{{ takeinfo.end_time }}</div>
-                <!-- <div class="am-u-sm-12" style="text-indent: 16rem;">分数：{{ takeinfo.score }}</div> -->
+                <!--<div class="am-u-sm-12" style="text-indent: 16rem;">分数：{{ takeinfo.score }}</div>-->
                 <div class="am-u-sm-12">学号：{{ takeinfo.num }}</div>
                 <div class="am-u-sm-12">姓名：{{ takeinfo.name }}</div>
             </div>
@@ -44,6 +44,10 @@
                     </div>
                     <div>
                         {% include question.template %}
+                        {% if not question.result %}
+                            <span style="color: #0e90d2;">正确答案是：</span>
+                            <span>{{ question.right_answer }}</span>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
