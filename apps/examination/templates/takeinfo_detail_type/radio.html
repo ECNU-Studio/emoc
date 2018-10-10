@@ -2,7 +2,7 @@
     {% for choice in question.choices  %}
         <div class="am-radio">
             <label >
-                <input type="radio" {% if choice.checked %}checked{% endif %} name="{{ question.id }}" data-schema-key="{{ question.id }}" value="{{ choice.id }}" data-am-ucheck>{{ choice.text }}
+                <input disabled type="radio" {% if choice.checked %}checked{% endif %} name="{{ question.id }}" data-schema-key="{{ question.id }}" value="{{ choice.id }}" data-am-ucheck>{{ choice.text }}
             </label>
             {% include 'result.html' %}
         </div>
