@@ -1,7 +1,8 @@
 <span class="question-result" style="margin-left: 1rem;">
-    {% if choice.checked and choice.is_answer %}
+    {% if choice.is_answer %}
         <i class="am-icon-check am-icon-sm" style="color: #0e90d2;"></i>
-    {% elif choice.checked and not choice.is_answer %}
+    {% endif %}
+    {% if choice.checked and not choice.is_answer %}
         <i class="am-icon-close am-icon-sm" style="color: #dd514c;"></i>
     {% endif %}
 </span>
