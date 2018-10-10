@@ -3,7 +3,11 @@
     {% for statistic in question.statistics  %}
         <tr>
             <td>{{ statistic.choice_text }}</td>
-            <td>{{ statistic.sum }}</td>
+            <td>
+            {% if statistic.is_answer %}
+                    <i class="am-icon-check am-icon-sm" style="color: #0e90d2;"></i>
+                {% endif %}
+            </td>
             <td>
                 {% include 'process_bar.html' %}
             </td>

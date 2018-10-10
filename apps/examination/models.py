@@ -48,7 +48,7 @@ class Question(models.Model):
         return choices
 
     def statistics(self):
-        return ExaminationStatistics.objects.values('choice', 'choice_text', 'sum', 'percent').filter(question=self.id).order_by('csort')
+        return ExaminationStatistics.objects.values('choice', 'choice_text', 'is_answer', 'percent').filter(question=self.id).order_by('csort')
 
     def get_answer_texts(self):
         return Answer.objects.values('text').filter(question=self.id).order_by('id')[:5]
@@ -116,6 +116,7 @@ class ExaminationStatistics(models.Model):
     type = models.CharField(max_length=32)
     choice = models.IntegerField()
     choice_text = models.CharField(max_length=128, verbose_name=_(u"选项"))
+    is_answer = models.BooleanField(default=False, verbose_name=u'是否正确答案')
     csort = models.IntegerField()
     sum = models.IntegerField()
     percent = models.IntegerField()

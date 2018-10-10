@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block title %}试卷统计{% endblock %}
@@ -24,22 +24,22 @@
         <ul id="tab-list" class="tab">
             <li class="tab-active">
                 <i class="iconfont icon-icon-98"></i>
-                数据统计
+                班级数据
                 <div class="triangle"></div>
             </li>
             <li >
                 <i class="iconfont icon-icon-97"></i>
-                样本数据
+                个人数据
                 <div class="triangle"></div>
             </li>
         </ul>
         <div class="tab-content tab-content-show ">
             <div class="am-container">
                 <h2>{{ course.name }}</h2>
-                <div class="problems">
+                <div class="problems" >
                     {% for question in questions %}
-                        <div class="problem">
-                            <p>{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
+                        <div class="problem" style="margin-bottom:0;">
+                            <p style="margin-bottom:0;">{{ question.sortnum }}.&nbsp;{{ question.text }}</p>
                         </div>
                         <div class="am-scrollable-horizontal">
                             {% include question.template %}
