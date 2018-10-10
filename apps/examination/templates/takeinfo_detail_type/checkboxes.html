@@ -4,7 +4,7 @@
             <label >
                 <input name="{{ question.id }}" {% if choice.checked %}checked{% endif %} data-schema-key="{{ question.id }}" type="checkbox" data-am-ucheck value="{{ choice.id }}">{{ choice.text }}
             </label>
-            <!-- {% include 'result.html' %} -->
+            {% include 'result.html' %}
         </div>
     {% endfor %}
 </div>
